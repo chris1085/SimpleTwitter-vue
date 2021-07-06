@@ -28,5 +28,7 @@ export default {
 header {
   padding: 15px;
   border-bottom: 1px solid #e6ecf0;
+  border-left: 1px solid #e6ecf0;
+  border-right: 1px solid #e6ecf0;
 }
 </style>

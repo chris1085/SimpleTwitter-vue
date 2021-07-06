@@ -1,7 +1,7 @@
 %main-text-shared {
   font-family: Noto Sans TC;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 15px;
   line-height: 22px;
 }
@@ -11,7 +11,7 @@
   padding: 10px;
   padding-left: 15px;
   padding-right: 15px;
-  height: 120px;
+  min-height: 120px;
   border-bottom: 10px solid #e6ecf0;
 }
 .content-img {
@@ -33,13 +33,14 @@
 }
 
 .tweets {
-  padding-left: 15px;
-  padding-right: 15px;
-
   .tweet {
+    padding-left: 15px;
+    padding-right: 15px;
     padding-top: 10px;
     padding-bottom: 14px;
     border-bottom: 1px solid #e6ecf0;
+    border-left: 1px solid #e6ecf0;
+    border-right: 1px solid #e6ecf0;
   }
 
   .tweet-img {
@@ -64,11 +65,16 @@
 
   .tweet-userName {
     color: #1c1c1c;
+    font-weight: bold;
   }
 
   .tweet-userInfo {
     margin-left: 5px;
     color: #657786;
+  }
+
+  .tweet-content {
+    color: #1c1c1c;
   }
 
   .tweet-icons-container {
