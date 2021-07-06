@@ -1,7 +1,15 @@
 <template>
-  <div></div>
+  <div>
+    <MainTweet />
+  </div>
 </template>
 
 <script>
-export default {}
+import MainTweet from './MainTweet.vue'
+export default {
+  name: 'MainTweetsPage',
+  components: {
+    MainTweet
+  }
+}
 </script>

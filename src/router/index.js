@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainTweetsPage from '../views/MainTweetsPage.vue'
-import store from './../store'
+// import store from './../store'
 
 Vue.use(VueRouter)
 
@@ -18,9 +18,9 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('fetchCurrentUser')
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   store.dispatch('fetchCurrentUser')
+//   next()
+// })
 
 export default router

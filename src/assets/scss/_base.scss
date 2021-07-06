@@ -22,6 +22,9 @@ $spacers: (
   ),
   8: (
     $spacer * 2
+  ),
+  9: (
+    $spacer * 0.9375
   )
 );
 
@@ -155,15 +158,6 @@ a {
   }
 }
 
-@include pad-lg {
-  .container {
-    padding-left: 17px;
-    padding-right: 17px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-
 @include pad {
   .container {
     padding-left: 17px;
@@ -188,11 +182,17 @@ a {
 
 h3 {
   font-size: 18px;
-  line-height: 22px;
-  font-weight: 500;
+  line-height: 26px;
 }
 
-h3 {
-  font-size: 16px;
-  line-height: 24px;
+.rounded {
+  border-radius: 50%;
+}
+
+%main-text-shared {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
 }
