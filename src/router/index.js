@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MainTweetsPage from '../views/MainTweetsPage.vue'
+import Main from '../views/Main.vue'
 // import store from './../store'
 
 Vue.use(VueRouter)
@@ -8,8 +8,13 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/main',
-    name: 'MainTweetsPage',
-    component: MainTweetsPage
+    name: 'Main',
+    component: Main
+  },
+  {
+    path: '/reply_list',
+    name: 'ReplyList',
+    component: () => import('../views/ReplyList.vue')
   }
 ]
 

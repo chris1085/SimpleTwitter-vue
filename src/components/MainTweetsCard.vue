@@ -14,6 +14,9 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
+          <span class="tweet-replyFormat" v-if="isReplyPage"
+            >回覆<a class="ml-1" href="">@apple</a></span
+          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -42,6 +45,9 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
+          <span class="tweet-replyFormat" v-if="isReplyPage"
+            >回覆<a class="ml-1" href="">@apple</a></span
+          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -70,6 +76,9 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
+          <span class="tweet-replyFormat" v-if="isReplyPage"
+            >回覆<a class="ml-1" href="">@apple</a></span
+          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -98,6 +107,9 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
+          <span class="tweet-replyFormat" v-if="isReplyPage"
+            >回覆<a class="ml-1" href="">@apple</a></span
+          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -126,6 +138,9 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
+          <span class="tweet-replyFormat" v-if="isReplyPage"
+            >回覆<a class="ml-1" href="">@apple</a></span
+          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -154,6 +169,9 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
+          <span class="tweet-replyFormat" v-if="isReplyPage"
+            >回覆<a class="ml-1" href="">@apple</a></span
+          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -182,6 +200,9 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
+          <span class="tweet-replyFormat" v-if="isReplyPage"
+            >回覆<a class="ml-1" href="">@apple</a></span
+          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -202,7 +223,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'MainTweetsCard',
+  data() {
+    return {
+      isReplyPage: false
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

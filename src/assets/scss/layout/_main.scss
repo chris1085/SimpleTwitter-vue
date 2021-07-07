@@ -1,11 +1,3 @@
-%main-text-shared {
-  font-family: Noto Sans TC;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 22px;
-}
-
 .main-tweet {
   position: relative;
   padding: 10px;
@@ -71,6 +63,16 @@
   .tweet-userInfo {
     margin-left: 5px;
     color: #657786;
+  }
+
+  .tweet-replyFormat {
+    padding-top: 4px;
+    padding-bottom: 5px;
+    color: #657786;
+
+    a {
+      color: $btn-primary-color;
+    }
   }
 
   .tweet-content {
