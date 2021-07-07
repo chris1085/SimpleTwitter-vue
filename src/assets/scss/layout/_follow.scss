@@ -1,0 +1,27 @@
+.followMenu {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  color: #657786;
+}
+
+.followMenu-item {
+  padding-top: 26px;
+  padding-bottom: 16px;
+  cursor: pointer;
+
+  &:nth-child(1) {
+    padding-left: 43px;
+    padding-right: 43px;
+  }
+
+  &:nth-child(2) {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+}
+
+.followActive {
+  color: $btn-primary-color;
+  border-bottom: 2px solid $btn-primary-color;
+}
