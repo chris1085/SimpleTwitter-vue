@@ -1,10 +1,15 @@
 .main-tweet {
   position: relative;
-  padding: 10px;
+  // padding: 10px;
   padding-left: 15px;
   padding-right: 15px;
   min-height: 120px;
   border-bottom: 10px solid #e6ecf0;
+
+  .content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 .content-img {
   height: 50px;

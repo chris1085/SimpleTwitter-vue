@@ -225,10 +225,14 @@
 <script>
 export default {
   name: 'MainTweetsCard',
-  data() {
-    return {
-      isReplyPage: false
+  props: {
+    isReplyPage: {
+      type: Boolean,
+      required: true
     }
+  },
+  data() {
+    return {}
   }
 }
 </script>
