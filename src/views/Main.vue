@@ -10,7 +10,7 @@
         <button class="btn btn-primary btn-tweet">推文</button>
       </div>
     </section>
-    <MainTweetsCard />
+    <MainTweetsCard :is-reply-page="isReplyPage" />
   </div>
 </template>
 
@@ -20,6 +20,11 @@ export default {
   name: 'MainTweetsPage',
   components: {
     MainTweetsCard
+  },
+  data() {
+    return {
+      isReplyPage: false
+    }
   }
 }
 </script>

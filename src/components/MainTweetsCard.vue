@@ -23,7 +23,11 @@
             explicabo sunt?
           </p>
           <div class="tweet-icons-container d-flex">
-            <a href="#" class="tweet-icon"
+            <a
+              href=""
+              class="tweet-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
             <a href="#" class="tweet-icon"
@@ -54,7 +58,11 @@
             explicabo sunt?
           </p>
           <div class="tweet-icons-container d-flex">
-            <a href="#" class="tweet-icon"
+            <a
+              href=""
+              class="tweet-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
             <a href="#" class="tweet-icon"
@@ -85,7 +93,11 @@
             explicabo sunt?
           </p>
           <div class="tweet-icons-container d-flex">
-            <a href="#" class="tweet-icon"
+            <a
+              href=""
+              class="tweet-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
             <a href="#" class="tweet-icon"
@@ -116,7 +128,11 @@
             explicabo sunt?
           </p>
           <div class="tweet-icons-container d-flex">
-            <a href="#" class="tweet-icon"
+            <a
+              href=""
+              class="tweet-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
             <a href="#" class="tweet-icon"
@@ -147,7 +163,11 @@
             explicabo sunt?
           </p>
           <div class="tweet-icons-container d-flex">
-            <a href="#" class="tweet-icon"
+            <a
+              href=""
+              class="tweet-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
             <a href="#" class="tweet-icon"
@@ -178,7 +198,11 @@
             explicabo sunt?
           </p>
           <div class="tweet-icons-container d-flex">
-            <a href="#" class="tweet-icon"
+            <a
+              href=""
+              class="tweet-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
             <a href="#" class="tweet-icon"
@@ -209,7 +233,11 @@
             explicabo sunt?
           </p>
           <div class="tweet-icons-container d-flex">
-            <a href="#" class="tweet-icon"
+            <a
+              href=""
+              class="tweet-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
             <a href="#" class="tweet-icon"
@@ -219,12 +247,16 @@
         </div>
       </li>
     </ul>
+    <RepliedModal />
   </div>
 </template>
 
 <script>
+import RepliedModal from '../components/RepliedModal.vue'
+
 export default {
   name: 'MainTweetsCard',
+  components: { RepliedModal },
   props: {
     isReplyPage: {
       type: Boolean,
