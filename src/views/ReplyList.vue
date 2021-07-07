@@ -31,7 +31,11 @@
           <div class="likes"><span>808</span> 喜歡次數</div>
         </div>
         <div class="reply-userIcons-container">
-          <a href="" class="reply-userIcon"
+          <a
+            href=""
+            class="reply-userIcon"
+            data-bs-toggle="modal"
+            data-bs-target="#repliedModal"
             ><i class="far fa-comment mr-3"></i
           ></a>
           <a href="" class="reply-userIcon"
@@ -41,15 +45,19 @@
       </div>
     </section>
     <MainTweetsCard :is-reply-page="isReplyPage" />
+    <RepliedModal />
   </div>
 </template>
 
 <script>
 import MainTweetsCard from '../components/MainTweetsCard.vue'
+import RepliedModal from '../components/RepliedModal.vue'
+
 export default {
   name: 'ReplyList',
   components: {
-    MainTweetsCard
+    MainTweetsCard,
+    RepliedModal
   },
   data() {
     return {

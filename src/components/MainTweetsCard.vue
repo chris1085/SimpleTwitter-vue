@@ -232,7 +232,14 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      modalOpen: false
+    }
+  },
+  methods: {
+    openModal() {
+      this.modalOpen = !this.modalOpen
+    }
   }
 }
 </script>
