@@ -29,6 +29,7 @@ $btn-primary-hover-color: $btn-promary-hover-color;
   &:hover {
     background-color: $btn-primary-hover-color;
     border: 1px solid $btn-primary-hover-color;
+    color: white;
   }
 }
 
@@ -47,4 +48,12 @@ $btn-primary-hover-color: $btn-promary-hover-color;
   border-radius: 100px;
   padding: 0px 16px !important;
   height: 30px;
+}
+
+.btn-profile {
+  padding: 10px 15px;
+  border-radius: 100px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
 }

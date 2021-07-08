@@ -22,8 +22,7 @@
 }
 
 .followActive {
-  color: $btn-primary-color;
-  border-bottom: 2px solid $btn-primary-color;
+  @extend %nav-active;
 }
 
 .follows {
