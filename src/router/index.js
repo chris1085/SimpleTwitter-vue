@@ -64,6 +64,11 @@ const routes = [
     component: () => import('../views/UserFollowings.vue')
   },
   {
+    path: '/user/:id',
+    name: 'UserProfile',
+    component: () => import('../views/UserProfile.vue')
+  },
+  {
     path: '*',
     name: 'not-found',
     component: NotFound
