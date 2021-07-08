@@ -25,3 +25,38 @@
   color: $btn-primary-color;
   border-bottom: 2px solid $btn-primary-color;
 }
+
+.follows {
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+
+  .follow {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    border-top: 1px solid $border-color;
+
+    .follow-content-container {
+      padding-left: 10px;
+    }
+
+    .follow-img-container {
+      padding-left: 15px;
+    }
+
+    .btn-container {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+    }
+
+    .follow-userId {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      font-size: 15px;
+      line-height: 15px;
+      color: $atUser-color;
+    }
+  }
+}

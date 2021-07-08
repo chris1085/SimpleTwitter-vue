@@ -25,14 +25,22 @@
         正在跟隨
       </li>
     </ul>
+
+    <UserFollowersCard v-if="selected === 'followers'" />
+    <UserFollowingsCard v-if="selected === 'followings'" />
   </div>
 </template>
 
 <script>
+import UserFollowingsCard from '../components/UserFollowingsCard.vue'
+import UserFollowersCard from '../components/UserFollowersCard.vue'
+
 export default {
+  name: 'UserFollowings',
+  components: { UserFollowingsCard, UserFollowersCard },
   data() {
     return {
-      selected: 'followers'
+      selected: 'followings'
     }
   }
 }
