@@ -25,6 +25,11 @@ const routes = [
     path: '/user/:id/following',
     name: 'UserFollowings',
     component: () => import('../views/UserFollowings.vue')
+  },
+  {
+    path: '/user/:id',
+    name: 'UserProfile',
+    component: () => import('../views/UserProfile.vue')
   }
 ]
 
