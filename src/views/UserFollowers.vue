@@ -25,11 +25,19 @@
         正在跟隨
       </li>
     </ul>
+
+    <UserFollowersCard v-if="selected === 'followers'" />
+    <UserFollowingsCard v-if="selected === 'followings'" />
   </div>
 </template>
 
 <script>
+import UserFollowersCard from '../components/UserFollowersCard.vue'
+import UserFollowingsCard from '../components/UserFollowingsCard.vue'
+
 export default {
+  name: 'UserFollowers',
+  components: { UserFollowingsCard, UserFollowersCard },
   data() {
     return {
       selected: 'followers'
@@ -39,9 +47,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-  padding: 6px 20px 10px 20px;
+header,
+.followMenu {
   border-left: 1px solid #e6ecf0;
   border-right: 1px solid #e6ecf0;
+}
+
+header {
+  padding: 6px 20px 10px 20px;
 }
 </style>
