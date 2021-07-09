@@ -57,3 +57,11 @@ $btn-primary-hover-color: $btn-promary-hover-color;
   font-size: 15px;
   line-height: 15px;
 }
+
+.btn-profile-rounded {
+  border: 1px solid $btn-primary-color;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 auto;
+}
