@@ -10,24 +10,16 @@
 
       <div class="row">
         <label for="account">帳號</label>
-        <input
-          id="account"
-          name="account"
-          type="text"
-        />
+        <input id="account" name="account" type="text" />
       </div>
 
       <div class="row">
         <label for="password">密碼</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-        />
+        <input id="password" name="password" type="password" />
       </div>
 
       <div class="row mt-4">
-        <button class="btn signin" type="submit" >
+        <button class="btn signin" type="submit">
           登入
         </button>
       </div>
@@ -37,9 +29,7 @@
             >註冊 Alphitter</router-link
           >
           <span> &#xb7; </span>
-          <router-link class="routerLink" to="/admin"
-            >後台登入</router-link
-          >
+          <router-link class="routerLink" to="/admin">後台登入</router-link>
         </div>
       </div>
     </form>

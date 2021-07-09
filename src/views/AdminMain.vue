@@ -1,15 +1,15 @@
 <template>
-    <div id="AdminMain">
-        <!-- AdminSidebar -->
-        <AdminSidebar />
-        <!-- AdminTweetsList -->
-        <div class="AdminTweetsPanel">
-            <div class="title">
-                <h1>推文清單</h1>
-            </div>
-            <AdminTweetsList />
-        </div>
+  <div id="AdminMain">
+    <!-- AdminSidebar -->
+    <AdminSidebar />
+    <!-- AdminTweetsList -->
+    <div class="AdminTweetsPanel">
+      <div class="title">
+        <h1>推文清單</h1>
+      </div>
+      <AdminTweetsList />
     </div>
+  </div>
 </template>
 
 <script>

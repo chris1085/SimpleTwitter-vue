@@ -11,20 +11,12 @@
         <h5 class="card-title">apple</h5>
         <p class="card-text">@apple</p>
         <div class="click-on-condition row">
-          <div class="reply-count">
-            <i class="far fa-comment"></i> 10k
-          </div>
-          <div class="like-count">
-            <i class="far fa-heart"></i> 20k
-          </div>
+          <div class="reply-count"><i class="far fa-comment"></i> 10k</div>
+          <div class="like-count"><i class="far fa-heart"></i> 20k</div>
         </div>
         <div class="follow-condition row">
-          <div class="following-count">
-            <span>50個</span>跟隨中
-          </div>
-          <div class="follows-count">
-            <span>50位</span>跟隨者
-          </div>
+          <div class="following-count"><span>50個</span>跟隨中</div>
+          <div class="follows-count"><span>50位</span>跟隨者</div>
         </div>
       </div>
     </div>

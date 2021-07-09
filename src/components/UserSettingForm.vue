@@ -73,7 +73,7 @@
     <template v-if="isSignUp">
       <div class="row mt-4">
         <button class="btn submit" type="submit" :disabled="isProcessing">
-          {{ isProcessing ? "註冊中.." : "註冊" }}
+          {{ isProcessing ? '註冊中..' : '註冊' }}
         </button>
       </div>
       <div class="row">
@@ -90,7 +90,7 @@
           type="submit"
           :disabled="isProcessing"
         >
-          {{ isProcessing ? "儲存中.." : "儲存" }}
+          {{ isProcessing ? '儲存中..' : '儲存' }}
         </button>
         <button v-else class="btn update" disabled>已儲存</button>
       </div>
@@ -101,7 +101,7 @@
 <script>
 export default {
   name: 'UserSettingForm',
-  data () {
+  data() {
     return {
       form: {
         name: '',

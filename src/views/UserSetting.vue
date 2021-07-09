@@ -1,15 +1,15 @@
 <template>
-    <div id="UserSetting">
-        <!-- SideNavBar -->
-        <SideNavBar />
-        <!-- Header -->
+  <div id="UserSetting">
+    <!-- SideNavBar -->
+    <SideNavBar />
+    <!-- Header -->
     <div class="header">
       <div class="title">
         <h1>帳戶設定</h1>
       </div>
       <UserSettingForm />
-     </div>
-     </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,9 +36,9 @@ export default {
 }
 
 .form {
-    position: absolute;
-    left: 378px;
-    top: 85px;
+  position: absolute;
+  left: 378px;
+  top: 85px;
 }
 
 .title {

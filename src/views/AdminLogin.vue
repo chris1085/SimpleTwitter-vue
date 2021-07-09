@@ -1,5 +1,5 @@
 <template>
-    <div class="container py-5">
+  <div class="container py-5">
     <form class="w-100">
       <div class="logo text-center">
         <img src="../assets/logo.png" alt="" />
@@ -8,7 +8,7 @@
         <h1 class="h3 mb-3 font-weight-normal">後台登入</h1>
       </div>
 
-       <div class="form-account form-label-group mb-2">
+      <div class="form-account form-label-group mb-2">
         <label for="account">帳號</label>
         <input
           id="account"
@@ -47,7 +47,7 @@
         </p>
       </div>
     </form>
-    </div>
+  </div>
 </template>
 
 <style scoped>

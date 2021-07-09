@@ -1,12 +1,10 @@
 <template>
   <div class="container">
     <div class="avatar">
-      <img src="" alt="">
+      <img src="" alt="" />
     </div>
     <div class="tweet-info">
-      <div class="title">
-        <span>apple</span> @apple・3hr
-      </div>
+      <div class="title"><span>apple</span> @apple・3hr</div>
       <p>
         123
       </p>
