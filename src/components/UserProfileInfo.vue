@@ -37,9 +37,24 @@
           class="btn btn-outline-primary btn-profile position-absolute"
           data-bs-toggle="modal"
           data-bs-target="#editModal"
+          v-if="isCurrentUser"
         >
           編輯個人資料
         </button>
+
+        <div
+          class="otherUser-btn-container position-absolute"
+          v-if="!isCurrentUser"
+        >
+          <button class="btn btn-outline-primary btn-profile-rounded rounded">
+            <i class="far fa-envelope fa-lg"></i>
+          </button>
+          <button class="btn btn-outline-primary btn-profile-rounded rounded">
+            <i class="far fa-bell fa-lg"></i></button
+          ><button class="btn btn-primary btn-profile">
+            正在跟隨
+          </button>
+        </div>
       </div>
     </div>
     <UserEditModal />
@@ -50,7 +65,12 @@
 import UserEditModal from '../components/UserEditModal.vue'
 export default {
   name: 'UserProfileInfo',
-  components: { UserEditModal }
+  components: { UserEditModal },
+  data() {
+    return {
+      isCurrentUser: false
+    }
+  }
 }
 </script>
 

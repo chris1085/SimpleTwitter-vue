@@ -46,9 +46,10 @@
       padding-bottom: 10px;
     }
 
-    .btn-profile {
+    .btn-profile,
+    .otherUser-btn-container {
       top: 10px;
-      right: 10px;
+      right: 15px;
     }
   }
 
@@ -93,5 +94,11 @@
 .tweet-icon {
   .pink {
     color: #e0245e;
+  }
+}
+
+.otherUser-btn-container {
+  button {
+    margin-left: 10px;
   }
 }
