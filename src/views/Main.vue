@@ -2,6 +2,7 @@
   <div>
     <header><h3 class="font-bold">首頁</h3></header>
     <section class="main-tweet">
+      <FollowingsCard />
       <div class="content d-flex">
         <img class="content-img" src="https://fakeimg.pl/50x50/" alt="" />
         <p class="content-text">有什麼新鮮事？</p>
@@ -16,10 +17,13 @@
 
 <script>
 import MainTweetsCard from '../components/MainTweetsCard.vue'
+import FollowingsCard from '../components/FollowingsCard.vue'
+
 export default {
   name: 'MainTweetsPage',
   components: {
-    MainTweetsCard
+    MainTweetsCard,
+    FollowingsCard
   },
   data() {
     return {
