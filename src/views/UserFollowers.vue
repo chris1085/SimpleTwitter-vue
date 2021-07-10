@@ -2,7 +2,7 @@
   <div class="d-flex">
     <SideNavBarDC />
 
-    <div>
+    <div class="userFollower-container">
       <header class="">
         <div class="d-flex align-items-center">
           <a href="#" class="leftArrow"><i class="fas fa-arrow-left"></i></a>
@@ -60,8 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header,
-.followMenu {
+header {
   border-left: 1px solid #e6ecf0;
   border-right: 1px solid #e6ecf0;
 }

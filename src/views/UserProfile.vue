@@ -2,7 +2,7 @@
   <div class="d-flex">
     <SideNavBarDC />
 
-    <div>
+    <div class="userProfile-container">
       <user-profile-info />
       <user-profile-Nav
         @changeNavPage="changeNavPage"

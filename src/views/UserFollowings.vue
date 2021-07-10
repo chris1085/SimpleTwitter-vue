@@ -2,7 +2,7 @@
   <div class="d-flex">
     <SideNavBarDC />
 
-    <div>
+    <div class="userFollowing-container">
       <header class="">
         <div class="d-flex align-items-center">
           <a href="#" class="leftArrow"><i class="fas fa-arrow-left"></i></a>
