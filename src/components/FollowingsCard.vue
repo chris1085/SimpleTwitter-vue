@@ -1,51 +1,51 @@
 <template>
-    <div class="container">
-        <div class="title">
-            <h1>跟隨誰</h1>
-        </div>
-        <hr />
-
-        <div class="users">
-            <ul class="usersList">
-                <li class="user">
-                    <div class="userContent">
-                        <div class="avatar">
-                            <a href="/user/other/id">
-                            <img src="" alt="">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="name">
-                                <a href="user/other/id">
-                                <h2>pizza</h2>
-                                </a>
-                            </div>
-                            <div class="account">
-                                <a href="user/other/id">
-                                <h2>@pizza</h2>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="btn_follow">
-                            <button class="btn isFollowing">
-                                正在跟隨
-                            </button>
-                            <button class="btn">
-                                跟隨
-                            </button>
-                        </div>
-                    </div>
-                    <hr />
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer">
-            <button class="btn">
-                顯示更多
-            </button>
-        </div>
+  <div class="container">
+    <div class="title">
+      <h1>跟隨誰</h1>
     </div>
+    <hr />
+
+    <div class="users">
+      <ul class="usersList">
+        <li class="user">
+          <div class="userContent">
+            <div class="avatar">
+              <a href="/user/other/id">
+                <img src="" alt="" />
+              </a>
+            </div>
+            <div class="info">
+              <div class="name">
+                <a href="user/other/id">
+                  <h2>pizza</h2>
+                </a>
+              </div>
+              <div class="account">
+                <a href="user/other/id">
+                  <h2>@pizza</h2>
+                </a>
+              </div>
+            </div>
+            <div class="btn_follow">
+              <button class="btn isFollowing">
+                正在跟隨
+              </button>
+              <button class="btn">
+                跟隨
+              </button>
+            </div>
+          </div>
+          <hr />
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <button class="btn">
+        顯示更多
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -122,7 +122,7 @@ button {
   font-weight: 700;
 }
 
-.btn_follow  .isFollowing {
+.btn_follow .isFollowing {
   width: 92px;
   background-color: #ff6600;
   color: #fff;
@@ -136,6 +136,5 @@ button {
   padding: 0;
   border: none;
   font-weight: 400;
-}
-
-</style>>
+}</style
+>>

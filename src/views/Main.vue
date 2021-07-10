@@ -1,29 +1,43 @@
 <template>
-  <div>
-    <header><h3 class="font-bold">首頁</h3></header>
-    <section class="main-tweet">
-      <FollowingsCard />
-      <div class="content d-flex">
-        <img class="content-img" src="https://fakeimg.pl/50x50/" alt="" />
-        <p class="content-text">有什麼新鮮事？</p>
+  <div class="d-flex">
+    <!-- <SideNavBar /> -->
+    <SideNavBarDC />
+    <section>
+      <header><h3 class="font-bold">首頁</h3></header>
+      <div class="main-tweet">
+        <div class="content d-flex">
+          <img class="content-img" src="https://fakeimg.pl/50x50/" alt="" />
+          <p class="content-text">有什麼新鮮事？</p>
+        </div>
+        <div class="btn-container">
+          <button class="btn btn-primary btn-tweet">
+            推文
+          </button>
+        </div>
       </div>
-      <div class="btn-container">
-        <button class="btn btn-primary btn-tweet">推文</button>
-      </div>
+      <MainTweetsCard :is-reply-page="isReplyPage" />
     </section>
-    <MainTweetsCard :is-reply-page="isReplyPage" />
+
+    <FollowingsCardDC />
   </div>
 </template>
 
 <script>
 import MainTweetsCard from '../components/MainTweetsCard.vue'
-import FollowingsCard from '../components/FollowingsCard.vue'
+// import FollowingsCard from '../components/FollowingsCard.vue'
+import FollowingsCardDC from '../components/FollowingsCardDC.vue'
+
+// import SideNavBar from '../components/SideNavBar.vue'
+import SideNavBarDC from '../components/SideNavBarDC.vue'
 
 export default {
   name: 'MainTweetsPage',
   components: {
     MainTweetsCard,
-    FollowingsCard
+    FollowingsCardDC,
+    // FollowingsCard,
+    // SideNavBar,
+    SideNavBarDC
   },
   data() {
     return {

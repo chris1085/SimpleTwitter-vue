@@ -12,11 +12,16 @@ $btn-primary-hover-color: $btn-promary-hover-color;
   font-size: 14px;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-check:focus + .btn-primary,
+.btn-primary:focus {
   background-color: $btn-primary-color;
   color: white;
+  border-color: $btn-primary-color;
 
-  &:hover {
+  &:hover,
+  &:active:hover,
+  &:active:hover {
     background-color: $btn-primary-hover-color;
   }
 }
@@ -64,4 +69,38 @@ $btn-primary-hover-color: $btn-promary-hover-color;
   height: 40px !important;
   padding: 0 !important;
   margin: 0 auto;
+}
+
+.btn-nav-tweet {
+  width: 210px;
+  height: 45px;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.btn-followingsCard {
+  border-radius: 100px;
+  width: 92px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.btn-outline-followingsCard {
+  border-radius: 100px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 62px;
+  height: 30px;
+  /* identical to box height, or 100% */
+
+  // color: #ff6600;
 }
