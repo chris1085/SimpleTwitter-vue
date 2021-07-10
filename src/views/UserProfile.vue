@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <user-profile-info />
-    <user-profile-Nav
-      @changeNavPage="changeNavPage"
-      @changeNavPageTweeter="changeNavPage"
-    />
-    <user-profile-card :init-is-favorite="isFavorite" />
+  <div class="d-flex">
+    <SideNavBarDC />
+
+    <div class="userProfile-container">
+      <user-profile-info />
+      <user-profile-Nav
+        @changeNavPage="changeNavPage"
+        @changeNavPageTweeter="changeNavPage"
+      />
+      <user-profile-card :init-is-favorite="isFavorite" />
+    </div>
+
+    <FollowingsCardDC />
   </div>
 </template>
 
@@ -13,10 +19,18 @@
 import UserProfileInfo from '../components/UserProfileInfo.vue'
 import UserProfileNav from '../components/UserProfileNav.vue'
 import UserProfileCard from '../components/UserProfileCard.vue'
+import FollowingsCardDC from '../components/FollowingsCardDC.vue'
+import SideNavBarDC from '../components/SideNavBarDC.vue'
 
 export default {
   name: 'UserProfile',
-  components: { UserProfileInfo, UserProfileNav, UserProfileCard },
+  components: {
+    UserProfileInfo,
+    UserProfileNav,
+    UserProfileCard,
+    FollowingsCardDC,
+    SideNavBarDC
+  },
   data() {
     return {
       isFavorite: false

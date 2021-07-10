@@ -2,7 +2,7 @@
   <div class="d-flex">
     <!-- <SideNavBar /> -->
     <SideNavBarDC />
-    <section>
+    <section class="main-container">
       <header><h3 class="font-bold">首頁</h3></header>
       <div class="main-tweet">
         <div class="content d-flex">
