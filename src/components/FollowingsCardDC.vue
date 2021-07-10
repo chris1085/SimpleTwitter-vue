@@ -4,7 +4,7 @@
       <h3 class="followings-title">跟隨誰</h3>
       <ul class="followingList">
         <li class="following-item d-flex justify-content-between">
-          <div class="following-info-container d-flex">
+          <a class="following-info-container d-flex" href="">
             <img
               class="following-img rounded"
               src="https://fakeimg.pl/50x50"
@@ -16,7 +16,7 @@
               <h4 class="following-name">PizzaHut</h4>
               <span class="following-id">@pizzahut</span>
             </div>
-          </div>
+          </a>
           <div class="btn-followingsCard-container d-flex align-items-center">
             <button
               class="btn btn-primary btn-followingsCard"
@@ -33,7 +33,7 @@
           </div>
         </li>
         <li class="following-item d-flex justify-content-between">
-          <div class="following-info-container d-flex">
+          <a class="following-info-container d-flex" href="">
             <img
               class="following-img rounded"
               src="https://fakeimg.pl/50x50"
@@ -45,7 +45,7 @@
               <h4 class="following-name">PizzaHut</h4>
               <span class="following-id">@pizzahut</span>
             </div>
-          </div>
+          </a>
           <div class="btn-followingsCard-container d-flex align-items-center">
             <button
               class="btn btn-primary btn-followingsCard"
@@ -62,7 +62,7 @@
           </div>
         </li>
         <li class="following-item d-flex justify-content-between">
-          <div class="following-info-container d-flex">
+          <a class="following-info-container d-flex" href="">
             <img
               class="following-img rounded"
               src="https://fakeimg.pl/50x50"
@@ -74,7 +74,7 @@
               <h4 class="following-name">PizzaHut</h4>
               <span class="following-id">@pizzahut</span>
             </div>
-          </div>
+          </a>
           <div class="btn-followingsCard-container d-flex align-items-center">
             <button
               class="btn btn-primary btn-followingsCard"
@@ -91,7 +91,7 @@
           </div>
         </li>
         <li class="following-item d-flex justify-content-between">
-          <div class="following-info-container d-flex">
+          <a class="following-info-container d-flex" href="">
             <img
               class="following-img rounded"
               src="https://fakeimg.pl/50x50"
@@ -103,7 +103,7 @@
               <h4 class="following-name">PizzaHut</h4>
               <span class="following-id">@pizzahut</span>
             </div>
-          </div>
+          </a>
           <div class="btn-followingsCard-container d-flex align-items-center">
             <button
               class="btn btn-primary btn-followingsCard"
@@ -120,7 +120,7 @@
           </div>
         </li>
         <li class="following-item d-flex justify-content-between">
-          <div class="following-info-container d-flex">
+          <a class="following-info-container d-flex" href="">
             <img
               class="following-img rounded"
               src="https://fakeimg.pl/50x50"
@@ -132,7 +132,7 @@
               <h4 class="following-name">PizzaHut</h4>
               <span class="following-id">@pizzahut</span>
             </div>
-          </div>
+          </a>
           <div class="btn-followingsCard-container d-flex align-items-center">
             <button
               class="btn btn-primary btn-followingsCard"
@@ -149,7 +149,7 @@
           </div>
         </li>
         <li class="following-item d-flex justify-content-between">
-          <div class="following-info-container d-flex">
+          <a class="following-info-container d-flex" href="">
             <img
               class="following-img rounded"
               src="https://fakeimg.pl/50x50"
@@ -161,7 +161,7 @@
               <h4 class="following-name">PizzaHut</h4>
               <span class="following-id">@pizzahut</span>
             </div>
-          </div>
+          </a>
           <div class="btn-followingsCard-container d-flex align-items-center">
             <button
               class="btn btn-primary btn-followingsCard"

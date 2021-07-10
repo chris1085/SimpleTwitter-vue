@@ -51,15 +51,12 @@
 }
 
 .more {
-  display: block;
+  display: inline-block;
   font-size: 15px;
   line-height: 22px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 15px;
-
-  // border-top: 1px solid $border-color;
-
+  margin-left: 15px;
   color: $btn-primary-color;
 
   &:hover {
