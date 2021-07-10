@@ -11,9 +11,11 @@
         </div>
       </header>
       <div class="img-container">
-        <img class="coverImg" src="https://fakeimg.pl/598x200" alt="" />
+        <img class="coverImg" src="https://fakeimg.pl/1200x200" alt="" />
 
-        <div class="photo position-absolute rounded">
+        <div
+          class="photo position-absolute rounded d-flex justify-content-center align-items-center"
+        >
           <img class="rounded" src="https://fakeimg.pl/140x140" alt="" />
         </div>
       </div>
