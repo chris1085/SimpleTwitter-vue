@@ -68,7 +68,7 @@ export default {
   components: { UserEditModal },
   data() {
     return {
-      isCurrentUser: false
+      isCurrentUser: true
     }
   }
 }

@@ -20,9 +20,9 @@
 
     .logo-link {
       display: block;
-      background: url('~@/assets/images/logo.png') no-repeat;
-      background-size: cover;
-      width: 47px;
+      background: url('~@/assets/images/logo.png') no-repeat left;
+      background-size: contain;
+      width: 100%;
       height: 47px;
     }
   }
@@ -52,30 +52,30 @@
       }
 
       .icon-container-home {
-        background: url('~@/assets/images/home.svg') no-repeat;
+        background: url('~@/assets/images/home.svg') no-repeat center;
       }
 
       .icon-container-profile {
-        background: url('~@/assets/images/profile.svg') no-repeat;
+        background: url('~@/assets/images/profile.svg') no-repeat center;
       }
 
       .icon-container-setting {
-        background: url('~@/assets/images/setting.svg') no-repeat;
+        background: url('~@/assets/images/setting.svg') no-repeat center;
       }
 
       &:hover {
         color: $btn-primary-color;
 
         .icon-container-home {
-          background: url('~@/assets/images/atHome.svg') no-repeat;
+          background: url('~@/assets/images/atHome.svg') no-repeat center;
         }
 
         .icon-container-profile {
-          background: url('~@/assets/images/atProfile.svg') no-repeat;
+          background: url('~@/assets/images/atProfile.svg') no-repeat center;
         }
 
         .icon-container-setting {
-          background: url('~@/assets/images/atSetting.svg') no-repeat;
+          background: url('~@/assets/images/atSetting.svg') no-repeat center;
         }
       }
     }
@@ -96,5 +96,11 @@
     &:hover {
       color: $btn-primary-color;
     }
+  }
+}
+
+.newTweet-modal-content {
+  .modal-header {
+    border-bottom: 1px solid $border-color;
   }
 }

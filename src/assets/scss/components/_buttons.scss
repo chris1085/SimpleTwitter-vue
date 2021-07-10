@@ -12,11 +12,16 @@ $btn-primary-hover-color: $btn-promary-hover-color;
   font-size: 14px;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-check:focus + .btn-primary,
+.btn-primary:focus {
   background-color: $btn-primary-color;
   color: white;
+  border-color: $btn-primary-color;
 
-  &:hover {
+  &:hover,
+  &:active:hover,
+  &:active:hover {
     background-color: $btn-primary-hover-color;
   }
 }

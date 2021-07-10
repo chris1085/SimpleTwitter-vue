@@ -10,7 +10,9 @@
           <p class="content-text">有什麼新鮮事？</p>
         </div>
         <div class="btn-container">
-          <button class="btn btn-primary btn-tweet">推文</button>
+          <button class="btn btn-primary btn-tweet">
+            推文
+          </button>
         </div>
       </div>
       <MainTweetsCard :is-reply-page="isReplyPage" />
