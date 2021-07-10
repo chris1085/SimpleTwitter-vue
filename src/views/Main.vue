@@ -18,13 +18,15 @@
       <MainTweetsCard :is-reply-page="isReplyPage" />
     </section>
 
-    <FollowingsCard />
+    <FollowingsCardDC />
   </div>
 </template>
 
 <script>
 import MainTweetsCard from '../components/MainTweetsCard.vue'
-import FollowingsCard from '../components/FollowingsCard.vue'
+// import FollowingsCard from '../components/FollowingsCard.vue'
+import FollowingsCardDC from '../components/FollowingsCardDC.vue'
+
 // import SideNavBar from '../components/SideNavBar.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 
@@ -32,7 +34,8 @@ export default {
   name: 'MainTweetsPage',
   components: {
     MainTweetsCard,
-    FollowingsCard,
+    FollowingsCardDC,
+    // FollowingsCard,
     // SideNavBar,
     SideNavBarDC
   },
