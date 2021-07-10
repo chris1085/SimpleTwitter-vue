@@ -10,17 +10,29 @@
 
       <div class="row">
         <label for="account">帳號</label>
-        <input id="account" name="account" type="text" v-model="form.account" required />
+        <input
+          id="account"
+          name="account"
+          type="text"
+          v-model="form.account"
+          required
+        />
       </div>
 
       <div class="row">
         <label for="password">密碼</label>
-        <input id="password" name="password" type="password" v-model="form.password" required/>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          v-model="form.password"
+          required
+        />
       </div>
 
       <div class="row mt-4">
         <button class="btn signin" type="submit" :disabled="isProcessing">
-          {{ isProcessing ? "登入中" : "登入" }}
+          {{ isProcessing ? '登入中' : '登入' }}
         </button>
       </div>
       <div class="row link-btns-container">
@@ -42,21 +54,21 @@ import { Toast } from '../utils/helpers'
 
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
-      from: {
+      form: {
         account: '',
         password: ''
       },
-      isProcessing: false,
+      isProcessing: false
     }
   },
   methods: {
     async handleSubmit() {
-       const payload = this.form;
-       const formDataCheckResult = this.formDataCheck(payload);
-       if (!formDataCheckResult) {
-        return;
+      const payload = this.form
+      const formDataCheckResult = this.formDataCheck(payload)
+      if (!formDataCheckResult) {
+        return
       }
       try {
         this.isProcessing = true
@@ -74,9 +86,9 @@ export default {
 
         // 轉址
         this.$router.push('/main')
-
       } catch (error) {
-        console.error(data.message)
+        console.log(error)
+        // console.error(data.message)
         this.isProcessing = false
         Toast.fire({
           icon: 'error',
@@ -86,29 +98,29 @@ export default {
         this.form.password = ''
       }
     },
-  formDataCheck({ account, password}) {
-    let result = false
+    formDataCheck({ account, password }) {
+      let result = false
 
-    if (account === "root") {
+      if (account === 'root') {
         Toast.fire({
-          icon: "error",
-          title: "無法使用管理者帳號於前臺登入！",
-        });
-        return false;
+          icon: 'error',
+          title: '無法使用管理者帳號於前臺登入！'
+        })
+        return false
       }
       if (!account) {
         Toast.fire({
-          icon: "info",
-          title: "尚未填寫帳號！",
-        });
-        return false;
+          icon: 'info',
+          title: '尚未填寫帳號！'
+        })
+        return false
       }
       if (!password) {
         Toast.fire({
-          icon: "info",
-          title: "尚未填寫密碼！",
-        });
-        return false;
+          icon: 'info',
+          title: '尚未填寫密碼！'
+        })
+        return false
       }
       result = true
       return result
