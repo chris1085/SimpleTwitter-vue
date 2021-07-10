@@ -14,9 +14,6 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -30,8 +27,11 @@
               data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
-            <a href="#" class="tweet-icon"
+            <a href="#" class="tweet-icon" v-if="!initIsFavorite"
               ><i class="far fa-heart mr-3"></i>76</a
+            >
+            <a href="#" class="tweet-icon pink" v-if="initIsFavorite"
+              ><i class="fa fa-heart mr-3 pink"></i>76</a
             >
           </div>
         </div>
@@ -49,9 +49,6 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -65,8 +62,11 @@
               data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
-            <a href="#" class="tweet-icon"
+            <a href="#" class="tweet-icon" v-if="!initIsFavorite"
               ><i class="far fa-heart mr-3"></i>76</a
+            >
+            <a href="#" class="tweet-icon pink" v-if="initIsFavorite"
+              ><i class="fa fa-heart mr-3 pink"></i>76</a
             >
           </div>
         </div>
@@ -84,9 +84,6 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -100,8 +97,11 @@
               data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
-            <a href="#" class="tweet-icon"
+            <a href="#" class="tweet-icon" v-if="!initIsFavorite"
               ><i class="far fa-heart mr-3"></i>76</a
+            >
+            <a href="#" class="tweet-icon pink" v-if="initIsFavorite"
+              ><i class="fa fa-heart mr-3 pink"></i>76</a
             >
           </div>
         </div>
@@ -119,9 +119,6 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -135,8 +132,11 @@
               data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
-            <a href="#" class="tweet-icon"
+            <a href="#" class="tweet-icon" v-if="!initIsFavorite"
               ><i class="far fa-heart mr-3"></i>76</a
+            >
+            <a href="#" class="tweet-icon pink" v-if="initIsFavorite"
+              ><i class="fa fa-heart mr-3 pink"></i>76</a
             >
           </div>
         </div>
@@ -154,9 +154,6 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -170,8 +167,11 @@
               data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
-            <a href="#" class="tweet-icon"
+            <a href="#" class="tweet-icon" v-if="!initIsFavorite"
               ><i class="far fa-heart mr-3"></i>76</a
+            >
+            <a href="#" class="tweet-icon pink" v-if="initIsFavorite"
+              ><i class="fa fa-heart mr-3 pink"></i>76</a
             >
           </div>
         </div>
@@ -189,9 +189,6 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -205,8 +202,11 @@
               data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
-            <a href="#" class="tweet-icon"
+            <a href="#" class="tweet-icon" v-if="!initIsFavorite"
               ><i class="far fa-heart mr-3"></i>76</a
+            >
+            <a href="#" class="tweet-icon pink" v-if="initIsFavorite"
+              ><i class="fa fa-heart mr-3 pink"></i>76</a
             >
           </div>
         </div>
@@ -224,9 +224,6 @@
             <span class="tweet-userName">Apple</span
             ><span class="tweet-userInfo">@apple・3小時</span>
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
             nihil iure molestiae nostrum nisi atque voluptates assumenda labore
@@ -240,37 +237,31 @@
               data-bs-target="#repliedModal"
               ><i class="far fa-comment mr-3"></i>13</a
             >
-            <a href="#" class="tweet-icon"
+            <a href="#" class="tweet-icon" v-if="!initIsFavorite"
               ><i class="far fa-heart mr-3"></i>76</a
+            >
+            <a href="#" class="tweet-icon pink" v-if="initIsFavorite"
+              ><i class="fa fa-heart mr-3 pink"></i>76</a
             >
           </div>
         </div>
       </li>
     </ul>
-    <RepliedModal />
   </div>
 </template>
 
 <script>
-import RepliedModal from '../components/RepliedModal.vue'
-
 export default {
-  name: 'MainTweetsCard',
-  components: { RepliedModal },
   props: {
-    isReplyPage: {
+    initIsFavorite: {
       type: Boolean,
-      required: true
+      required: true,
+      default: true
     }
   },
   data() {
     return {
-      modalOpen: false
-    }
-  },
-  methods: {
-    openModal() {
-      this.modalOpen = !this.modalOpen
+      isFavorite: false
     }
   }
 }

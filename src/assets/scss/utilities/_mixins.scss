@@ -16,3 +16,16 @@
     @content;
   }
 }
+
+%main-text-shared {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+%nav-active {
+  color: $btn-primary-color;
+  border-bottom: 2px solid $btn-primary-color;
+}

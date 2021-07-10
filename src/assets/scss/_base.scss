@@ -68,6 +68,9 @@ html {
 }
 body {
   height: 100%;
+  font-family: Noto Sans TC;
+  font-style: normal;
+
   // background: $body-bg;
   // color: $body-color;
 }
@@ -186,13 +189,9 @@ h3 {
 }
 
 .rounded {
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
 
-%main-text-shared {
-  font-family: Noto Sans TC;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 22px;
+.leftArrow {
+  margin-right: 43px;
 }
