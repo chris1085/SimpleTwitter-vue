@@ -104,3 +104,19 @@ $btn-primary-hover-color: $btn-promary-hover-color;
 
   // color: #ff6600;
 }
+
+.btn-sideNavActive {
+  color: $btn-primary-color !important;
+
+  .icon-container-home {
+    background: url('~@/assets/images/atHome.svg') no-repeat center !important;
+  }
+
+  .icon-container-profile {
+    background: url('~@/assets/images/atProfile.svg') no-repeat center !important;
+  }
+
+  .icon-container-setting {
+    background: url('~@/assets/images/atSetting.svg') no-repeat center !important;
+  }
+}

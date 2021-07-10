@@ -94,6 +94,8 @@
   }
 
   .logout-link {
+    width: 100px;
+    cursor: pointer;
     &:hover {
       color: $btn-primary-color;
     }

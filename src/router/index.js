@@ -76,7 +76,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  // linkExactActiveClass: 'active',
+  linkExactActiveClass: 'btn-sideNavActive',
   routes
 })
 
