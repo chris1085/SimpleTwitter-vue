@@ -1,7 +1,10 @@
 <template>
   <div class="d-flex">
     <!-- <SideNavBar /> -->
-    <SideNavBarDC :avatar="avatar" />
+    <SideNavBarDC
+      :avatar="currentUser.avatar"
+      @after-create-tweet="updateTweetCard"
+    />
     <section class="main-container">
       <header><h3 class="font-bold">首頁</h3></header>
       <div class="main-tweet">
@@ -9,7 +12,7 @@
           <div class="content d-flex">
             <img
               class="content-img rounded"
-              :src="avatar | emptyImage"
+              :src="currentUser.avatar | emptyImage"
               alt=""
             />
             <textarea
@@ -32,7 +35,12 @@
           </div>
         </form>
       </div>
-      <MainTweetsCard :is-reply-page="isReplyPage" :init-tweets="tweets" />
+      <MainTweetsCard
+        :is-reply-page="isReplyPage"
+        :init-tweets="tweets"
+        :current-user="currentUser"
+        @after-create-comment="updateTweetCard"
+      />
     </section>
 
     <FollowingsCardDC />
@@ -41,10 +49,7 @@
 
 <script>
 import MainTweetsCard from '../components/MainTweetsCard.vue'
-// import FollowingsCard from '../components/FollowingsCard.vue'
 import FollowingsCardDC from '../components/FollowingsCardDC.vue'
-
-// import SideNavBar from '../components/SideNavBar.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
@@ -67,15 +72,19 @@ export default {
       isReplyPage: false,
       isProcessing: false,
       tweets: [],
-      avatar: ''
+      currentUser: {
+        avatar: '',
+        id: -1
+      }
     }
   },
   methods: {
     async getCurrentUser() {
       try {
         const response = await usersAPI.getCurrentUser()
-        const { avatar } = response.data
-        this.avatar = avatar
+        const { avatar, id } = response.data
+        this.currentUser.avatar = avatar
+        this.currentUser.id = id
       } catch (error) {
         Toast.fire({
           icon: 'error',
@@ -98,6 +107,13 @@ export default {
       try {
         this.isProcessing = true
 
+        if (
+          this.newTweetContent.trim().length === 0 ||
+          this.newTweetContent.trim().length > 140
+        ) {
+          throw new Error('無法送出空白或超過140字數的文章')
+        }
+
         const content = { description: this.newTweetContent }
         const { data } = await tweetsAPI.newTweet.create(content)
 
@@ -111,9 +127,12 @@ export default {
         this.isProcessing = false
         Toast.fire({
           icon: 'error',
-          title: '無法送出推文，請稍後再試'
+          title: error
         })
       }
+    },
+    updateTweetCard() {
+      this.fetchTweets()
     }
   },
   created() {
