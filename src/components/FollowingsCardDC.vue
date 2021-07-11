@@ -3,175 +3,42 @@
     <div class="followingsCard">
       <h3 class="followings-title">跟隨誰</h3>
       <ul class="followingList">
-        <li class="following-item d-flex justify-content-between">
-          <a class="following-info-container d-flex" href="">
+        <li
+          class="following-item d-flex justify-content-between"
+          v-for="topUser in users"
+          :key="topUser.id"
+        >
+          <router-link
+            :to="`/user/${topUser.id}`"
+            class="following-info-container d-flex"
+            href=""
+          >
             <img
               class="following-img rounded"
-              src="https://fakeimg.pl/50x50"
+              :src="topUser.avatar | emptyImage"
               alt=""
             />
             <div
               class="following-info d-flex flex-column justify-content-center"
             >
-              <h4 class="following-name">PizzaHut</h4>
-              <span class="following-id">@pizzahut</span>
+              <h4 class="following-name">{{ topUser.name }}</h4>
+              <span class="following-id">@{{ topUser.account }}</span>
             </div>
-          </a>
+          </router-link>
           <div class="btn-followingsCard-container d-flex align-items-center">
             <button
+              type="button"
               class="btn btn-primary btn-followingsCard"
-              v-if="isFollowing"
+              v-if="topUser.isFollowed && currentUser.id !== topUser.id"
+              @click.stop.prevent="deleteFollowing(topUser.id)"
             >
               正在跟隨
             </button>
             <button
+              type="button"
               class="btn btn-outline-primary btn-outline-followingsCard"
-              v-if="!isFollowing"
-            >
-              跟隨
-            </button>
-          </div>
-        </li>
-        <li class="following-item d-flex justify-content-between">
-          <a class="following-info-container d-flex" href="">
-            <img
-              class="following-img rounded"
-              src="https://fakeimg.pl/50x50"
-              alt=""
-            />
-            <div
-              class="following-info d-flex flex-column justify-content-center"
-            >
-              <h4 class="following-name">PizzaHut</h4>
-              <span class="following-id">@pizzahut</span>
-            </div>
-          </a>
-          <div class="btn-followingsCard-container d-flex align-items-center">
-            <button
-              class="btn btn-primary btn-followingsCard"
-              v-if="isFollowing"
-            >
-              正在跟隨
-            </button>
-            <button
-              class="btn btn-outline-primary btn-outline-followingsCard"
-              v-if="!isFollowing"
-            >
-              跟隨
-            </button>
-          </div>
-        </li>
-        <li class="following-item d-flex justify-content-between">
-          <a class="following-info-container d-flex" href="">
-            <img
-              class="following-img rounded"
-              src="https://fakeimg.pl/50x50"
-              alt=""
-            />
-            <div
-              class="following-info d-flex flex-column justify-content-center"
-            >
-              <h4 class="following-name">PizzaHut</h4>
-              <span class="following-id">@pizzahut</span>
-            </div>
-          </a>
-          <div class="btn-followingsCard-container d-flex align-items-center">
-            <button
-              class="btn btn-primary btn-followingsCard"
-              v-if="isFollowing"
-            >
-              正在跟隨
-            </button>
-            <button
-              class="btn btn-outline-primary btn-outline-followingsCard"
-              v-if="!isFollowing"
-            >
-              跟隨
-            </button>
-          </div>
-        </li>
-        <li class="following-item d-flex justify-content-between">
-          <a class="following-info-container d-flex" href="">
-            <img
-              class="following-img rounded"
-              src="https://fakeimg.pl/50x50"
-              alt=""
-            />
-            <div
-              class="following-info d-flex flex-column justify-content-center"
-            >
-              <h4 class="following-name">PizzaHut</h4>
-              <span class="following-id">@pizzahut</span>
-            </div>
-          </a>
-          <div class="btn-followingsCard-container d-flex align-items-center">
-            <button
-              class="btn btn-primary btn-followingsCard"
-              v-if="isFollowing"
-            >
-              正在跟隨
-            </button>
-            <button
-              class="btn btn-outline-primary btn-outline-followingsCard"
-              v-if="!isFollowing"
-            >
-              跟隨
-            </button>
-          </div>
-        </li>
-        <li class="following-item d-flex justify-content-between">
-          <a class="following-info-container d-flex" href="">
-            <img
-              class="following-img rounded"
-              src="https://fakeimg.pl/50x50"
-              alt=""
-            />
-            <div
-              class="following-info d-flex flex-column justify-content-center"
-            >
-              <h4 class="following-name">PizzaHut</h4>
-              <span class="following-id">@pizzahut</span>
-            </div>
-          </a>
-          <div class="btn-followingsCard-container d-flex align-items-center">
-            <button
-              class="btn btn-primary btn-followingsCard"
-              v-if="isFollowing"
-            >
-              正在跟隨
-            </button>
-            <button
-              class="btn btn-outline-primary btn-outline-followingsCard"
-              v-if="!isFollowing"
-            >
-              跟隨
-            </button>
-          </div>
-        </li>
-        <li class="following-item d-flex justify-content-between">
-          <a class="following-info-container d-flex" href="">
-            <img
-              class="following-img rounded"
-              src="https://fakeimg.pl/50x50"
-              alt=""
-            />
-            <div
-              class="following-info d-flex flex-column justify-content-center"
-            >
-              <h4 class="following-name">PizzaHut</h4>
-              <span class="following-id">@pizzahut</span>
-            </div>
-          </a>
-          <div class="btn-followingsCard-container d-flex align-items-center">
-            <button
-              class="btn btn-primary btn-followingsCard"
-              v-if="isFollowing"
-            >
-              正在跟隨
-            </button>
-            <button
-              class="btn btn-outline-primary btn-outline-followingsCard"
-              v-if="!isFollowing"
+              v-if="!topUser.isFollowed && currentUser.id !== topUser.id"
+              @click.stop.prevent="addFollowing(topUser.id)"
             >
               跟隨
             </button>
@@ -185,10 +52,88 @@
 </template>
 
 <script>
+import { emptyImageFilter } from '../utils/mixins'
+import usersAPI from '../apis/users'
+import { Toast } from '../utils/helpers'
+
 export default {
+  props: {
+    initTopUsers: {
+      type: Array,
+      required: true
+    },
+    currentUser: {
+      type: Object,
+      required: true
+    }
+  },
+  mixins: [emptyImageFilter],
+  watch: {
+    initTopUsers(newValue) {
+      this.users = [...this.users, ...newValue]
+    }
+  },
   data() {
     return {
-      isFollowing: true
+      users: this.initTopUsers
+    }
+  },
+  methods: {
+    async addFollowing(userId) {
+      try {
+        const { data } = await usersAPI.addFollowing({ userId })
+
+        console.log('data', data)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        this.users = this.users.map(user => {
+          if (user.id !== userId) {
+            return user
+          } else {
+            return {
+              ...user,
+              followerCount: user.followerCount + 1,
+              isFollowed: true
+            }
+          }
+        })
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: error
+        })
+      }
+    },
+    async deleteFollowing(userId) {
+      try {
+        const { data } = await usersAPI.deleteFollowing({ userId })
+
+        console.log('data', data)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        this.users = this.users.map(user => {
+          if (user.id !== userId) {
+            return user
+          } else {
+            return {
+              ...user,
+              followerCount: user.followerCount - 1,
+              isFollowed: false
+            }
+          }
+        })
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: error
+        })
+      }
     }
   }
 }

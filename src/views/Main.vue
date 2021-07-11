@@ -43,7 +43,7 @@
       />
     </section>
 
-    <FollowingsCardDC />
+    <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
   </div>
 </template>
 
@@ -54,6 +54,7 @@ import SideNavBarDC from '../components/SideNavBarDC.vue'
 import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
+// import followersAPI from '../apis/followers'
 import { Toast } from '../utils/helpers'
 
 export default {
@@ -69,6 +70,7 @@ export default {
   data() {
     return {
       newTweetContent: '',
+      topUsers: [],
       isReplyPage: false,
       isProcessing: false,
       tweets: [],
@@ -131,6 +133,17 @@ export default {
         })
       }
     },
+    async getTopUser() {
+      try {
+        const response = await usersAPI.getTopUsers()
+        this.topUsers = response.data.users
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得Top跟隨者'
+        })
+      }
+    },
     updateTweetCard() {
       this.fetchTweets()
     }
@@ -138,6 +151,7 @@ export default {
   created() {
     this.fetchTweets()
     this.getCurrentUser()
+    this.getTopUser()
 
     localStorage.setItem(
       'token',
