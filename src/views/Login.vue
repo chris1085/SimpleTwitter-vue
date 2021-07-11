@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form>
+    <form @submit.prevent.stop="handleSubmit">
       <div class="logo">
         <img src="../assets/logo.png" alt="" />
       </div>
@@ -10,22 +10,34 @@
 
       <div class="row">
         <label for="account">帳號</label>
-        <input id="account" name="account" type="text" />
+        <input
+          id="account"
+          name="account"
+          type="text"
+          v-model="form.account"
+          required
+        />
       </div>
 
       <div class="row">
         <label for="password">密碼</label>
-        <input id="password" name="password" type="password" />
+        <input
+          id="password"
+          name="password"
+          type="password"
+          v-model="form.password"
+          required
+        />
       </div>
 
       <div class="row mt-4">
-        <button class="btn signin" type="submit">
-          登入
+        <button class="btn signin" type="submit" :disabled="isProcessing">
+          {{ isProcessing ? '登入中' : '登入' }}
         </button>
       </div>
       <div class="row link-btns-container">
         <div class="link-btns">
-          <router-link class="routerLink" to="/signup"
+          <router-link class="routerLink" to="/regist"
             >註冊 Alphitter</router-link
           >
           <span> &#xb7; </span>
@@ -35,6 +47,87 @@
     </form>
   </div>
 </template>
+
+<script>
+import authorizationAPI from '../apis/authorization'
+import { Toast } from '../utils/helpers'
+
+export default {
+  name: 'Login',
+  data() {
+    return {
+      form: {
+        account: '',
+        password: ''
+      },
+      isProcessing: false
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      const payload = this.form
+      const formDataCheckResult = this.formDataCheck(payload)
+      if (!formDataCheckResult) {
+        return
+      }
+      try {
+        this.isProcessing = true
+
+        const { data } = await authorizationAPI.signIn(payload)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+        // set token
+        localStorage.setItem('token', data.token)
+
+        // 透過 setCurrentUser 把使用者資料存到 Vuex 的 state 中
+        this.$store.commit('setCurrentUser', data.user)
+
+        // 轉址
+        this.$router.push('/main')
+      } catch (error) {
+        console.log(error)
+        // console.error(data.message)
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '帳號密碼輸入錯誤，請在試一次！'
+        })
+        this.form.account = ''
+        this.form.password = ''
+      }
+    },
+    formDataCheck({ account, password }) {
+      let result = false
+
+      if (account === 'root') {
+        Toast.fire({
+          icon: 'error',
+          title: '無法使用管理者帳號於前臺登入！'
+        })
+        return false
+      }
+      if (!account) {
+        Toast.fire({
+          icon: 'info',
+          title: '尚未填寫帳號！'
+        })
+        return false
+      }
+      if (!password) {
+        Toast.fire({
+          icon: 'info',
+          title: '尚未填寫密碼！'
+        })
+        return false
+      }
+      result = true
+      return result
+    }
+  }
+}
+</script>
 
 <style scoped>
 .logo {
@@ -68,6 +161,7 @@ input {
   width: 100%;
   border: none;
   border-bottom: 2px solid #657786;
+  outline: none;
 }
 .btn {
   width: 100%;
@@ -86,7 +180,8 @@ button.signin {
 }
 .link-btns {
   position: absolute;
-  right: 0;
+  left: 340px;
+  top: 10px;
 }
 .routerLink {
   font-weight: 700;

@@ -7,6 +7,12 @@ export default {
   get({ userId = '' } = {}) {
     return apiHelper.get(`/users/${userId}`)
   },
+    putUser(userId, payload) {
+    return apiHelper.put(`/users/${userId}`, payload)
+  },
+  setUser(payload) {
+    return apiHelper.post('/users', payload)
+  },
   update({ userId, formData }) {
     return apiHelper.put(`/users/${userId}`, formData)
   },

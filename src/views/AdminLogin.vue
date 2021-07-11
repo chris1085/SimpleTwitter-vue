@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <form class="w-100">
+    <form class="w-100" @submit.prevent.stop="handleSubmit">
       <div class="logo text-center">
         <img src="../assets/logo.png" alt="" />
       </div>
@@ -43,12 +43,74 @@
       </button>
       <div class="sign-in text-center mb-3">
         <p>
-          <a href="/sigin">前台登入</a>
+          <router-link to="/signin">前台登入</router-link>
         </p>
       </div>
     </form>
   </div>
 </template>
+
+<script>
+import authorizationAPI from './../apis/authorization'
+import { Toast } from '../utils/helpers'
+
+export default {
+  name: 'AdminLogin',
+  data() {
+    return {
+      account: '',
+      password: '',
+      isProcessing: false
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        if (!this.account || !this.password) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請填入帳號和密碼'
+          })
+          return
+        }
+
+        this.isProcessing = true
+
+        const response = await authorizationAPI.signIn({
+          account: this.account,
+          password: this.password
+        })
+        console.log(response)
+        const { data } = response
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        if (data.user.role !== 'admin') {
+          Toast.fire({
+            icon: 'warning',
+            title: '您非管理員身份！'
+          })
+          this.isProcessing = false
+          return
+        }
+
+        localStorage.setItem('token', data.token)
+        this.$router.push('/admin_main')
+      } catch (error) {
+        this.password = ''
+        this.isProcessing = false
+
+        Toast.fire({
+          icon: 'warning',
+          title: '請確認您輸入的帳號密碼'
+        })
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .logo {
@@ -89,6 +151,7 @@ input {
   border-radius: 0;
   background-color: #f5f8fa;
   border-bottom: 2px solid #657786;
+  outline: none;
 }
 .btn {
   position: relative;

@@ -2,7 +2,7 @@
   <form @submit.prevent.stop="handleSubmit($event)">
     <div class="row">
       <label for="account"
-        >帳號<span class="note ml-5">*帳號長度不得大於 50 字元</span></label
+        >帳號<span class="note ml-5">*帳號長度不得大於 20 字元</span></label
       >
       <input
         id="account"
@@ -10,7 +10,7 @@
         type="text"
         v-model="form.account"
         required
-        maxlength="50"
+        maxlength="20"
       />
     </div>
 
@@ -30,21 +30,21 @@
 
     <div class="row">
       <label for="email"
-        >Email<span class="note ml-5">*信箱長度不得大於 50 字元</span></label
+        >Email<span class="note ml-5">*信箱長度不得大於 20 字元</span></label
       >
       <input
         id="email"
         name="email"
         type="email"
         v-model="form.email"
-        maxlength="50"
+        maxlength="20"
         required
       />
     </div>
 
     <div class="row">
       <label for="password"
-        >密碼<span class="note ml-5">*密碼長度需介於 4 和 12 之間</span></label
+        >密碼<span class="note ml-5">*密碼長度需介於 5 和 15 之間</span></label
       >
       <input
         id="password"
@@ -52,13 +52,13 @@
         type="password"
         v-model="form.password"
         required
-        maxLength="12"
+        maxLength="15"
       />
     </div>
     <div class="row">
       <label for="passwordCheck"
         >密碼確認<span class="note ml-3"
-          >*密碼長度需介於 4 和 12 之間</span
+          >*密碼長度需介於 5 和 15 之間</span
         ></label
       >
       <input
@@ -99,8 +99,22 @@
 </template>
 
 <script>
+import { Toast } from '../utils/helpers'
+import authorizationAPI from '../apis/authorization'
+import usersAPI from '../apis/users'
+import { mapState } from 'vuex'
+
 export default {
   name: 'UserSettingForm',
+  props: {
+    isSignUp: {
+      type: Boolean,
+      default: true
+    }
+  },
+  created() {
+    this.fetchCurrentUser(this.currentUser)
+  },
   data() {
     return {
       form: {
@@ -109,8 +123,180 @@ export default {
         email: '',
         password: '',
         checkPassword: ''
+      },
+      isProcessing: false,
+      isSaved: true,
+      userChanged: false
+    }
+  },
+  methods: {
+    fetchCurrentUser(newVal) {
+      const { name, email, account } = newVal
+      this.form = {
+        ...this.form,
+        name,
+        email,
+        account
+      }
+    },
+    goBackToSignIn() {
+      this.$router.push('/signin')
+    },
+    handleSubmit(e) {
+      const formDataCheckResult = this.formDataCheck()
+
+      if (!formDataCheckResult) {
+        return (this.isProcessing = false)
+      }
+      if (this.isSignUp) {
+        this.handleSignUpSubmit(e)
+      } else {
+        this.handleSaveSetting(e)
+      }
+    },
+    formDataCheck() {
+      let result = false
+      if (!this.form.account) {
+        Toast.fire({
+          icon: 'info',
+          title: '請填寫帳號！'
+        })
+        return result
+      }
+      if (!this.form.name) {
+        Toast.fire({
+          icon: 'info',
+          title: '請填寫名稱！'
+        })
+        return result
+      }
+      if (!this.form.email) {
+        Toast.fire({
+          icon: 'info',
+          title: '請填寫 Email！'
+        })
+        return result
+      }
+      if (!this.form.password) {
+        Toast.fire({
+          icon: 'info',
+          title: '請填寫密碼！'
+        })
+        return result
+      }
+      if (this.form.password.length > 15 || this.form.password.length < 5) {
+        Toast.fire({
+          icon: 'info',
+          title: '密碼長度不得小於 5 或超過 15！'
+        })
+        return result
+      }
+      if (!this.form.checkPassword) {
+        Toast.fire({
+          icon: 'info',
+          title: '請填寫密碼確認！'
+        })
+        return result
+      }
+      if (this.form.password !== this.form.checkPassword) {
+        Toast.fire({
+          icon: 'error',
+          title: '密碼不相符！'
+        })
+        return result
+      }
+      console.log('Data check passed')
+      return (result = true)
+    },
+    async handleSignUpSubmit() {
+      try {
+        this.isProcessing = true
+
+        const formData = this.form
+
+        const { data } = await authorizationAPI.signUp(formData)
+
+        if (data.status !== 'success') {
+          throw new Error(data)
+        }
+
+        Toast.fire({
+          icon: 'success',
+          title: '註冊成功！'
+        })
+
+        this.$router.push('signin')
+      } catch (error) {
+        console.log(error)
+        let message = '無法註冊，請稍後再試！'
+        if (error.response.status === 409) {
+          message = '該 Email 已被註冊，請選擇其他 Email！'
+        }
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: message
+        })
+      }
+    },
+    async handleSaveSetting() {
+      const formDataCheckResult = this.formDataCheck()
+      if (!formDataCheckResult) {
+        return
+      }
+      try {
+        this.isProcessing = true
+        const userId = this.currentUser.id
+
+        const formData = {
+          ...this.form,
+          page: 'setting'
+        }
+
+        const { data } = await usersAPI.putUser(userId, formData)
+
+        console.log(data)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        Toast.fire({
+          icon: 'success',
+          title: '資料修改成功！'
+        })
+
+        this.isProcessing = false
+        this.isSaved = true
+        this.userChanged = true
+        this.form.password = ''
+        this.form.checkPassword = ''
+      } catch (error) {
+        console.log(error)
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法變更使用者資訊，請稍後再試！'
+        })
       }
     }
+  },
+  watch: {
+    currentUser(newVal) {
+      this.fetchCurrentUser(newVal)
+    },
+    form: {
+      handler: function () {
+        if (!this.userChanged) {
+          return (this.userChanged = true)
+        }
+        this.isSaved = false
+      },
+      deep: true
+    }
+  },
+  computed: {
+    ...mapState(['currentUser'])
   }
 }
 </script>
@@ -141,6 +327,7 @@ form {
   width: 100%;
   border: none;
   border-bottom: 2px solid #657786;
+  outline: none;
 }
 .note {
   font-size: 15px;
