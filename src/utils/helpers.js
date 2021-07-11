@@ -7,6 +7,26 @@ export const apiHelper = axios.create({
   baseURL
 })
 
+const axiosInstance = axios.create({
+  baseURL
+})
+
+axiosInstance.interceptors.request.use(
+  config => {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI1OTkyMjkyfQ.3hpb1tTBU3g5f6VtZTxLYOHLSfhU3-JO8lWKNEFA7Ts'
+    // const token = localStorage.getItem('token')
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  err => Promise.reject(err)
+)
+
+export const apiHelper = axiosInstance
+
 export const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',

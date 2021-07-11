@@ -40,7 +40,7 @@ const routes = [
   },
   {
     path: '/main',
-    name: 'Main',
+    name: 'main',
     component: Main
   },
   {
@@ -81,7 +81,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  // linkExactActiveClass: 'active',
+  linkExactActiveClass: 'btn-sideNavActive',
   routes
 })
 
