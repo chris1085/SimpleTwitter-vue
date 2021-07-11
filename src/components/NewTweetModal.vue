@@ -73,15 +73,19 @@ export default {
   methods: {
     async handleSubmit(e) {
       try {
+        this.isProcessing = true
+
         const content = { description: this.newTweetContent }
         const { data } = await tweetsAPI.newTweet.create(content)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
-        this.$router.push({ name: 'main' })
         this.newTweetContent = ''
+        this.isProcessing = false
+        this.$router.push({ name: 'main' })
       } catch (error) {
+        this.isProcessing = false
         Toast.fire({
           icon: 'error',
           title: '無法送出推文，請稍後再試'

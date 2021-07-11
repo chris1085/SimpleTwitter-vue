@@ -5,21 +5,32 @@
     <section class="main-container">
       <header><h3 class="font-bold">首頁</h3></header>
       <div class="main-tweet">
-        <div class="content d-flex">
-          <img class="content-img rounded" :src="avatar | emptyImage" alt="" />
-          <textarea
-            class="content-tweet"
-            name="newTweet"
-            id="newTweet"
-            cols="30"
-            placeholder="有什麼新鮮事嗎？"
-          ></textarea>
-        </div>
-        <div class="btn-container">
-          <button class="btn btn-primary btn-tweet">
-            推文
-          </button>
-        </div>
+        <form @submit.stop.prevent="handleSubmit">
+          <div class="content d-flex">
+            <img
+              class="content-img rounded"
+              :src="avatar | emptyImage"
+              alt=""
+            />
+            <textarea
+              v-model="newTweetContent"
+              class="content-tweet"
+              name="newTweet"
+              id="newTweet"
+              cols="30"
+              placeholder="有什麼新鮮事嗎？"
+            ></textarea>
+          </div>
+          <div class="btn-container">
+            <button
+              type="submit"
+              class="btn btn-primary btn-tweet"
+              :disabled="isProcessing"
+            >
+              推文
+            </button>
+          </div>
+        </form>
       </div>
       <MainTweetsCard :is-reply-page="isReplyPage" :init-tweets="tweets" />
     </section>
@@ -52,22 +63,10 @@ export default {
   },
   data() {
     return {
+      newTweetContent: '',
       isReplyPage: false,
-      image: null,
+      isProcessing: false,
       tweets: [],
-      currentUser: {
-        id: -1,
-        name: '',
-        account: '',
-        email: '',
-        role: '',
-        introduction: '',
-        avatar: '',
-        cover: '',
-        tweetsCount: 0,
-        followingCount: 0,
-        followerCount: 0
-      },
       avatar: ''
     }
   },
@@ -92,6 +91,27 @@ export default {
         Toast.fire({
           icon: 'error',
           title: '無法取得推文資料，請稍後再試'
+        })
+      }
+    },
+    async handleSubmit(e) {
+      try {
+        this.isProcessing = true
+
+        const content = { description: this.newTweetContent }
+        const { data } = await tweetsAPI.newTweet.create(content)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+        this.newTweetContent = ''
+        this.isProcessing = false
+        this.fetchTweets()
+      } catch (error) {
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法送出推文，請稍後再試'
         })
       }
     }
