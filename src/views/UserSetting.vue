@@ -7,7 +7,7 @@
       <div class="title">
         <h1>帳戶設定</h1>
       </div>
-      <UserSettingForm />
+      <UserSettingForm :isSignUp="isSignUp" />
     </div>
   </div>
 </template>
@@ -21,6 +21,11 @@ export default {
   components: {
     SideNavBar,
     UserSettingForm
+  },
+  data() {
+    return {
+      isSignUp: false
+    }
   }
 }
 </script>

@@ -1,10 +1,10 @@
 import { apiHelper } from './../utils/helpers'
 
 export default {
-  signIn(payload) {
-    return apiHelper.post('/users/signin', payload)
+  putUser(userId, payload) {
+    return apiHelper.put(`/users/${userId}`, payload)
   },
-  signUp(payload) {
+  setUser(payload) {
     return apiHelper.post('/users', payload)
   }
 }

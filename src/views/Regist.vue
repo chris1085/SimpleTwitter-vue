@@ -7,15 +7,21 @@
       <h1>建立你的帳號</h1>
     </div>
     <!-- UserSettingForm -->
-    <UserSettingForm />
+    <UserSettingForm :isSignUp="isSignUp" />
   </div>
 </template>
 
 <script>
 import UserSettingForm from '../components/UserSettingForm.vue'
+
 export default {
   name: 'Regist',
-  components: { UserSettingForm }
+  components: { UserSettingForm },
+  data() {
+    return {
+      isSignUp: true
+    }
+  }
 }
 </script>
 

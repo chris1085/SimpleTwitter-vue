@@ -161,6 +161,7 @@ input {
   width: 100%;
   border: none;
   border-bottom: 2px solid #657786;
+  outline: none;
 }
 .btn {
   width: 100%;
@@ -179,7 +180,8 @@ button.signin {
 }
 .link-btns {
   position: absolute;
-  right: 0;
+  left: 340px;
+  top: 10px;
 }
 .routerLink {
   font-weight: 700;
