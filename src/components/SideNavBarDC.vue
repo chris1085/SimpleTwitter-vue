@@ -49,7 +49,7 @@
         >
       </div>
     </div>
-    <NewTweetModal />
+    <NewTweetModal :avatar="avatar" />
   </div>
 </template>
 
@@ -58,6 +58,12 @@ import NewTweetModal from '../components/NewTweetModal.vue'
 
 export default {
   name: 'SideNavBarDC',
+  props: {
+    avatar: {
+      type: String,
+      required: true
+    }
+  },
   components: { NewTweetModal },
   methods: {
     logout() {
