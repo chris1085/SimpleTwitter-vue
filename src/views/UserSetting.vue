@@ -1,7 +1,7 @@
 <template>
   <div id="UserSetting">
     <!-- SideNavBar -->
-    <SideNavBar />
+    <SideNavBarDC />
     <!-- Header -->
     <div class="header">
       <div class="title">
@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import SideNavBar from '../components/SideNavBar.vue'
+import SideNavBarDC from '../components/SideNavBarDC.vue'
 import UserSettingForm from '../components/UserSettingForm.vue'
 
 export default {
   name: 'UserSetting',
   components: {
-    SideNavBar,
+    SideNavBarDC,
     UserSettingForm
   }
 }

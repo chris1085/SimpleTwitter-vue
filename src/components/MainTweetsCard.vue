@@ -1,26 +1,29 @@
 <template>
   <div>
     <ul class="tweets">
-      <li class="tweet d-flex">
-        <div class="tweet-img-container">
+      <li
+        class="tweet d-flex"
+        v-for="(tweet, index) in initTweets"
+        :key="index"
+      >
+        <router-link :to="`/user/${tweet.id}`" class="tweet-img-container">
           <img
-            src="https://fakeimg.pl/50x50"
+            :src="tweet.avatar | emptyImage"
             alt=""
             class="tweet-img rounded"
           />
-        </div>
+        </router-link>
         <div class="tweet-content-container d-flex flex-column">
           <div class="tweet-header d-flex">
-            <span class="tweet-userName">Apple</span
-            ><span class="tweet-userInfo">@apple・3小時</span>
+            <router-link :to="`/user/${tweet.id}`" class="tweet-userName">{{
+              tweet.name
+            }}</router-link
+            ><span class="tweet-userInfo"
+              >@{{ tweet.account }}・{{ tweet.createdAt | fromNow }}</span
+            >
           </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
           <p class="tweet-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
-            nihil iure molestiae nostrum nisi atque voluptates assumenda labore
-            explicabo sunt?
+            {{ tweet.description }}
           </p>
           <div class="tweet-icons-container d-flex">
             <a
@@ -28,220 +31,10 @@
               class="tweet-icon"
               data-bs-toggle="modal"
               data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i>13</a
+              ><i class="far fa-comment mr-3"></i>{{ tweet.repliedCount }}</a
             >
             <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>76</a
-            >
-          </div>
-        </div>
-      </li>
-      <li class="tweet d-flex">
-        <div class="tweet-img-container">
-          <img
-            src="https://fakeimg.pl/50x50"
-            alt=""
-            class="tweet-img rounded"
-          />
-        </div>
-        <div class="tweet-content-container d-flex flex-column">
-          <div class="tweet-header d-flex">
-            <span class="tweet-userName">Apple</span
-            ><span class="tweet-userInfo">@apple・3小時</span>
-          </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
-          <p class="tweet-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
-            nihil iure molestiae nostrum nisi atque voluptates assumenda labore
-            explicabo sunt?
-          </p>
-          <div class="tweet-icons-container d-flex">
-            <a
-              href=""
-              class="tweet-icon"
-              data-bs-toggle="modal"
-              data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i>13</a
-            >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>76</a
-            >
-          </div>
-        </div>
-      </li>
-      <li class="tweet d-flex">
-        <div class="tweet-img-container">
-          <img
-            src="https://fakeimg.pl/50x50"
-            alt=""
-            class="tweet-img rounded"
-          />
-        </div>
-        <div class="tweet-content-container d-flex flex-column">
-          <div class="tweet-header d-flex">
-            <span class="tweet-userName">Apple</span
-            ><span class="tweet-userInfo">@apple・3小時</span>
-          </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
-          <p class="tweet-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
-            nihil iure molestiae nostrum nisi atque voluptates assumenda labore
-            explicabo sunt?
-          </p>
-          <div class="tweet-icons-container d-flex">
-            <a
-              href=""
-              class="tweet-icon"
-              data-bs-toggle="modal"
-              data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i>13</a
-            >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>76</a
-            >
-          </div>
-        </div>
-      </li>
-      <li class="tweet d-flex">
-        <div class="tweet-img-container">
-          <img
-            src="https://fakeimg.pl/50x50"
-            alt=""
-            class="tweet-img rounded"
-          />
-        </div>
-        <div class="tweet-content-container d-flex flex-column">
-          <div class="tweet-header d-flex">
-            <span class="tweet-userName">Apple</span
-            ><span class="tweet-userInfo">@apple・3小時</span>
-          </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
-          <p class="tweet-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
-            nihil iure molestiae nostrum nisi atque voluptates assumenda labore
-            explicabo sunt?
-          </p>
-          <div class="tweet-icons-container d-flex">
-            <a
-              href=""
-              class="tweet-icon"
-              data-bs-toggle="modal"
-              data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i>13</a
-            >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>76</a
-            >
-          </div>
-        </div>
-      </li>
-      <li class="tweet d-flex">
-        <div class="tweet-img-container">
-          <img
-            src="https://fakeimg.pl/50x50"
-            alt=""
-            class="tweet-img rounded"
-          />
-        </div>
-        <div class="tweet-content-container d-flex flex-column">
-          <div class="tweet-header d-flex">
-            <span class="tweet-userName">Apple</span
-            ><span class="tweet-userInfo">@apple・3小時</span>
-          </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
-          <p class="tweet-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
-            nihil iure molestiae nostrum nisi atque voluptates assumenda labore
-            explicabo sunt?
-          </p>
-          <div class="tweet-icons-container d-flex">
-            <a
-              href=""
-              class="tweet-icon"
-              data-bs-toggle="modal"
-              data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i>13</a
-            >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>76</a
-            >
-          </div>
-        </div>
-      </li>
-      <li class="tweet d-flex">
-        <div class="tweet-img-container">
-          <img
-            src="https://fakeimg.pl/50x50"
-            alt=""
-            class="tweet-img rounded"
-          />
-        </div>
-        <div class="tweet-content-container d-flex flex-column">
-          <div class="tweet-header d-flex">
-            <span class="tweet-userName">Apple</span
-            ><span class="tweet-userInfo">@apple・3小時</span>
-          </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
-          <p class="tweet-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
-            nihil iure molestiae nostrum nisi atque voluptates assumenda labore
-            explicabo sunt?
-          </p>
-          <div class="tweet-icons-container d-flex">
-            <a
-              href=""
-              class="tweet-icon"
-              data-bs-toggle="modal"
-              data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i>13</a
-            >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>76</a
-            >
-          </div>
-        </div>
-      </li>
-      <li class="tweet d-flex">
-        <div class="tweet-img-container">
-          <img
-            src="https://fakeimg.pl/50x50"
-            alt=""
-            class="tweet-img rounded"
-          />
-        </div>
-        <div class="tweet-content-container d-flex flex-column">
-          <div class="tweet-header d-flex">
-            <span class="tweet-userName">Apple</span
-            ><span class="tweet-userInfo">@apple・3小時</span>
-          </div>
-          <span class="tweet-replyFormat" v-if="isReplyPage"
-            >回覆<a class="ml-1" href="">@apple</a></span
-          >
-          <p class="tweet-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
-            nihil iure molestiae nostrum nisi atque voluptates assumenda labore
-            explicabo sunt?
-          </p>
-          <div class="tweet-icons-container d-flex">
-            <a
-              href=""
-              class="tweet-icon"
-              data-bs-toggle="modal"
-              data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i>13</a
-            >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>76</a
+              ><i class="far fa-heart mr-3"></i>{{ tweet.likedCount }}</a
             >
           </div>
         </div>
@@ -253,13 +46,19 @@
 
 <script>
 import RepliedModal from '../components/RepliedModal.vue'
+import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
 
 export default {
   name: 'MainTweetsCard',
   components: { RepliedModal },
+  mixins: [emptyImageFilter, fromNowFilter],
   props: {
     isReplyPage: {
       type: Boolean,
+      required: true
+    },
+    initTweets: {
+      type: Array,
       required: true
     }
   },

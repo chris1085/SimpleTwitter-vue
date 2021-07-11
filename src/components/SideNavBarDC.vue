@@ -43,13 +43,13 @@
       </div>
 
       <div class="logout-container">
-        <router-link to="/logout" class="logout-link d-flex align-items-center">
+        <a class="logout-link d-flex align-items-center" @click="logout">
           <div class="icon-container-logout"></div>
-          登出</router-link
+          登出</a
         >
       </div>
     </div>
-    <NewTweetModal />
+    <NewTweetModal :avatar="avatar" />
   </div>
 </template>
 
@@ -58,6 +58,18 @@ import NewTweetModal from '../components/NewTweetModal.vue'
 
 export default {
   name: 'SideNavBarDC',
-  components: { NewTweetModal }
+  props: {
+    avatar: {
+      type: String,
+      required: true
+    }
+  },
+  components: { NewTweetModal },
+  methods: {
+    logout() {
+      this.$store.commit('revokeAuthentication')
+      this.$router.push('/signin')
+    }
+  }
 }
 </script>
