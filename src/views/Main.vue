@@ -5,16 +5,19 @@
       :avatar="currentUser.avatar"
       @after-create-tweet="updateTweetCard"
     />
-    <section class="main-container">
+    <section class="main-container w-100">
       <header><h3 class="font-bold">首頁</h3></header>
       <div class="main-tweet">
         <form @submit.stop.prevent="handleSubmit">
           <div class="content d-flex">
-            <img
-              class="content-img rounded"
-              :src="currentUser.avatar | emptyImage"
-              alt=""
-            />
+            <router-link :to="`/user/${currentUser.id}`">
+              <img
+                class="content-img rounded"
+                :src="currentUser.avatar | emptyImage"
+                alt=""
+              />
+            </router-link>
+
             <textarea
               v-model="newTweetContent"
               class="content-tweet"
@@ -164,7 +167,5 @@ export default {
 header {
   padding: 15px;
   border-bottom: 1px solid #e6ecf0;
-  border-left: 1px solid #e6ecf0;
-  border-right: 1px solid #e6ecf0;
 }
 </style>

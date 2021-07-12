@@ -43,7 +43,7 @@
                   </p>
                   <span class="tweet-replyFormat"
                     >回覆<span class="ml-1 d-inline-block" href=""
-                      >@apple</span
+                      >@{{ initTweet.account }}</span
                     ></span
                   >
                 </div>
@@ -106,7 +106,9 @@ export default {
   data() {
     return {
       repliedContent: '',
-      isProcessing: false
+      isProcessing: false,
+      repliedCurrentUser: this.currentUser,
+      tweet: this.initTweet
     }
   },
   methods: {
@@ -129,7 +131,12 @@ export default {
         }
         this.repliedContent = ''
         this.isProcessing = false
-        this.$emit('after-create-comment')
+
+        const curTime = new Date()
+
+        const comment = { content: content.comment, curTime }
+
+        this.$emit('after-create-comment', comment)
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
