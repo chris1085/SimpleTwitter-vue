@@ -4,21 +4,21 @@
       <li
         class="tweetMenu-item text-center"
         :class="{ tweetActive: selected === 'tweeters' }"
-        @click="submitTweeter()"
+        @click.stop.prevent="changeNav('tweeters')"
       >
         推文
       </li>
       <li
         class="tweetMenu-item text-center"
         :class="{ tweetActive: selected === 'replies' }"
-        @click="selected = 'replies'"
+        @click.stop.prevent="changeNav('replies')"
       >
         推文回覆
       </li>
       <li
         class="tweetMenu-item text-center"
         :class="{ tweetActive: selected === 'favorites' }"
-        @click="submitFavorite()"
+        @click.stop.prevent="changeNav('favorites')"
       >
         喜歡的內容
       </li>
@@ -34,13 +34,9 @@ export default {
     }
   },
   methods: {
-    submitFavorite() {
-      this.selected = 'favorites'
-      this.$emit('changeNavPage', this.selected)
-    },
-    submitTweeter() {
-      this.selected = 'tweeters'
-      this.$emit('changeNavPageTweeter', this.selected)
+    changeNav(selected) {
+      this.selected = selected
+      this.$emit('changeNavPage', selected)
     }
   }
 }

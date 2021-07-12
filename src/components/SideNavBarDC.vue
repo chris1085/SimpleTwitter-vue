@@ -16,7 +16,7 @@
           </li>
           <li class="list-item">
             <router-link
-              to="/user/:id"
+              :to="`/user/${currentUser.id}`"
               class="list-link d-flex align-items-center"
             >
               <div class="icon-container-profile"></div>
@@ -49,7 +49,10 @@
         >
       </div>
     </div>
-    <NewTweetModal :avatar="avatar" @after-create-tweet="afterCreateTweet" />
+    <NewTweetModal
+      :currentUser="currentUser"
+      @after-create-tweet="afterCreateTweet"
+    />
   </div>
 </template>
 
@@ -59,8 +62,8 @@ import NewTweetModal from '../components/NewTweetModal.vue'
 export default {
   name: 'SideNavBarDC',
   props: {
-    avatar: {
-      type: String,
+    currentUser: {
+      type: Object,
       required: true
     }
   },

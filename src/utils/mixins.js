@@ -21,6 +21,9 @@ export const emptyImageFilter = {
   filters: {
     emptyImage(src) {
       return src || 'https://via.placeholder.com/400x400/DFDFDF?text=No+Image'
+    },
+    emptyCoverImage(src) {
+      return src || 'https://via.placeholder.com/1200x400/DFDFDF?text=No+Image'
     }
   }
 }

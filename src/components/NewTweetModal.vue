@@ -22,7 +22,11 @@
             </div>
             <div class="modal-body">
               <div class="content d-flex">
-                <img class="content-img" :src="avatar | emptyImage" alt="" />
+                <img
+                  class="content-img"
+                  :src="currentUser.avatar | emptyImage"
+                  alt=""
+                />
                 <textarea
                   v-model="newTweetContent"
                   class="content-tweet"
@@ -59,8 +63,8 @@ import { Toast } from '../utils/helpers'
 export default {
   mixins: [emptyImageFilter],
   props: {
-    avatar: {
-      type: String,
+    currentUser: {
+      type: Object,
       required: true
     }
   },

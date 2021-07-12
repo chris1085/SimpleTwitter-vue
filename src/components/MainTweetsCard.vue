@@ -58,7 +58,7 @@
 <script>
 import RepliedModal from '../components/RepliedModal.vue'
 import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
-import usersAPI from '../apis/users'
+import tweetsAPI from '../apis/tweets'
 import { Toast } from '../utils/helpers'
 
 export default {
@@ -95,7 +95,7 @@ export default {
     },
     async addLikes(tweet) {
       try {
-        const { data } = await usersAPI.addLike(tweet.id)
+        const { data } = await tweetsAPI.addLike(tweet.id)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
@@ -112,7 +112,7 @@ export default {
     },
     async deleteLikes(tweet) {
       try {
-        const { data } = await usersAPI.deleteLike(tweet.id)
+        const { data } = await tweetsAPI.deleteLike(tweet.id)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
