@@ -74,7 +74,7 @@
       <RepliedModal
         :init-tweet="tweet"
         :current-user="currentUser"
-        @after-create-comment="updateTweetCard"
+        @after-create-comment="updateTweet"
       />
     </div>
 
@@ -207,7 +207,7 @@ export default {
         })
       }
     },
-    updateTweetCard(repliedContent) {
+    updateTweet(repliedContent) {
       console.log(repliedContent)
       const reply = {
         avatar: this.currentUser.avatar,
@@ -218,9 +218,8 @@ export default {
         tweetAuthorAccount: this.tweet.account
       }
 
+      this.tweet.repliedCount += 1
       this.replies.unshift(reply)
-
-      console.log(reply)
     }
   },
   created() {
