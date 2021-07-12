@@ -1,10 +1,15 @@
 <template>
   <div class="d-flex">
-    <SideNavBarDC />
+    <SideNavBarDC
+      :avatar="currentUser.avatar"
+      @after-create-tweet="updateTweetCard"
+    />
 
     <div class="reply-container">
       <header class="d-flex align-items-center">
-        <a href="#" class="leftArrow"><i class="fas fa-arrow-left"></i></a>
+        <router-link to="/main" class="leftArrow"
+          ><i class="fas fa-arrow-left"></i
+        ></router-link>
         <h3 class="font-bold">推文</h3>
       </header>
       <section class="main-tweet">
@@ -47,32 +52,107 @@
           </div>
         </div>
       </section>
-      <MainTweetsCard :is-reply-page="isReplyPage" />
-      <RepliedModal />
+      <ReplyListCard :is-reply-page="isReplyPage" />
+      <RepliedModal
+        :init-tweet="tweet"
+        :current-user="currentUser"
+        @after-create-comment="updateTweetCard"
+      />
     </div>
 
-    <FollowingsCardDC />
+    <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
   </div>
 </template>
 
 <script>
-import MainTweetsCard from '../components/MainTweetsCard.vue'
+import ReplyListCard from '../components/ReplyListCard.vue'
 import RepliedModal from '../components/RepliedModal.vue'
 import FollowingsCardDC from '../components/FollowingsCardDC.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
+import tweetsAPI from '../apis/tweets'
+import usersAPI from '../apis/users'
+import { Toast } from '../utils/helpers'
+import { emptyImageFilter } from '../utils/mixins'
 
 export default {
   name: 'ReplyList',
+  mixins: [emptyImageFilter],
   components: {
-    MainTweetsCard,
+    ReplyListCard,
     RepliedModal,
     FollowingsCardDC,
     SideNavBarDC
   },
   data() {
     return {
-      isReplyPage: true
+      isReplyPage: true,
+      topUsers: [],
+      currentUser: {
+        avatar: '',
+        id: -1
+      },
+      tweet: {},
+      replies: []
     }
+  },
+  methods: {
+    async getCurrentUser() {
+      try {
+        const response = await usersAPI.getCurrentUser()
+        const { avatar, id } = response.data
+        this.currentUser.avatar = avatar
+        this.currentUser.id = id
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得當前使用者，請稍後再試'
+        })
+      }
+    },
+    async getTopUser() {
+      try {
+        const response = await usersAPI.getTopUsers()
+        this.topUsers = response.data.users
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得Top跟隨者'
+        })
+      }
+    },
+    async getRepies() {
+      try {
+        const { id } = this.$route.params
+        const { data } = await tweetsAPI.getRepies(id)
+        // console.log(data)
+        this.replies = data
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: error
+        })
+      }
+    },
+    async getTweet() {
+      try {
+        const { id } = this.$route.params
+        const { data } = await tweetsAPI.getRepies(id)
+        // console.log(data)
+        this.replies = data
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: error
+        })
+      }
+    },
+    updateTweetCard() {}
+  },
+  created() {
+    this.getRepies()
+    this.getTweet()
+    this.getTopUser()
+    this.getCurrentUser()
   }
 }
 </script>

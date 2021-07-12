@@ -54,7 +54,6 @@ import SideNavBarDC from '../components/SideNavBarDC.vue'
 import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
-// import followersAPI from '../apis/followers'
 import { Toast } from '../utils/helpers'
 
 export default {

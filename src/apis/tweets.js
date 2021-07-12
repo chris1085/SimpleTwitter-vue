@@ -4,6 +4,9 @@ export default {
   getTweets() {
     return apiHelper.get('/tweets')
   },
+  getRepies(replyId) {
+    return apiHelper.get(`/tweets/${replyId}/replies`)
+  },
   newTweet: {
     create(formData) {
       return apiHelper.post('/tweets', formData)
