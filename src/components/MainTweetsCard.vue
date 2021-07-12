@@ -1,11 +1,7 @@
 <template>
   <div>
     <ul class="tweets">
-      <li
-        class="tweet d-flex"
-        v-for="(tweet, index) in initTweets"
-        :key="index"
-      >
+      <li class="tweet d-flex" v-for="(tweet, index) in tweets" :key="index">
         <router-link :to="`/user/${tweet.id}`" class="tweet-img-container">
           <img
             :src="tweet.avatar | emptyImage"
@@ -34,8 +30,18 @@
               @click.stop.prevent="handleRepliedContent(tweet)"
               ><i class="far fa-comment mr-3"></i>{{ tweet.repliedCount }}</a
             >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>{{ tweet.likedCount }}</a
+            <span
+              class="tweet-icon"
+              v-if="!tweet.isLike"
+              @click.stop.prevent="addLikes(tweet)"
+              ><i class="far fa-heart mr-3"></i>{{ tweet.likedCount }}</span
+            >
+            <span
+              class="tweet-icon pink"
+              v-else
+              @click.stop.prevent="deleteLikes(tweet)"
+              ><i class="fas fa-heart mr-3 pink"></i
+              >{{ tweet.likedCount }}</span
             >
           </div>
         </div>
@@ -52,6 +58,8 @@
 <script>
 import RepliedModal from '../components/RepliedModal.vue'
 import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
+import usersAPI from '../apis/users'
+import { Toast } from '../utils/helpers'
 
 export default {
   name: 'MainTweetsCard',
@@ -69,7 +77,13 @@ export default {
   },
   data() {
     return {
+      tweets: this.initTweets,
       tweet: {}
+    }
+  },
+  watch: {
+    initTweets(newValue) {
+      this.tweets = [...this.tweets, ...newValue]
     }
   },
   methods: {
@@ -78,6 +92,40 @@ export default {
     },
     afterCreateComment() {
       this.$emit('after-create-comment')
+    },
+    async addLikes(tweet) {
+      try {
+        const { data } = await usersAPI.addLike(tweet.id)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        tweet.isLike = !tweet.isLike
+        tweet.likedCount += 1
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法喜愛這則推文，請稍後再試'
+        })
+      }
+    },
+    async deleteLikes(tweet) {
+      try {
+        const { data } = await usersAPI.deleteLike(tweet.id)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        tweet.isLike = !tweet.isLike
+        tweet.likedCount -= 1
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取消喜愛這則推文，請稍後再試'
+        })
+      }
     }
   }
 }

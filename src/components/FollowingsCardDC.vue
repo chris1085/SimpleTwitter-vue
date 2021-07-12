@@ -83,8 +83,6 @@ export default {
       try {
         const { data } = await usersAPI.addFollowing({ userId })
 
-        console.log('data', data)
-
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
@@ -103,7 +101,7 @@ export default {
       } catch (error) {
         Toast.fire({
           icon: 'error',
-          title: error
+          title: '無法追隨，請稍後再試'
         })
       }
     },
