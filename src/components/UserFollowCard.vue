@@ -24,7 +24,7 @@
               type="button"
               class="btn btn-primary btn-follow"
               v-if="follow.isFollowed"
-              @click.stop.prevent="deleteFollowing(user.id)"
+              @click.stop.prevent="deleteFollowing(follow.id)"
             >
               正在跟隨
             </button>
@@ -32,7 +32,7 @@
               type="button"
               class="btn btn-outline-primary btn-follow"
               v-if="!follow.isFollowed"
-              @click.stop.prevent="addFollowing(user.id)"
+              @click.stop.prevent="addFollowing(follow.id)"
             >
               跟隨
             </button>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import usersAPI from '../apis/users'
+// import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 export default {
@@ -72,22 +72,23 @@ export default {
   methods: {
     async addFollowing(userId) {
       try {
-        const { data } = await usersAPI.addFollowing({ userId })
+        console.log(userId)
+        // const { data } = await usersAPI.addFollowing({ userId })
 
-        if (data.status !== 'success') {
-          throw new Error(data.message)
-        }
+        // if (data.status !== 'success') {
+        //   throw new Error(data.message)
+        // }
 
-        this.follows = this.follows.map(follow => {
-          if (follow.id !== userId) {
-            return follow
-          } else {
-            return {
-              ...follow,
-              isFollowed: true
-            }
-          }
-        })
+        // this.follows = this.follows.map(follow => {
+        //   if (follow.id !== userId) {
+        //     return follow
+        //   } else {
+        //     return {
+        //       ...follow,
+        //       isFollowed: true
+        //     }
+        //   }
+        // })
       } catch (error) {
         Toast.fire({
           icon: 'error',
@@ -98,12 +99,11 @@ export default {
     },
     async deleteFollowing(userId) {
       try {
-        const { data } = await usersAPI.deleteFollowing({ userId })
-
-        if (data.status !== 'success') {
-          throw new Error(data.message)
-        }
-
+        console.log(userId)
+        // const { data } = await usersAPI.deleteFollowing({ userId })
+        // if (data.status !== 'success') {
+        //   throw new Error(data.message)
+        // }
         // this.user.followerCount -= 1
         // this.user.isFollowed = false
       } catch (error) {

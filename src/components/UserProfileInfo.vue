@@ -31,11 +31,11 @@
         <span class="content-userId">@{{ user.account }}</span
         ><span class="content-intro">{{ user.introduction }}</span>
         <div class="follow-container d-flex">
-          <router-link class="follow-link" :to="`/user/${user.id}/following`"
+          <router-link class="follow-link" :to="`/user/${user.id}/follow`"
             >{{ user.followingCount }} 個<span class="follow-unit"
               >跟隨中</span
             ></router-link
-          ><router-link class="follow-link" :to="`/user/${user.id}/follower`"
+          ><router-link class="follow-link" :to="`/user/${user.id}/follow`"
             >{{ user.followerCount }} 位<span class="follow-unit"
               >跟隨者</span
             ></router-link
