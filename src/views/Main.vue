@@ -2,7 +2,7 @@
   <div class="d-flex">
     <!-- <SideNavBar /> -->
     <SideNavBarDC
-      :avatar="currentUser.avatar"
+      :current-user="currentUser"
       @after-create-tweet="updateTweetCard"
     />
     <section class="main-container w-100">

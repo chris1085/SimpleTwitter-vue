@@ -18,5 +18,11 @@ export default {
   repliedTweet(formData) {
     const { content, tweetId } = formData
     return apiHelper.post(`/tweets/${tweetId}/replies`, content)
+  },
+  addLike(userId) {
+    return apiHelper.post(`/tweets/${userId}/like`, null)
+  },
+  deleteLike(userId) {
+    return apiHelper.post(`/tweets/${userId}/unlike`)
   }
 }

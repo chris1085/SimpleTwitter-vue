@@ -4,7 +4,7 @@ export default {
   getCurrentUser() {
     return apiHelper.get('/users/current')
   },
-  get({ userId = '' } = {}) {
+  get(userId) {
     return apiHelper.get(`/users/${userId}`)
   },
   putUser(userId, payload) {
@@ -25,17 +25,17 @@ export default {
   deleteFavorite({ restaurantId }) {
     return apiHelper.delete(`/favorite/${restaurantId}`)
   },
-  addLike(userId) {
-    return apiHelper.post(`/tweets/${userId}/like`, null)
-  },
-  deleteLike(userId) {
-    return apiHelper.post(`/tweets/${userId}/unlike`)
-  },
   addFollowing({ userId }) {
     const id = { id: userId }
     return apiHelper.post('/followships', id)
   },
   deleteFollowing({ userId }) {
     return apiHelper.delete(`/followships/${userId}`)
+  },
+  getFollowings(userId) {
+    return apiHelper.get(`/users/${userId}/followings`)
+  },
+  getFollowers(userId) {
+    return apiHelper.get(`/users/${userId}/followers`)
   }
 }

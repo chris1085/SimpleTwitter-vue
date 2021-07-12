@@ -5,10 +5,36 @@
       @after-create-tweet="updateTweetCard"
     />
 
-    <div class="userProfile-container">
-      <user-profile-info :init-user="user" :current-user="currentUser" />
-      <user-profile-Nav @changeNavPage="changeNavPage" />
-      <user-profile-card :init-is-favorite="isFavorite" />
+    <div class="userFollower-container w-100">
+      <header class="">
+        <div class="d-flex align-items-center">
+          <router-link :to="`/user/${user.id}`" class="leftArrow"
+            ><i class="fas fa-arrow-left"></i
+          ></router-link>
+          <div class="header-title">
+            <h3 class="font-bold">{{ user.name }}</h3>
+            <span class="subInfo">{{ user.tweetCount }}推文</span>
+          </div>
+        </div>
+      </header>
+      <ul class="followMenu d-flex">
+        <li
+          class="followMenu-item"
+          :class="{ followActive: selected === 'UserFollowers' }"
+          @click.stop.prevent="fetchFollowed('UserFollowers', user.id)"
+        >
+          跟隨者
+        </li>
+        <li
+          class="followMenu-item"
+          :class="{ followActive: selected === 'UserFollowings' }"
+          @click.stop.prevent="fetchFollowed('UserFollowings', user.id)"
+        >
+          正在跟隨
+        </li>
+      </ul>
+
+      <UserFollowCard :init-follows="follows" />
     </div>
 
     <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
@@ -16,29 +42,24 @@
 </template>
 
 <script>
-import UserProfileInfo from '../components/UserProfileInfo.vue'
-import UserProfileNav from '../components/UserProfileNav.vue'
-import UserProfileCard from '../components/UserProfileCard.vue'
+import UserFollowCard from '../components/UserFollowCard.vue'
 import FollowingsCardDC from '../components/FollowingsCardDC.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
-// import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 
 export default {
-  name: 'UserProfile',
+  name: 'UserFollowers',
   mixins: [emptyImageFilter, dateFilter],
   components: {
-    UserProfileInfo,
-    UserProfileNav,
-    UserProfileCard,
+    UserFollowCard,
     FollowingsCardDC,
     SideNavBarDC
   },
   data() {
     return {
-      isFavorite: false,
+      selected: 'followers',
       topUsers: [],
       currentUser: {
         avatar: '',
@@ -57,7 +78,8 @@ export default {
         isFollowed: false,
         name: '',
         tweetCount: 0
-      }
+      },
+      follows: []
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -67,13 +89,6 @@ export default {
     next()
   },
   methods: {
-    changeNavPage(selected) {
-      if (selected === 'favorites') {
-        this.isFavorite = true
-      } else {
-        this.isFavorite = false
-      }
-    },
     async getCurrentUser() {
       try {
         const response = await usersAPI.getCurrentUser()
@@ -138,10 +153,28 @@ export default {
         })
       }
     },
+    async fetchFollowed(followType, userId) {
+      try {
+        this.selected = followType
+        const functionName =
+          followType === 'UserFollowings' ? 'getFollowings' : 'getFollowers'
+        const { data } = await usersAPI[functionName](userId)
+
+        this.follows = data.message ? [] : data
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得跟隨資料，請稍後再試'
+        })
+      }
+    },
     updateTweetCard() {}
   },
   created() {
+    const { name } = this.$route
     const { id } = this.$route.params
+    this.selected = name
+    this.fetchFollowed(name, id)
     this.getTopUser()
     this.getCurrentUser()
     this.getUser(id)
@@ -149,4 +182,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+header {
+  padding: 6px 20px 10px 20px;
+}
+</style>
