@@ -8,6 +8,15 @@ export const fromNowFilter = {
   }
 }
 
+export const dateFilter = {
+  filters: {
+    customizeDate(datetime) {
+      moment.locale('zh-tw')
+      return datetime ? moment(datetime).format('A HH:MM・YYYY年MM月DD日') : '-'
+    }
+  }
+}
+
 export const emptyImageFilter = {
   filters: {
     emptyImage(src) {

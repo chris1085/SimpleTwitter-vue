@@ -1,6 +1,8 @@
 .main-container {
   margin-left: 378px;
   margin-right: 476px;
+  min-height: 100vh;
+  border-right: 1px solid $border-color;
 }
 
 .main-tweet {
@@ -10,8 +12,8 @@
   padding-right: 15px;
   min-height: 120px;
   border-bottom: 10px solid #e6ecf0;
-  border-left: 1px solid #e6ecf0;
-  border-right: 1px solid #e6ecf0;
+  // border-left: 1px solid #e6ecf0;
+  // border-right: 1px solid #e6ecf0;
 
   .content {
     padding-top: 10px;
@@ -66,8 +68,8 @@
     padding-top: 10px;
     padding-bottom: 14px;
     border-bottom: 1px solid #e6ecf0;
-    border-left: 1px solid #e6ecf0;
-    border-right: 1px solid #e6ecf0;
+    // border-left: 1px solid #e6ecf0;
+    // border-right: 1px solid #e6ecf0;
   }
 
   .tweet-img {
@@ -105,7 +107,7 @@
     padding-bottom: 5px;
     color: #657786;
 
-    a {
+    .reply-name {
       color: $btn-primary-color;
     }
   }
