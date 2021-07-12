@@ -1,43 +1,60 @@
 <template>
   <div class="d-flex">
     <!-- <SideNavBar /> -->
-    <SideNavBarDC :avatar="avatar" />
+    <SideNavBarDC
+      :avatar="currentUser.avatar"
+      @after-create-tweet="updateTweetCard"
+    />
     <section class="main-container">
       <header><h3 class="font-bold">首頁</h3></header>
       <div class="main-tweet">
-        <div class="content d-flex">
-          <img class="content-img rounded" :src="avatar | emptyImage" alt="" />
-          <textarea
-            class="content-tweet"
-            name="newTweet"
-            id="newTweet"
-            cols="30"
-            placeholder="有什麼新鮮事嗎？"
-          ></textarea>
-        </div>
-        <div class="btn-container">
-          <button class="btn btn-primary btn-tweet">
-            推文
-          </button>
-        </div>
+        <form @submit.stop.prevent="handleSubmit">
+          <div class="content d-flex">
+            <img
+              class="content-img rounded"
+              :src="currentUser.avatar | emptyImage"
+              alt=""
+            />
+            <textarea
+              v-model="newTweetContent"
+              class="content-tweet"
+              name="newTweet"
+              id="newTweet"
+              cols="30"
+              placeholder="有什麼新鮮事嗎？"
+            ></textarea>
+          </div>
+          <div class="btn-container">
+            <button
+              type="submit"
+              class="btn btn-primary btn-tweet"
+              :disabled="isProcessing"
+            >
+              推文
+            </button>
+          </div>
+        </form>
       </div>
-      <MainTweetsCard :is-reply-page="isReplyPage" :init-tweets="tweets" />
+      <MainTweetsCard
+        :is-reply-page="isReplyPage"
+        :init-tweets="tweets"
+        :current-user="currentUser"
+        @after-create-comment="updateTweetCard"
+      />
     </section>
 
-    <FollowingsCardDC />
+    <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
   </div>
 </template>
 
 <script>
 import MainTweetsCard from '../components/MainTweetsCard.vue'
-// import FollowingsCard from '../components/FollowingsCard.vue'
 import FollowingsCardDC from '../components/FollowingsCardDC.vue'
-
-// import SideNavBar from '../components/SideNavBar.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
+// import followersAPI from '../apis/followers'
 import { Toast } from '../utils/helpers'
 
 export default {
@@ -52,31 +69,24 @@ export default {
   },
   data() {
     return {
+      newTweetContent: '',
+      topUsers: [],
       isReplyPage: false,
-      image: null,
+      isProcessing: false,
       tweets: [],
       currentUser: {
-        id: -1,
-        name: '',
-        account: '',
-        email: '',
-        role: '',
-        introduction: '',
         avatar: '',
-        cover: '',
-        tweetsCount: 0,
-        followingCount: 0,
-        followerCount: 0
-      },
-      avatar: ''
+        id: -1
+      }
     }
   },
   methods: {
     async getCurrentUser() {
       try {
         const response = await usersAPI.getCurrentUser()
-        const { avatar } = response.data
-        this.avatar = avatar
+        const { avatar, id } = response.data
+        this.currentUser.avatar = avatar
+        this.currentUser.id = id
       } catch (error) {
         Toast.fire({
           icon: 'error',
@@ -94,11 +104,54 @@ export default {
           title: '無法取得推文資料，請稍後再試'
         })
       }
+    },
+    async handleSubmit(e) {
+      try {
+        this.isProcessing = true
+
+        if (
+          this.newTweetContent.trim().length === 0 ||
+          this.newTweetContent.trim().length > 140
+        ) {
+          throw new Error('無法送出空白或超過140字數的文章')
+        }
+
+        const content = { description: this.newTweetContent }
+        const { data } = await tweetsAPI.newTweet.create(content)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+        this.newTweetContent = ''
+        this.isProcessing = false
+        this.fetchTweets()
+      } catch (error) {
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: error
+        })
+      }
+    },
+    async getTopUser() {
+      try {
+        const response = await usersAPI.getTopUsers()
+        this.topUsers = response.data.users
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得Top跟隨者'
+        })
+      }
+    },
+    updateTweetCard() {
+      this.fetchTweets()
     }
   },
   created() {
     this.fetchTweets()
     this.getCurrentUser()
+    this.getTopUser()
 
     localStorage.setItem(
       'token',

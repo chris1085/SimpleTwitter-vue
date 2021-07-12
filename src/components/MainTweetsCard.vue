@@ -1,11 +1,7 @@
 <template>
   <div>
     <ul class="tweets">
-      <li
-        class="tweet d-flex"
-        v-for="(tweet, index) in initTweets"
-        :key="index"
-      >
+      <li class="tweet d-flex" v-for="(tweet, index) in tweets" :key="index">
         <router-link :to="`/user/${tweet.id}`" class="tweet-img-container">
           <img
             :src="tweet.avatar | emptyImage"
@@ -13,7 +9,7 @@
             class="tweet-img rounded"
           />
         </router-link>
-        <div class="tweet-content-container d-flex flex-column">
+        <div class="tweet-content-container d-flex flex-column w-100">
           <div class="tweet-header d-flex">
             <router-link :to="`/user/${tweet.id}`" class="tweet-userName">{{
               tweet.name
@@ -22,54 +18,114 @@
               >@{{ tweet.account }}・{{ tweet.createdAt | fromNow }}</span
             >
           </div>
-          <p class="tweet-content">
+          <router-link :to="`/reply_list/${tweet.id}`" class="tweet-content">
             {{ tweet.description }}
-          </p>
+          </router-link>
           <div class="tweet-icons-container d-flex">
             <a
               href=""
               class="tweet-icon"
               data-bs-toggle="modal"
               data-bs-target="#repliedModal"
+              @click.stop.prevent="handleRepliedContent(tweet)"
               ><i class="far fa-comment mr-3"></i>{{ tweet.repliedCount }}</a
             >
-            <a href="#" class="tweet-icon"
-              ><i class="far fa-heart mr-3"></i>{{ tweet.likedCount }}</a
+            <span
+              class="tweet-icon"
+              v-if="!tweet.isLike"
+              @click.stop.prevent="addLikes(tweet)"
+              ><i class="far fa-heart mr-3"></i>{{ tweet.likedCount }}</span
+            >
+            <span
+              class="tweet-icon pink"
+              v-else
+              @click.stop.prevent="deleteLikes(tweet)"
+              ><i class="fas fa-heart mr-3 pink"></i
+              >{{ tweet.likedCount }}</span
             >
           </div>
         </div>
       </li>
     </ul>
-    <RepliedModal />
+    <RepliedModal
+      :init-tweet="tweet"
+      :current-user="currentUser"
+      @after-create-comment="afterCreateComment"
+    />
   </div>
 </template>
 
 <script>
 import RepliedModal from '../components/RepliedModal.vue'
 import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
+import usersAPI from '../apis/users'
+import { Toast } from '../utils/helpers'
 
 export default {
   name: 'MainTweetsCard',
   components: { RepliedModal },
   mixins: [emptyImageFilter, fromNowFilter],
   props: {
-    isReplyPage: {
-      type: Boolean,
-      required: true
-    },
     initTweets: {
       type: Array,
+      required: true
+    },
+    currentUser: {
+      type: Object,
       required: true
     }
   },
   data() {
     return {
-      modalOpen: false
+      tweets: this.initTweets,
+      tweet: {}
+    }
+  },
+  watch: {
+    initTweets(newValue) {
+      this.tweets = [...this.tweets, ...newValue]
     }
   },
   methods: {
-    openModal() {
-      this.modalOpen = !this.modalOpen
+    handleRepliedContent(tweet) {
+      this.tweet = tweet
+    },
+    afterCreateComment() {
+      this.$emit('after-create-comment')
+    },
+    async addLikes(tweet) {
+      try {
+        const { data } = await usersAPI.addLike(tweet.id)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        tweet.isLike = !tweet.isLike
+        tweet.likedCount += 1
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法喜愛這則推文，請稍後再試'
+        })
+      }
+    },
+    async deleteLikes(tweet) {
+      try {
+        const { data } = await usersAPI.deleteLike(tweet.id)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        tweet.isLike = !tweet.isLike
+        tweet.likedCount -= 1
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取消喜愛這則推文，請稍後再試'
+        })
+      }
     }
   }
 }

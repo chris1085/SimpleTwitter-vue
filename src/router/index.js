@@ -54,7 +54,7 @@ const routes = [
     component: AdminUsers
   },
   {
-    path: '/reply_list',
+    path: '/reply_list/:id',
     name: 'ReplyList',
     component: () => import('../views/ReplyList.vue')
   },

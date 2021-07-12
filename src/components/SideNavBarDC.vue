@@ -49,7 +49,7 @@
         >
       </div>
     </div>
-    <NewTweetModal :avatar="avatar" />
+    <NewTweetModal :avatar="avatar" @after-create-tweet="afterCreateTweet" />
   </div>
 </template>
 
@@ -69,6 +69,9 @@ export default {
     logout() {
       this.$store.commit('revokeAuthentication')
       this.$router.push('/signin')
+    },
+    afterCreateTweet() {
+      this.$emit('after-create-tweet')
     }
   }
 }

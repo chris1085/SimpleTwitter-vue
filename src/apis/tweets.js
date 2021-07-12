@@ -8,5 +8,9 @@ export default {
     create(formData) {
       return apiHelper.post('/tweets', formData)
     }
+  },
+  repliedTweet(formData) {
+    const { content, tweetId } = formData
+    return apiHelper.post(`/tweets/${tweetId}/replies`, content)
   }
 }

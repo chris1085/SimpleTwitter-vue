@@ -9,7 +9,7 @@
     >
       <div class="modal-dialog">
         <div class="modal-content newTweet-modal-content">
-          <form @submit="handleSubmit">
+          <form @submit.stop.prevent="handleSubmit">
             <div class="modal-header">
               <button
                 type="button"
@@ -27,7 +27,7 @@
                   v-model="newTweetContent"
                   class="content-tweet"
                   name="description"
-                  id="newTweet"
+                  id="sideNewTweet"
                   cols="30"
                   rows="5"
                   placeholder="有什麼新鮮事嗎？"
@@ -38,6 +38,7 @@
               <button
                 type="submit"
                 class="btn btn-primary btn-tweet"
+                data-bs-dismiss="modal"
                 :disabled="isProcessing"
               >
                 推文
@@ -73,18 +74,30 @@ export default {
   methods: {
     async handleSubmit(e) {
       try {
+        this.isProcessing = true
+
+        if (
+          this.newTweetContent.trim().length === 0 ||
+          this.newTweetContent.trim().length > 140
+        ) {
+          throw new Error('無法送出空白或超過140字數的文章')
+        }
+
         const content = { description: this.newTweetContent }
         const { data } = await tweetsAPI.newTweet.create(content)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
-        this.$router.push({ name: 'main' })
         this.newTweetContent = ''
+        this.isProcessing = false
+
+        this.$emit('after-create-tweet')
       } catch (error) {
+        this.isProcessing = false
         Toast.fire({
           icon: 'error',
-          title: '無法送出推文，請稍後再試'
+          title: error
         })
       }
     }

@@ -17,7 +17,7 @@ export default {
     return apiHelper.put(`/users/${userId}`, formData)
   },
   getTopUsers() {
-    return apiHelper.get('/users/top')
+    return apiHelper.get('/users')
   },
   addFavorite({ restaurantId }) {
     return apiHelper.post(`/favorite/${restaurantId}`, null)
@@ -25,16 +25,17 @@ export default {
   deleteFavorite({ restaurantId }) {
     return apiHelper.delete(`/favorite/${restaurantId}`)
   },
-  addLike({ restaurantId }) {
-    return apiHelper.post(`/like/${restaurantId}`, null)
+  addLike(userId) {
+    return apiHelper.post(`/tweets/${userId}/like`, null)
   },
-  deleteLike({ restaurantId }) {
-    return apiHelper.delete(`/like/${restaurantId}`)
+  deleteLike(userId) {
+    return apiHelper.post(`/tweets/${userId}/unlike`)
   },
   addFollowing({ userId }) {
-    return apiHelper.post(`/following/${userId}`, null)
+    const id = { id: userId }
+    return apiHelper.post('/followships', id)
   },
   deleteFollowing({ userId }) {
-    return apiHelper.delete(`/following/${userId}`)
+    return apiHelper.delete(`/followships/${userId}`)
   }
 }

@@ -25,7 +25,7 @@
 }
 
 .modal-footer {
-  margin-top: 50px;
+  // margin-top: 50px;
   border-top: none;
 }
 
@@ -37,6 +37,9 @@
   .tweet-replyFormat {
     padding-top: 18px;
     padding-bottom: 18px;
+    span {
+      color: $btn-primary-color;
+    }
   }
 }
 
@@ -66,8 +69,10 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 26px;
-    color: #9197a3;
-    cursor: pointer;
+    color: #1c1c1c;
+    outline: none;
+    border: none;
     width: 100%;
+    resize: none;
   }
 }
