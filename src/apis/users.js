@@ -7,7 +7,7 @@ export default {
   get({ userId = '' } = {}) {
     return apiHelper.get(`/users/${userId}`)
   },
-    putUser(userId, payload) {
+  putUser(userId, payload) {
     return apiHelper.put(`/users/${userId}`, payload)
   },
   setUser(payload) {
