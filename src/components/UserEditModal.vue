@@ -9,23 +9,27 @@
     >
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
-              <i class="fas fa-times fa-lg"></i>
-            </button>
+          <form @submit.stop.prevent="handleSubmit">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <i class="fas fa-times fa-lg"></i>
+              </button>
 
-            <span class="ml-8 font-bold">編輯個人資料</span>
-            <button type="submit" class="btn btn-primary btn-save">
-              儲存
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
+              <span class="ml-8 font-bold">編輯個人資料</span>
+              <button
+                type="submit"
+                class="btn btn-primary btn-save"
+                data-bs-dismiss="modal"
+              >
+                儲存
+              </button>
+            </div>
+            <div class="modal-body">
               <div class="img-container">
                 <img
                   class="coverImg"
@@ -85,9 +89,10 @@
                     type="text"
                     class="title-name"
                     :placeholder="user.name"
-                    v-model="name"
+                    v-model="user.name"
                     name="userName"
                     maxlength="50"
+                    required
                   />
                 </div>
                 <span class="text-count">{{ calcNameLength }}/50</span>
@@ -104,8 +109,8 @@
                 </div>
                 <span class="text-count">{{ calcContentLength }}/160</span>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -115,6 +120,7 @@
 <script>
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 import { Toast } from '../utils/helpers'
+// import usersAPI from '../apis/users'
 
 export default {
   name: 'UserEditModal',
@@ -170,6 +176,43 @@ export default {
         Toast.fire({
           icon: 'error',
           title: '無法上傳圖片，請稍後再試'
+        })
+      }
+    },
+    async handleSubmit(e) {
+      try {
+        // const request = {
+        //   name: this.uer.name
+        //   intro: this.content,
+        //   avatar: this.user.avatar,
+        //   cover: this.user.cover
+        // }
+
+        // console.log(this.user.avatar, this.user.cover)
+        // if (this.name === '') {
+        //   this.name = this.user.name
+        // }
+        const form = e.target // <form></form>
+        const formData = new FormData(form)
+
+        for (const [name, value] of formData.entries()) {
+          console.log(name + ': ' + value)
+        }
+
+        // const { data } = await usersAPI.updateUserProfile({
+        //   userId: this.user.id,
+        //   request
+        // })
+
+        // console.log(data)
+
+        // if (data.status !== 'success') {
+        //   throw new Error(data.message)
+        // }
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法上傳編輯資料，請稍後再試'
         })
       }
     }

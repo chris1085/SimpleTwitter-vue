@@ -5,13 +5,24 @@
       @after-create-tweet="updateTweetCard"
     />
 
-    <div class="userProfile-container">
+    <div class="userProfile-container w-100">
       <user-profile-info :init-user="user" :current-user="currentUser" />
-      <user-profile-Nav @changeNavPage="changeNavPage" />
-      <user-profile-card :init-is-favorite="isFavorite" />
+      <user-profile-Nav
+        :init-selected="selected"
+        @changeNavPage="changeNavPage"
+      />
+      <user-profile-card
+        :user-card-content="userCardContent"
+        :current-user="currentUser"
+        :selected="selected"
+      />
     </div>
 
-    <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
+    <FollowingsCardDC
+      :init-top-users="topUsers"
+      :current-user="currentUser"
+      @after-create-comment="updateTweetCard"
+    />
   </div>
 </template>
 
@@ -21,7 +32,6 @@ import UserProfileNav from '../components/UserProfileNav.vue'
 import UserProfileCard from '../components/UserProfileCard.vue'
 import FollowingsCardDC from '../components/FollowingsCardDC.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
-// import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
@@ -38,7 +48,6 @@ export default {
   },
   data() {
     return {
-      isFavorite: false,
       topUsers: [],
       currentUser: {
         avatar: '',
@@ -57,21 +66,44 @@ export default {
         isFollowed: false,
         name: '',
         tweetCount: 0
-      }
+      },
+      userCardContent: [],
+      selected: 'tweeters'
     }
   },
   beforeRouteUpdate(to, from, next) {
     this.getUser(to.params.id)
+    this.changeNavPage(this.selected)
+    this.selected = 'tweeters'
+    this.getUserTweets(to.params.id)
     // this.getRepies(to.params.id)
 
     next()
   },
+  watch: {
+    userCardContent(newValue) {
+      this.userCardContent = newValue
+    }
+  },
   methods: {
-    changeNavPage(selected) {
-      if (selected === 'favorites') {
-        this.isFavorite = true
+    changeUserPage(selected, userId) {
+      this.selected = selected
+      if (selected === 'tweeters') {
+        this.getUserTweets(userId)
+      } else if (selected === 'replies') {
+        this.getUserRepliedTweets(userId)
       } else {
-        this.isFavorite = false
+        this.getUserLikeTweets(userId)
+      }
+    },
+    changeNavPage(selected) {
+      this.selected = selected
+      if (selected === 'tweeters') {
+        this.getUserTweets(this.user.id)
+      } else if (selected === 'replies') {
+        this.getUserRepliedTweets(this.user.id)
+      } else {
+        this.getUserLikeTweets(this.user.id)
       }
     },
     async getCurrentUser() {
@@ -99,6 +131,39 @@ export default {
         Toast.fire({
           icon: 'error',
           title: '無法取得Top跟隨者'
+        })
+      }
+    },
+    async getUserTweets(userId) {
+      try {
+        const { data } = await usersAPI.getUserTweets(userId)
+        this.userCardContent = data
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得推文內容'
+        })
+      }
+    },
+    async getUserRepliedTweets(userId) {
+      try {
+        const { data } = await usersAPI.getUserRepliedTweets(userId)
+        this.userCardContent = data
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得回覆推文內容'
+        })
+      }
+    },
+    async getUserLikeTweets(userId) {
+      try {
+        const { data } = await usersAPI.getUserLikeTweets(userId)
+        this.userCardContent = data
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得喜愛推文內容'
         })
       }
     },
@@ -145,6 +210,7 @@ export default {
     this.getTopUser()
     this.getCurrentUser()
     this.getUser(id)
+    this.getUserTweets(id)
   }
 }
 </script>
