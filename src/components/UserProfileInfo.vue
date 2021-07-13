@@ -22,7 +22,11 @@
         <div
           class="photo position-absolute rounded d-flex justify-content-center align-items-center"
         >
-          <img class="rounded" :src="user.avatar | emptyImage" alt="" />
+          <img
+            class="rounded photo-avatar"
+            :src="user.avatar | emptyImage"
+            alt=""
+          />
         </div>
       </div>
 

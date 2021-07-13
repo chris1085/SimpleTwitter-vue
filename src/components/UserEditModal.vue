@@ -25,7 +25,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="">
+            <form>
               <div class="img-container">
                 <img
                   class="coverImg"
@@ -33,24 +33,50 @@
                   alt="coverImage"
                 />
 
-                <div class="photo position-absolute rounded">
+                <div class="edit-photo position-absolute rounded">
                   <img
-                    class="rounded"
+                    class="rounded edit-avatar"
                     :src="user.avatar | emptyImage"
                     alt="selfPhoto"
                   />
 
-                  <span class="edit-camera text-white"
-                    ><i class="fas fa-camera fa-2x"></i
-                  ></span>
+                  <button
+                    class="btn edit-camera text-white rounded"
+                    @click.stop.prevent="onPickFile('avatar')"
+                  >
+                    <i class="fas fa-camera fa-2x"></i>
+                  </button>
+                  <input
+                    type="file"
+                    class="d-none"
+                    ref="avatarInput"
+                    accept="image/*"
+                    name="userAvatar"
+                    @change="handleFileChange"
+                  />
                 </div>
 
-                <span class="edit-camera text-white"
-                  ><i class="fas fa-camera fa-2x"></i
-                ></span>
-                <span class="edit-across text-white"
-                  ><i class="fas fa-times fa-2x"></i
-                ></span>
+                <button
+                  class="btn edit-camera text-white rounded"
+                  @click.stop.prevent="onPickFile('cover')"
+                >
+                  <i class="fas fa-camera fa-2x"></i>
+                </button>
+                <input
+                  type="file"
+                  class="d-none"
+                  ref="coverInput"
+                  accept="image/*"
+                  name="userCover"
+                  @change="handleCoverChange"
+                />
+
+                <button
+                  class="btn edit-across text-white rounded"
+                  @click.stop.prevent="user.cover = initUser.cover"
+                >
+                  <i class="fas fa-times fa-2x"></i>
+                </button>
               </div>
               <div class="edit-content-container">
                 <div class="title-container">
@@ -60,6 +86,7 @@
                     class="title-name"
                     :placeholder="user.name"
                     v-model="name"
+                    name="userName"
                     maxlength="50"
                   />
                 </div>
@@ -72,6 +99,7 @@
                     placeholder="自我介紹"
                     maxlength="160"
                     v-model="content"
+                    name="userIntro"
                   />
                 </div>
                 <span class="text-count">{{ calcContentLength }}/160</span>
@@ -86,6 +114,7 @@
 
 <script>
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
+import { Toast } from '../utils/helpers'
 
 export default {
   name: 'UserEditModal',
@@ -95,18 +124,54 @@ export default {
   },
   watch: {
     initUser(newValue) {
-      this.user = newValue
-      this.nameLength = this.user.name.length
+      this.user = JSON.parse(JSON.stringify(newValue))
     }
   },
   data() {
     return {
       user: {
-        name: ''
+        name: '',
+        tempCover: ''
       },
       nameLength: 0,
       content: '',
-      name: ''
+      name: '',
+      image: null
+    }
+  },
+  methods: {
+    onPickFile(imageFile) {
+      if (imageFile === 'avatar') {
+        this.$refs.avatarInput.click()
+      } else {
+        this.$refs.coverInput.click()
+      }
+    },
+    handleFileChange(event) {
+      const files = event.target.files
+
+      if (files.length > 0) {
+        const imageURL = window.URL.createObjectURL(files[0])
+        this.user.avatar = imageURL
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: '無法上傳圖片，請稍後再試'
+        })
+      }
+    },
+    handleCoverChange(event) {
+      const files = event.target.files
+
+      if (files.length > 0) {
+        const imageURL = window.URL.createObjectURL(files[0])
+        this.user.cover = imageURL
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: '無法上傳圖片，請稍後再試'
+        })
+      }
     }
   },
   computed: {

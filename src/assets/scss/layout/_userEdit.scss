@@ -33,12 +33,17 @@
     width: 100%;
     img {
       width: 100%;
+      height: 200px;
+      object-fit: cover;
     }
 
     .edit-camera,
     .edit-across {
       cursor: pointer;
       position: absolute;
+      width: 40px;
+      height: 40px;
+      padding: 0;
     }
 
     .edit-camera {
@@ -53,18 +58,24 @@
       transform: translate(-50%, -50%);
     }
   }
-  .photo {
+  .edit-photo {
     position: relative;
-    bottom: -60px;
+    bottom: -70px;
     left: 14px;
     border: 4px solid white;
 
     .edit-camera {
-      cursor: pointer;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+
+    .edit-avatar {
+      object-fit: cover;
+
+      width: 120px;
+      height: 120px;
     }
   }
 }
