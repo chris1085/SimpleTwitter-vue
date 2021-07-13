@@ -77,7 +77,7 @@
         </div>
       </div>
     </div>
-    <UserEditModal />
+    <UserEditModal :init-user="user" />
   </div>
 </template>
 

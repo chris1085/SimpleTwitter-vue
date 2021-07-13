@@ -2,7 +2,7 @@
   <div>
     <ul class="tweets">
       <li class="tweet d-flex" v-for="(tweet, index) in tweets" :key="index">
-        <router-link :to="`/user/${tweet.id}`" class="tweet-img-container">
+        <router-link :to="`/user/${tweet.UserId}`" class="tweet-img-container">
           <img
             :src="tweet.avatar | emptyImage"
             alt=""
@@ -11,7 +11,7 @@
         </router-link>
         <div class="tweet-content-container d-flex flex-column w-100">
           <div class="tweet-header d-flex">
-            <router-link :to="`/user/${tweet.id}`" class="tweet-userName">{{
+            <router-link :to="`/user/${tweet.UserId}`" class="tweet-userName">{{
               tweet.name
             }}</router-link
             ><span class="tweet-userInfo"
