@@ -1,7 +1,10 @@
 <template>
   <div id="UserSetting">
     <!-- SideNavBar -->
-    <SideNavBarDC />
+    <SideNavBarDC
+      :currentUser="currentUser"
+      @after-create-tweet="updateTweetCard"
+    />
     <!-- Header -->
     <div class="header">
       <div class="title">
@@ -15,6 +18,8 @@
 <script>
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 import UserSettingForm from '../components/UserSettingForm.vue'
+import usersAPI from '../apis/users'
+import { Toast } from '../utils/helpers'
 
 export default {
   name: 'UserSetting',
@@ -24,7 +29,33 @@ export default {
   },
   data() {
     return {
-      isSignUp: false
+      isSignUp: false,
+      currentUser: {
+        avatar: '',
+        id: -1,
+        name: '',
+        account: ''
+      }
+    }
+  },
+  methods: {
+    updateTweetCard() {},
+    async getCurrentUser() {
+      try {
+        const response = await usersAPI.getCurrentUser()
+        const { avatar, id, name, account } = response.data
+        this.currentUser = {
+          avatar,
+          id,
+          name,
+          account
+        }
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得當前使用者，請稍後再試'
+        })
+      }
     }
   }
 }
