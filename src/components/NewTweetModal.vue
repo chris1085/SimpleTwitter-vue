@@ -93,10 +93,11 @@ export default {
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
+
+        this.$emit('after-create-tweet', this.newTweetContent)
+
         this.newTweetContent = ''
         this.isProcessing = false
-
-        this.$emit('after-create-tweet')
       } catch (error) {
         this.isProcessing = false
         Toast.fire({

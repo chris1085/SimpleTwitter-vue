@@ -83,14 +83,17 @@ export default {
   },
   watch: {
     initTweets(newValue) {
-      this.tweets = [...this.tweets, ...newValue]
+      this.tweets = [...newValue]
     }
   },
   methods: {
     handleRepliedContent(tweet) {
       this.tweet = tweet
     },
-    afterCreateComment() {
+    afterCreateComment(comment) {
+      this.tweets.forEach(tweet => {
+        if (tweet.id === comment.id) tweet.repliedCount += 1
+      })
       this.$emit('after-create-comment')
     },
     async addLikes(tweet) {
