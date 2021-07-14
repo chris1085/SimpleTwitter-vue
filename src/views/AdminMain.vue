@@ -8,8 +8,8 @@
         <h1>推文清單</h1>
       </div>
       <AdminTweetsList
-      :inlt-tweets="inltTweets"
-       @after-delete-tweet="afterDeleteTweet"
+        :inlt-tweets="inltTweets"
+        @after-delete-tweet="afterDeleteTweet"
       />
     </div>
   </div>
