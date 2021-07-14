@@ -34,7 +34,7 @@
         </li>
       </ul>
 
-      <UserFollowCard :init-follows="follows" />
+      <UserFollowCard :init-follows="follows" :current-user="currentUser" />
     </div>
 
     <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />

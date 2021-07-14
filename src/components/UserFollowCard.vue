@@ -23,7 +23,11 @@
             <button
               type="button"
               class="btn btn-primary btn-follow"
-              v-if="follow.isFollowed"
+              v-if="
+                follow.isFollowed &&
+                  follow.followerId !== currentUser.id &&
+                  follow.followingId !== currentUser.id
+              "
               @click.stop.prevent="deleteFollowing(follow.id)"
             >
               正在跟隨
@@ -31,7 +35,11 @@
             <button
               type="button"
               class="btn btn-outline-primary btn-follow"
-              v-if="!follow.isFollowed"
+              v-if="
+                !follow.isFollowed &&
+                  follow.followerId !== currentUser.id &&
+                  follow.followingId !== currentUser.id
+              "
               @click.stop.prevent="addFollowing(follow.id)"
             >
               跟隨
@@ -54,6 +62,10 @@ export default {
   props: {
     initFollows: {
       type: Array,
+      required: true
+    },
+    currentUser: {
+      type: Object,
       required: true
     }
   },
