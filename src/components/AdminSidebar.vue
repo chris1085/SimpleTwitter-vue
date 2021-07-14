@@ -8,23 +8,23 @@
     <div class="buttonList">
       <div class="navItem index">
         <div class="icon">
-          <img v-if="tweets" src="../assets/atHome.svg" alt="" />
+          <img v-if="inltTweets" src="../assets/atHome.svg" alt="" />
           <img v-else src="../assets/home.svg" alt="" />
         </div>
         <button class="btn">
           <router-link to="/admin_main">
-            <p :class="{ active: tweets }" id="routerTweets">推文清單</p>
+            <p :class="{ active: inltTweets }" id="routerTweets">推文清單</p>
           </router-link>
         </button>
       </div>
       <div class="navItem userProfile">
         <div class="icon">
-          <img v-if="users" src="../assets/atProfile.svg" alt="" />
+          <img v-if="adminUsers" src="../assets/atProfile.svg" alt="" />
           <img v-else src="../assets/profile.svg" alt="" />
         </div>
         <button class="btn">
-          <router-link to="/admain_users">
-            <p :class="{ active: users }" id="routerUsers">使用者列表</p>
+          <router-link to="/admin_users">
+            <p :class="{ active: adminUsers }" id="routerUsers">使用者列表</p>
           </router-link>
         </button>
       </div>
@@ -50,8 +50,8 @@ export default {
   },
   data() {
     return {
-      tweets: false,
-      users: false
+      inltTweets: false,
+      adminUsers: false
     }
   },
   methods: {
@@ -63,11 +63,11 @@ export default {
     setCurrentLocation(location) {
       console.log('location: ' + location)
       if (location === 'tweets') {
-        this.tweets = true // at tweets
-        this.users = false
+        this.inltTweets = true // at tweets
+        this.adminUsers = false
       } else {
-        this.tweets = false
-        this.users = true // at users
+        this.inltTweets = false
+        this.adminUsers = true // at users
       }
     }
   }
