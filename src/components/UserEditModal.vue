@@ -55,7 +55,7 @@
                     class="d-none"
                     ref="avatarInput"
                     accept="image/*"
-                    name="userAvatar"
+                    name="avatar"
                     @change="handleFileChange"
                   />
                 </div>
@@ -71,7 +71,7 @@
                   class="d-none"
                   ref="coverInput"
                   accept="image/*"
-                  name="userCover"
+                  name="cover"
                   @change="handleCoverChange"
                 />
 
@@ -90,7 +90,7 @@
                     class="title-name"
                     :placeholder="user.name"
                     v-model="user.name"
-                    name="userName"
+                    name="name"
                     maxlength="50"
                     required
                   />
@@ -104,7 +104,7 @@
                     placeholder="自我介紹"
                     maxlength="160"
                     v-model="content"
-                    name="userIntro"
+                    name="introduction"
                   />
                 </div>
                 <span class="text-count">{{ calcContentLength }}/160</span>
@@ -120,7 +120,7 @@
 <script>
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 import { Toast } from '../utils/helpers'
-// import usersAPI from '../apis/users'
+import usersAPI from '../apis/users'
 
 export default {
   name: 'UserEditModal',
@@ -131,13 +131,13 @@ export default {
   watch: {
     initUser(newValue) {
       this.user = JSON.parse(JSON.stringify(newValue))
+      this.content = this.initUser.introduction
     }
   },
   data() {
     return {
       user: {
-        name: '',
-        tempCover: ''
+        name: ''
       },
       nameLength: 0,
       content: '',
@@ -181,38 +181,36 @@ export default {
     },
     async handleSubmit(e) {
       try {
-        // const request = {
-        //   name: this.uer.name
-        //   intro: this.content,
-        //   avatar: this.user.avatar,
-        //   cover: this.user.cover
-        // }
+        console.log(this.user)
 
-        // console.log(this.user.avatar, this.user.cover)
-        // if (this.name === '') {
-        //   this.name = this.user.name
-        // }
+        // console.log(this.uer.name)
+
         const form = e.target // <form></form>
         const formData = new FormData(form)
 
-        for (const [name, value] of formData.entries()) {
-          console.log(name + ': ' + value)
-        }
-
-        // const { data } = await usersAPI.updateUserProfile({
-        //   userId: this.user.id,
-        //   request
-        // })
+        const { data } = await usersAPI.updateUserProfile({
+          userId: this.user.id,
+          formData
+        })
 
         // console.log(data)
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
 
-        // if (data.status !== 'success') {
-        //   throw new Error(data.message)
-        // }
+        const editedData = {
+          name: this.user.name,
+          introduction: this.content,
+          avatar: this.user.avatar,
+          cover: this.user.cover
+        }
+        // console.log(editedData)
+        this.$emit('after-edit', editedData)
       } catch (error) {
         Toast.fire({
           icon: 'error',
-          title: '無法上傳編輯資料，請稍後再試'
+          title: error
+          // '無法上傳編輯資料，請稍後再試'
         })
       }
     }

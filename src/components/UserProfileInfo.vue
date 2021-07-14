@@ -81,7 +81,7 @@
         </div>
       </div>
     </div>
-    <UserEditModal :init-user="user" />
+    <UserEditModal :init-user="user" @after-edit="updateUserProfile" />
   </div>
 </template>
 
@@ -109,7 +109,8 @@ export default {
   data() {
     return {
       isCurrentUser: true,
-      user: this.initUser
+      user: this.initUser,
+      temp: {}
     }
   },
   methods: {
@@ -147,6 +148,11 @@ export default {
           title: error
         })
       }
+    },
+    updateUserProfile(data) {
+      console.log(data)
+      this.user = { ...this.user, ...data }
+      // console.log('temp:' + this.temp)
     }
   }
 }
