@@ -9,8 +9,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   config => {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI1OTkyMjkyfQ.3hpb1tTBU3g5f6VtZTxLYOHLSfhU3-JO8lWKNEFA7Ts'
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjI2MjcwNTQ4fQ.iOPSwLvvrc8PbnhJtcgc_qvXJCK8My1tJOcmH3roG-c'
     // const token = localStorage.getItem('token')
 
     if (token) {

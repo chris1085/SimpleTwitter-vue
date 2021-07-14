@@ -5,6 +5,7 @@ export default {
     return apiHelper.get('/tweets')
   },
   deleteTweet({ tweetId }) {
+    console.log(tweetId)
     return apiHelper.delete(`/admin/tweets/${tweetId}`)
   },
   getReplyTweet(replyId) {
