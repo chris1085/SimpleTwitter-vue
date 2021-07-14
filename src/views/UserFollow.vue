@@ -84,6 +84,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.getUser(to.params.id)
+    this.fetchFollowed(this.followType, to.params.id)
     // this.getRepies(to.params.id)
 
     next()
