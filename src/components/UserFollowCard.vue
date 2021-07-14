@@ -28,7 +28,7 @@
                   follow.followerId !== currentUser.id &&
                   follow.followingId !== currentUser.id
               "
-              @click.stop.prevent="deleteFollowing(follow.id)"
+              @click.stop.prevent="deleteFollowing(follow)"
             >
               正在跟隨
             </button>
@@ -40,7 +40,7 @@
                   follow.followerId !== currentUser.id &&
                   follow.followingId !== currentUser.id
               "
-              @click.stop.prevent="addFollowing(follow.id)"
+              @click.stop.prevent="addFollowing(follow)"
             >
               跟隨
             </button>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-// import usersAPI from '../apis/users'
+import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 export default {
@@ -82,46 +82,44 @@ export default {
     }
   },
   methods: {
-    async addFollowing(userId) {
+    async addFollowing(follow) {
       try {
-        console.log(userId)
-        // const { data } = await usersAPI.addFollowing({ userId })
+        const id =
+          typeof follow.followerId !== 'undefined'
+            ? follow.followerId
+            : follow.followingId
 
-        // if (data.status !== 'success') {
-        //   throw new Error(data.message)
-        // }
+        const { data } = await usersAPI.addFollowing({ id })
 
-        // this.follows = this.follows.map(follow => {
-        //   if (follow.id !== userId) {
-        //     return follow
-        //   } else {
-        //     return {
-        //       ...follow,
-        //       isFollowed: true
-        //     }
-        //   }
-        // })
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        follow.isFollowed = true
       } catch (error) {
         Toast.fire({
           icon: 'error',
-          title: error
-          // '無法追隨，請稍後再試'
+          title: '無法追隨，請稍後再試'
         })
       }
     },
-    async deleteFollowing(userId) {
+    async deleteFollowing(follow) {
       try {
-        console.log(userId)
-        // const { data } = await usersAPI.deleteFollowing({ userId })
-        // if (data.status !== 'success') {
-        //   throw new Error(data.message)
-        // }
-        // this.user.followerCount -= 1
-        // this.user.isFollowed = false
+        const id =
+          typeof follow.followerId !== 'undefined'
+            ? follow.followerId
+            : follow.followingId
+
+        const { data } = await usersAPI.deleteFollowing({ userId: id })
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        follow.isFollowed = false
       } catch (error) {
         Toast.fire({
           icon: 'error',
-          title: error
+          title: '無法追蹤，請稍後再試'
         })
       }
     }
