@@ -5,8 +5,6 @@ import Login from '../views/Login.vue'
 import Regist from '../views/Regist.vue'
 import AdminLogin from '../views/AdminLogin.vue'
 import Main from '../views/Main.vue'
-import AdminMain from '../views/AdminMain.vue'
-import AdminUsers from '../views/AdminUsers.vue'
 import NotFound from '../views/NotFound.vue'
 // import store from './../store'
 
@@ -46,12 +44,12 @@ const routes = [
   {
     path: '/admin_main',
     name: 'adminMain',
-    component: AdminMain
+    component: () => import('../views/AdminMain.vue')
   },
   {
     path: '/admin_users',
     name: 'adminUsers',
-    component: AdminUsers
+    component: () => import('../views/AdminUsers.vue')
   },
   {
     path: '/reply_list/:id',

@@ -7,6 +7,9 @@ export default {
   get(userId) {
     return apiHelper.get(`/users/${userId}`)
   },
+  getTotalUser() {
+    return apiHelper.get('/admin/users')
+  },
   putUser(userId, payload) {
     return apiHelper.put(`/users/${userId}`, payload)
   },
