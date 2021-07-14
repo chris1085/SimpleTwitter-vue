@@ -107,6 +107,7 @@ export default {
     },
     async deleteFollowing(userId) {
       try {
+        console.log(userId, { userId })
         const { data } = await usersAPI.deleteFollowing({ userId })
 
         console.log('data', data)

@@ -34,7 +34,7 @@
         </li>
       </ul>
 
-      <UserFollowCard :init-follows="follows" />
+      <UserFollowCard :init-follows="follows" :current-user="currentUser" />
     </div>
 
     <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
@@ -84,6 +84,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.getUser(to.params.id)
+    this.fetchFollowed(this.followType, to.params.id)
     // this.getRepies(to.params.id)
 
     next()
