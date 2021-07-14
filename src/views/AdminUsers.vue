@@ -9,7 +9,9 @@
           <h1>使用者列表</h1>
         </div>
         <div class="admin-users-card">
-          <AdminUsersCard />
+          <AdminUsersCard
+          :admin-users="adminUsers"
+           />
         </div>
       </div>
     </template>
@@ -19,12 +21,51 @@
 <script>
 import AdminSidebar from '../components/AdminSidebar.vue'
 import AdminUsersCard from '../components/AdminUsersCard.vue'
+import { Toast } from '../utils/helpers'
+import usersAPI from '../apis/users'
 
 export default {
   name: 'AdminUsers',
   components: {
     AdminSidebar,
     AdminUsersCard
+  },
+  data() {
+    return {
+      user: {
+        id: -1,
+        account: '',
+        name: '',
+        avatar: '',
+        cover: '',
+        tweetCount: '',
+        likedCount: '',
+        followingCount: '',
+        followerCount: ''
+      },
+      adminUsers: [],
+      isLoading: true
+    }
+  },
+  created() {
+    this.fetchUsers()
+  },
+  methods: {
+    async fetchUsers() {
+      try {
+        const { data } = await usersAPI.getTotalUser()
+
+        this.adminUsers = data
+        this.isLoading = false
+      } catch (error) {
+        this.isLoading = false
+        console.log(error)
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得使用者資料，請稍後再試'
+        })
+      }
+    }
   }
 }
 </script>
