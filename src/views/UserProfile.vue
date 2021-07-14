@@ -21,7 +21,8 @@
     <FollowingsCardDC
       :init-top-users="topUsers"
       :current-user="currentUser"
-      @after-create-comment="updateTweetCard"
+      @after-delete-following="updateFollowing"
+      @after-add-follower="updateFollower"
     />
   </div>
 </template>
@@ -202,6 +203,12 @@ export default {
           title: '無法取得使用者資料，請稍後再試'
         })
       }
+    },
+    updateFollowing() {
+      this.user.followingCount -= 1
+    },
+    updateFollower() {
+      this.user.followingCount += 1
     },
     updateTweetCard() {}
   },
