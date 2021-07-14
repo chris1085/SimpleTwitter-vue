@@ -37,5 +37,17 @@ export default {
   },
   getFollowers(userId) {
     return apiHelper.get(`/users/${userId}/followers`)
+  },
+  updateUserProfile({ userId, formData }) {
+    return apiHelper.put(`/users/${userId}`, formData)
+  },
+  getUserTweets(userId) {
+    return apiHelper.get(`/users/${userId}/tweets`)
+  },
+  getUserLikeTweets(userId) {
+    return apiHelper.get(`/users/${userId}/likes`)
+  },
+  getUserRepliedTweets(userId) {
+    return apiHelper.get(`/users/${userId}/replied_tweets`)
   }
 }

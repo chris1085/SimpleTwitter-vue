@@ -22,7 +22,11 @@
         <div
           class="photo position-absolute rounded d-flex justify-content-center align-items-center"
         >
-          <img class="rounded" :src="user.avatar | emptyImage" alt="" />
+          <img
+            class="rounded photo-avatar"
+            :src="user.avatar | emptyImage"
+            alt=""
+          />
         </div>
       </div>
 
@@ -77,7 +81,7 @@
         </div>
       </div>
     </div>
-    <UserEditModal />
+    <UserEditModal :init-user="user" @after-edit="updateUserProfile" />
   </div>
 </template>
 
@@ -105,7 +109,8 @@ export default {
   data() {
     return {
       isCurrentUser: true,
-      user: this.initUser
+      user: this.initUser,
+      temp: {}
     }
   },
   methods: {
@@ -143,6 +148,11 @@ export default {
           title: error
         })
       }
+    },
+    updateUserProfile(data) {
+      console.log(data)
+      this.user = { ...this.user, ...data }
+      // console.log('temp:' + this.temp)
     }
   }
 }

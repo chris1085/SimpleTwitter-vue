@@ -28,9 +28,17 @@
 
 <script>
 export default {
+  props: {
+    initSelected: { type: String, required: true }
+  },
+  watch: {
+    initSelected(newValue) {
+      this.selected = newValue
+    }
+  },
   data() {
     return {
-      selected: 'tweeters'
+      selected: this.initSelected
     }
   },
   methods: {

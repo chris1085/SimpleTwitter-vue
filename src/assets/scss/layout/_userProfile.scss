@@ -32,6 +32,9 @@
       left: 18px;
 
       img {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
         vertical-align: middle;
         border: 4px solid #ffffff;
       }
@@ -85,11 +88,11 @@
 }
 
 .tweetMenu {
-  cursor: pointer;
   border-bottom: 1px solid $border-color;
   color: $main-color;
 
   .tweetMenu-item {
+    cursor: pointer;
     font-weight: bold;
     padding-top: 16px;
     padding-bottom: 16px;

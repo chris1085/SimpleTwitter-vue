@@ -220,7 +220,8 @@ export default {
 
       this.tweet.repliedCount += 1
       this.replies.unshift(reply)
-    }
+    },
+    updateTweetCard() {}
   },
   created() {
     const { id } = this.$route.params
