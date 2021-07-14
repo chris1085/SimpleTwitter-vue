@@ -1,9 +1,9 @@
 <template>
   <div class="adminSidebar">
     <div class="logo">
-      <a href="/main">
+       <router-link to="/main">
         <img src="../assets/logo.png" alt="" />
-      </a>
+       </router-link>
     </div>
     <div class="buttonList">
       <div class="navItem index">
@@ -12,9 +12,9 @@
           <img v-else src="../assets/home.svg" alt="" />
         </div>
         <button class="btn">
-          <a href="/admin_main">
-            <p id="routerTweets">推文清單</p>
-          </a>
+          <router-link to="/admin_main">
+            <p :class="{ active: tweets }" id="routerTweets">推文清單</p>
+          </router-link>
         </button>
       </div>
       <div class="navItem userProfile">
@@ -23,9 +23,9 @@
           <img v-else src="../assets/profile.svg" alt="" />
         </div>
         <button class="btn">
-          <a href="/admain_users">
-            <p id="routerUsers">使用者列表</p>
-          </a>
+          <router-link to="/admain_users">
+            <p :class="{ active: users }" id="routerUsers">使用者列表</p>
+          </router-link>
         </button>
       </div>
 
@@ -40,6 +40,39 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'AdminSidebar',
+  created() {
+    const location = this.$route.path.split('/')[2]
+    this.setCurrentLocation(location)
+  },
+  data() {
+    return {
+      tweets: false,
+      users: false
+    }
+  },
+  methods: {
+    logout() {
+      // delete token => log out
+      this.$store.commit('revokeAuthentication')
+      this.$router.push('/admin/signin')
+    },
+    setCurrentLocation(location) {
+      console.log('location: ' + location)
+      if (location === 'tweets') {
+        this.tweets = true // at tweets
+        this.users = false
+      } else {
+        this.tweets = false
+        this.users = true // at users
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .adminSidebar {

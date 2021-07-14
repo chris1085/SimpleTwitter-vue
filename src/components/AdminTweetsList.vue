@@ -1,19 +1,63 @@
 <template>
-  <div class="container">
+<div>
+  <div class="container"
+  v-for="tweet in inltTweets"
+  :key="tweet.id"
+  >
     <div class="avatar">
-      <img src="" alt="" />
+      <img :src=" tweet.avatar | emptyImage " alt="" />
     </div>
     <div class="tweet-info">
-      <div class="title"><span>apple</span> @apple・3hr</div>
+      <div class="title"><span>{{ tweet.name }}</span> @{{ tweet.account }}・{{ tweet.createdAt | fromNow }}</div>
       <p>
-        123
+        {{ tweet.description | slice }}
       </p>
     </div>
     <div class="delete" @click.stop.prevent="handleDeleteButtonClick(tweet.id)">
       <i class="fas fa-times"></i>
     </div>
   </div>
+</div>
 </template>
+
+<script>
+import { fromNowFilter, emptyImageFilter } from '../utils/mixins'
+import { Toast } from '../utils/helpers'
+
+export default {
+  name: 'AdminTweetsList',
+  mixins: [fromNowFilter, emptyImageFilter],
+  props: {
+    inltTweets: {
+      type: Array,
+      required: true
+    }
+  },
+  watch: {
+    inltTweets(newValue) {
+      this.tweet = {
+        ...this.tweet,
+        ...newValue
+      }
+    }
+  },
+  methods: {
+    handleDeleteButtonClick(tweetId) {
+      this.$emit('after-delete-tweet', tweetId)
+      Toast.fire({
+        icon: 'success',
+        title: '刪除成功！'
+      })
+    }
+  },
+  filters: {
+    slice(description) {
+      if (!description) return '-'
+      return description.slice(0, 50)
+    }
+  }
+}
+</script>
 
 <style scoped>
 .container {
