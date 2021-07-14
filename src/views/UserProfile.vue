@@ -205,10 +205,14 @@ export default {
       }
     },
     updateFollowing() {
-      this.user.followingCount -= 1
+      if (this.user.id === this.currentUser.id) {
+        this.user.followingCount -= 1
+      }
     },
     updateFollower() {
-      this.user.followingCount += 1
+      if (this.user.id === this.currentUser.id) {
+        this.user.followingCount += 1
+      }
     },
     updateTweetCard() {}
   },

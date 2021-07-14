@@ -153,7 +153,7 @@ export default {
           }
         })
 
-        this.$emit('after-add-follower')
+        this.$emit('after-add-follower', userId)
       } catch (error) {
         Toast.fire({
           icon: 'error',
@@ -163,14 +163,13 @@ export default {
     },
     async deleteFollowing(userId) {
       try {
-        console.log(userId, { userId })
         const { data } = await usersAPI.deleteFollowing({ userId })
 
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
 
-        this.$emit('after-delete-following')
+        this.$emit('after-delete-following', userId)
 
         this.users = this.users.map(user => {
           if (user.id !== userId) {
