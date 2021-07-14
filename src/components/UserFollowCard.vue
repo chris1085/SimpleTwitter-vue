@@ -89,7 +89,7 @@ export default {
             ? follow.followerId
             : follow.followingId
 
-        const { data } = await usersAPI.addFollowing({ id })
+        const { data } = await usersAPI.addFollowing({ userId: id })
 
         if (data.status !== 'success') {
           throw new Error(data.message)
