@@ -128,7 +128,7 @@ export default {
     },
     async addLikes(tweet) {
       try {
-        const id = this.selected === 'favorites' ? tweet.id : tweet.TweetId
+        const id = this.selected === 'favorites' ? tweet.TweetId : tweet.id
 
         const { data } = await tweetsAPI.addLike(id)
 
@@ -147,7 +147,7 @@ export default {
     },
     async deleteLikes(tweet) {
       try {
-        const id = this.selected === 'favorites' ? tweet.id : tweet.TweetId
+        const id = this.selected === 'favorites' ? tweet.TweetId : tweet.id
 
         const { data } = await tweetsAPI.deleteLike(id)
 
