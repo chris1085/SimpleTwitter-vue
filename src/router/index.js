@@ -83,8 +83,25 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('fetchCurrentUser')
+router.beforeEach(async (to, from, next) => {
+  // 從 localStorage 取出 token
+  const token = localStorage.getItem('token')
+  // 預設是尚未驗證
+  let isAuthenticated = false
+
+  // 如果有 token 的話才驗證
+  if (token) {
+    // 取得驗證成功與否
+    isAuthenticated = await store.dispatch('fetchCurrentUser')
+  }
+
+  // 如果 token 無效則轉址到登入頁
+  if (!isAuthenticated && to.name !== 'login') {
+    next('/signin')
+    return
+  }
+
+  // 如果 token 有效則轉址到餐廳首頁
   next()
 })
 
