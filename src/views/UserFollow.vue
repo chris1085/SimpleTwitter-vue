@@ -34,7 +34,11 @@
         </li>
       </ul>
 
-      <UserFollowCard :init-follows="follows" :current-user="currentUser" />
+      <UserFollowCard
+        :init-follows="follows"
+        :current-user="currentUser"
+        @after-click-follow="updateFollowStatus"
+      />
     </div>
 
     <FollowingsCardDC
@@ -217,6 +221,13 @@ export default {
           title: '無法加入喜愛使用者，請稍後再試'
         })
       }
+    },
+    updateFollowStatus({ id, isFollowed }) {
+      this.topUsers.forEach(user => {
+        if (user.id === id) {
+          user.isFollowed = isFollowed
+        }
+      })
     },
     updateTweetCard() {}
   },

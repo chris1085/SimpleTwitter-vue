@@ -96,6 +96,10 @@ export default {
         }
 
         follow.isFollowed = true
+        this.$emit('after-click-follow', {
+          id,
+          isFollowed: true
+        })
       } catch (error) {
         Toast.fire({
           icon: 'error',
@@ -116,6 +120,11 @@ export default {
         }
 
         follow.isFollowed = false
+
+        this.$emit('after-click-follow', {
+          id,
+          isFollowed: false
+        })
       } catch (error) {
         Toast.fire({
           icon: 'error',
