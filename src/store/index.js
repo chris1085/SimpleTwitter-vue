@@ -26,7 +26,7 @@ export default new Vuex.Store({
         ...state.currentUser,
         ...currentUser // 透過API取得
       }
-      console.log(('state:', state))
+      // console.log(('state:', state))
       state.isAuthenticated = true
       state.token = localStorage.getItem('token')
     },
@@ -61,7 +61,7 @@ export default new Vuex.Store({
       } catch (error) {
         // 驗證失敗的話一併觸發登出的行為，以清除 state 中的 token
         commit('revokeAuthentication')
-        console.log(error.message)
+        // console.log(error.message)
         return false
       }
     }
