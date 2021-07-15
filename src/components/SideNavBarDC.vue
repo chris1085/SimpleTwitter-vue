@@ -73,8 +73,8 @@ export default {
       this.$store.commit('revokeAuthentication')
       this.$router.push('/signin')
     },
-    afterCreateTweet() {
-      this.$emit('after-create-tweet')
+    afterCreateTweet(newTweetContent) {
+      this.$emit('after-create-tweet', newTweetContent)
     }
   }
 }

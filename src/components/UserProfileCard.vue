@@ -37,7 +37,10 @@
           >
             {{ tweet.comment }}
           </router-link>
-          <div class="tweet-icons-container d-flex">
+          <div
+            class="tweet-icons-container d-flex"
+            v-if="tweet.repliedCount >= 0"
+          >
             <a
               href=""
               class="tweet-icon"
@@ -72,9 +75,11 @@
 </template>
 
 <script>
-// import { Toast } from '../utils/helpers'
+import tweetsAPI from '../apis/tweets'
 import RepliedModal from '../components/RepliedModal.vue'
 import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
+import { Toast } from '../utils/helpers'
+
 export default {
   mixins: [emptyImageFilter, fromNowFilter],
   components: { RepliedModal },
@@ -105,11 +110,48 @@ export default {
     }
   },
   methods: {
-    afterCreateComment() {
+    afterCreateComment(comment) {
+      this.tweets.forEach(tweet => {
+        if (tweet.id === comment.id) tweet.repliedCount += 1
+      })
       this.$emit('after-create-comment')
     },
     handleRepliedContent(tweet) {
       this.tweet = tweet
+    },
+    async addLikes(tweet) {
+      try {
+        const { data } = await tweetsAPI.addLike(tweet.id)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        tweet.isLike = !tweet.isLike
+        tweet.likedCount += 1
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法喜愛這則推文，請稍後再試'
+        })
+      }
+    },
+    async deleteLikes(tweet) {
+      try {
+        const { data } = await tweetsAPI.deleteLike(tweet.id)
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        tweet.isLike = !tweet.isLike
+        tweet.likedCount -= 1
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取消喜愛這則推文，請稍後再試'
+        })
+      }
     }
   }
 }

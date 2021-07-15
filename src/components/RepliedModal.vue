@@ -134,7 +134,11 @@ export default {
 
         const curTime = new Date()
 
-        const comment = { content: content.comment, curTime }
+        const comment = {
+          content: content.comment,
+          curTime,
+          id: this.initTweet.id
+        }
 
         this.$emit('after-create-comment', comment)
       } catch (error) {

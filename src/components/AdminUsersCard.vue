@@ -1,27 +1,52 @@
 <template>
-  <div class="container">
+<div>
+  <div class="container"
+  v-for="user in adminUsers"
+  :key="user.id"
+  >
     <div class="card">
       <div class="background-img">
-        <img src="" class="card-img-top" alt="" />
+        <img :src="user.cover" class="card-img-top" alt="" />
       </div>
       <div class="avatar">
-        <img src="" class="card-img-top" alt="" />
+        <img :src="user.avatar" class="card-img-top" alt="" />
       </div>
       <div class="card-body">
-        <h5 class="card-title">apple</h5>
-        <p class="card-text">@apple</p>
+        <h5 class="card-title">{{ user.name }}</h5>
+        <p class="card-text">@{{ user.account }}</p>
         <div class="click-on-condition row">
-          <div class="reply-count"><i class="far fa-comment"></i> 10k</div>
-          <div class="like-count"><i class="far fa-heart"></i> 20k</div>
+          <div class="reply-count"><i class="far fa-comment"></i> {{ user.tweetCount }}</div>
+          <div class="like-count"><i class="far fa-heart"></i> {{ user.likeCount }}</div>
         </div>
         <div class="follow-condition row">
-          <div class="following-count"><span>50個</span>跟隨中</div>
-          <div class="follows-count"><span>50位</span>跟隨者</div>
+          <div class="following-count"><span>{{ user.followingCount }}個</span>跟隨中</div>
+          <div class="follows-count"><span>{{ user.followerCount }}位</span>跟隨者</div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
+
+<script>
+export default {
+  name: 'AdminUsersCard',
+  props: {
+    adminUsers: {
+      type: Array,
+      required: true
+    }
+  },
+  watch: {
+    adminUsers(newValue) {
+      this.user = {
+        ...this.user,
+        ...newValue
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .container {

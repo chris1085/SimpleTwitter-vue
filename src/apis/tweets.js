@@ -4,6 +4,9 @@ export default {
   getTweets() {
     return apiHelper.get('/tweets')
   },
+  deleteTweet({ tweetId }) {
+    return apiHelper.delete(`/admin/tweets/${tweetId}`)
+  },
   getReplyTweet(replyId) {
     return apiHelper.get(`/tweets/${replyId}`)
   },

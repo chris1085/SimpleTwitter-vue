@@ -1,31 +1,31 @@
 <template>
   <div class="adminSidebar">
     <div class="logo">
-      <a href="/main">
+       <router-link to="/main">
         <img src="../assets/logo.png" alt="" />
-      </a>
+       </router-link>
     </div>
     <div class="buttonList">
       <div class="navItem index">
         <div class="icon">
-          <img v-if="tweets" src="../assets/atHome.svg" alt="" />
+          <img v-if="inltTweets" src="../assets/atHome.svg" alt="" />
           <img v-else src="../assets/home.svg" alt="" />
         </div>
         <button class="btn">
-          <a href="/admin_main">
-            <p id="routerTweets">推文清單</p>
-          </a>
+          <router-link to="/admin_main">
+            <p :class="{ active: inltTweets }" id="routerTweets">推文清單</p>
+          </router-link>
         </button>
       </div>
       <div class="navItem userProfile">
         <div class="icon">
-          <img v-if="users" src="../assets/atProfile.svg" alt="" />
+          <img v-if="adminUsers" src="../assets/atProfile.svg" alt="" />
           <img v-else src="../assets/profile.svg" alt="" />
         </div>
         <button class="btn">
-          <a href="/admain_users">
-            <p id="routerUsers">使用者列表</p>
-          </a>
+          <router-link to="/admin_users">
+            <p :class="{ active: adminUsers }" id="routerUsers">使用者列表</p>
+          </router-link>
         </button>
       </div>
 
@@ -40,6 +40,39 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'AdminSidebar',
+  created() {
+    const location = this.$route.path.split('/')[2]
+    this.setCurrentLocation(location)
+  },
+  data() {
+    return {
+      inltTweets: false,
+      adminUsers: false
+    }
+  },
+  methods: {
+    logout() {
+      // delete token => log out
+      this.$store.commit('revokeAuthentication')
+      this.$router.push('/admin/signin')
+    },
+    setCurrentLocation(location) {
+      console.log('location: ' + location)
+      if (location === 'tweets') {
+        this.inltTweets = true // at tweets
+        this.adminUsers = false
+      } else {
+        this.inltTweets = false
+        this.adminUsers = true // at users
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .adminSidebar {

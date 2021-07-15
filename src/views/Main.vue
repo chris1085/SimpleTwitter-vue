@@ -42,7 +42,6 @@
         :is-reply-page="isReplyPage"
         :init-tweets="tweets"
         :current-user="currentUser"
-        @after-create-comment="updateTweetCard"
       />
     </section>
 
@@ -79,16 +78,25 @@ export default {
       currentUser: {
         avatar: '',
         id: -1
+      },
+      newTweetInfo: {
+        likedCount: 0,
+        repliedCount: 0
       }
     }
   },
   methods: {
     async getCurrentUser() {
       try {
-        const response = await usersAPI.getCurrentUser()
-        const { avatar, id } = response.data
-        this.currentUser.avatar = avatar
-        this.currentUser.id = id
+        const { data } = await usersAPI.getCurrentUser()
+        const { avatar, id, account, name } = data
+
+        this.currentUser = {
+          avatar,
+          id,
+          account,
+          name
+        }
       } catch (error) {
         Toast.fire({
           icon: 'error',
@@ -118,6 +126,8 @@ export default {
           throw new Error('無法送出空白或超過140字數的文章')
         }
 
+        this.getNewTweetInfo(this.newTweetContent)
+
         const content = { description: this.newTweetContent }
         const { data } = await tweetsAPI.newTweet.create(content)
 
@@ -126,7 +136,6 @@ export default {
         }
         this.newTweetContent = ''
         this.isProcessing = false
-        this.fetchTweets()
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
@@ -146,8 +155,22 @@ export default {
         })
       }
     },
-    updateTweetCard() {
-      this.fetchTweets()
+    getNewTweetInfo(newTweetContent) {
+      const curTime = new Date()
+      this.newTweetInfo = {
+        ...this.newTweetInfo,
+        description: newTweetContent,
+        createdAt: curTime,
+        avatar: this.currentUser.avatar,
+        name: this.currentUser.name,
+        account: this.currentUser.account,
+        UserId: this.currentUser.id
+      }
+
+      this.tweets.unshift(this.newTweetInfo)
+    },
+    updateTweetCard(newTweetContent) {
+      this.getNewTweetInfo(newTweetContent)
     }
   },
   created() {

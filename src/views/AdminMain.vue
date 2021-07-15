@@ -7,7 +7,10 @@
       <div class="title">
         <h1>推文清單</h1>
       </div>
-      <AdminTweetsList />
+      <AdminTweetsList
+        :inlt-tweets="inltTweets"
+        @after-delete-tweet="afterDeleteTweet"
+      />
     </div>
   </div>
 </template>
@@ -15,12 +18,71 @@
 <script>
 import AdminSidebar from '../components/AdminSidebar.vue'
 import AdminTweetsList from '../components/AdminTweetsList.vue'
+import tweetsAPI from '../apis/tweets'
+import { Toast } from '../utils/helpers'
 
 export default {
   name: 'AdminMain',
   components: {
     AdminSidebar,
     AdminTweetsList
+  },
+  data() {
+    return {
+      tweet: {
+        id: -1,
+        UserId: '',
+        description: '',
+        createdAt: '',
+        account: '',
+        name: '',
+        avatar: '',
+        likedCount: '',
+        repliedCount: '',
+        isLike: false
+      },
+      inltTweets: [],
+      isLoading: true
+    }
+  },
+  created() {
+    this.fetchTweets()
+  },
+  methods: {
+    async fetchTweets() {
+      try {
+        const { data } = await tweetsAPI.getTweets()
+
+        this.inltTweets = data
+        this.isLoading = false
+      } catch (error) {
+        this.isLoading = false
+        console.log(error)
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得推文資料，請稍後再試'
+        })
+      }
+    },
+    async afterDeleteTweet(tweetId) {
+      try {
+        const { data } = await tweetsAPI.deleteTweet({ tweetId })
+        console.log(data)
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        this.inltTweets = this.inltTweets.filter(tweet => tweet.id !== tweetId)
+        this.isLoading = false
+      } catch (error) {
+        this.isLoading = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法將推文刪除，請稍後再試'
+        })
+        console.log(error)
+      }
+    }
   }
 }
 </script>
