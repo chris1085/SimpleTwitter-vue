@@ -121,7 +121,8 @@ export default {
     },
     async addLikes(tweet) {
       try {
-        const { data } = await tweetsAPI.addLike(tweet.id)
+        console.log('tweet:', tweet)
+        const { data } = await tweetsAPI.addLike(tweet.TweetId)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
@@ -138,7 +139,7 @@ export default {
     },
     async deleteLikes(tweet) {
       try {
-        const { data } = await tweetsAPI.deleteLike(tweet.id)
+        const { data } = await tweetsAPI.deleteLike(tweet.TweetId)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
