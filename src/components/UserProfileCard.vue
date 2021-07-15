@@ -26,7 +26,14 @@
           <router-link
             :to="`/reply_list/${tweet.id}`"
             class="tweet-content"
-            v-if="selected !== 'replies'"
+            v-if="selected === 'tweeters'"
+          >
+            {{ tweet.description }}
+          </router-link>
+          <router-link
+            :to="`/reply_list/${tweet.TweetId}`"
+            class="tweet-content"
+            v-else-if="selected === 'favorites'"
           >
             {{ tweet.description }}
           </router-link>
@@ -121,8 +128,9 @@ export default {
     },
     async addLikes(tweet) {
       try {
-        console.log('tweet:', tweet)
-        const { data } = await tweetsAPI.addLike(tweet.TweetId)
+        const id = this.selected === 'favorites' ? tweet.id : tweet.TweetId
+
+        const { data } = await tweetsAPI.addLike(id)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
@@ -139,7 +147,9 @@ export default {
     },
     async deleteLikes(tweet) {
       try {
-        const { data } = await tweetsAPI.deleteLike(tweet.TweetId)
+        const id = this.selected === 'favorites' ? tweet.id : tweet.TweetId
+
+        const { data } = await tweetsAPI.deleteLike(id)
 
         if (data.status !== 'success') {
           throw new Error(data.message)
