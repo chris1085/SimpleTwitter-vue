@@ -20,7 +20,7 @@
             <i class="far fa-comment"></i> {{ user.tweetCount }}
           </div>
           <div class="like-count">
-            <i class="far fa-heart"></i> {{ user.likeCount }}
+            <i class="far fa-heart"></i> {{ user.likedCount }}
           </div>
         </div>
         <div class="follow-condition row">
@@ -100,7 +100,7 @@ export default {
   display: flex;
   justify-content: center;
   margin: 10px;
-}
+  }
 .reply-count {
   margin-right: 20px;
 }
