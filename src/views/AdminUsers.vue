@@ -8,11 +8,12 @@
         <div class="title">
           <h1>使用者列表</h1>
         </div>
-        <div class="admin-users-card">
-          <AdminUsersCard
+        <!-- <div class="admin-users-card d-flex flex-wrap"> -->
+        <AdminUsersCard
           :admin-users="adminUsers"
-           />
-        </div>
+          class="admin-users-card d-flex flex-wrap"
+        />
+        <!-- </div> -->
       </div>
     </template>
   </div>

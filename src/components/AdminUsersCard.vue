@@ -1,10 +1,11 @@
 <template>
-<div>
-  <div class="container"
-  v-for="user in adminUsers"
-  :key="user.id"
-  >
-    <div class="card">
+  <div>
+    <div
+      class="card col-12 col-md-4 col-lg-3"
+      v-for="user in adminUsers"
+      :key="user.id"
+    >
+      <!-- <div class="card"> -->
       <div class="background-img">
         <img :src="user.cover" class="card-img-top" alt="" />
       </div>
@@ -15,17 +16,25 @@
         <h5 class="card-title">{{ user.name }}</h5>
         <p class="card-text">@{{ user.account }}</p>
         <div class="click-on-condition row">
-          <div class="reply-count"><i class="far fa-comment"></i> {{ user.tweetCount }}</div>
-          <div class="like-count"><i class="far fa-heart"></i> {{ user.likeCount }}</div>
+          <div class="reply-count">
+            <i class="far fa-comment"></i> {{ user.tweetCount }}
+          </div>
+          <div class="like-count">
+            <i class="far fa-heart"></i> {{ user.likeCount }}
+          </div>
         </div>
         <div class="follow-condition row">
-          <div class="following-count"><span>{{ user.followingCount }}個</span>跟隨中</div>
-          <div class="follows-count"><span>{{ user.followerCount }}位</span>跟隨者</div>
+          <div class="following-count">
+            <span>{{ user.followingCount }}個</span>跟隨中
+          </div>
+          <div class="follows-count">
+            <span>{{ user.followerCount }}位</span>跟隨者
+          </div>
         </div>
       </div>
+      <!-- </div> -->
     </div>
   </div>
-</div>
 </template>
 
 <script>
