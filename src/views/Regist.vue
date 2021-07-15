@@ -51,6 +51,7 @@ form {
   flex-direction: column;
   margin: 20px 0 0 15px;
   width: 642px;
+  align-items: center;
 }
 .row {
   width: 642px;
