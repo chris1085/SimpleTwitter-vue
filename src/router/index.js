@@ -95,9 +95,17 @@ router.beforeEach(async (to, from, next) => {
     isAuthenticated = await store.dispatch('fetchCurrentUser')
   }
 
-  // 如果 token 無效則轉址到登入頁
-  if (!isAuthenticated && to.name !== 'login') {
+  const pathsWithoutAuthentication = ['login', 'regist', 'admin']
+
+  // 如果 token 無效且進入需要驗證的頁面則轉址到登入頁
+  if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
     next('/signin')
+    return
+  }
+
+  // 如果 token 有效且進入不需要驗證到頁面則轉址到餐廳首頁
+  if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
+    next('/main')
     return
   }
 
