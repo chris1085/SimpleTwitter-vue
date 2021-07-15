@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent.stop="handleSubmit($event)">
+  <form @submit.prevent.stop="handleSubmit($event)" class="w-100 userSetting-form">
     <div class="row">
       <label for="account"
         >帳號<span class="note ml-5">*帳號長度不得大於 20 字元</span></label
@@ -305,7 +305,7 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  margin: 20px 0 0 15px;
+  padding: 20px 15px 0 15px;
   width: 642px;
 }
 .row {

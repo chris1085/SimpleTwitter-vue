@@ -4,14 +4,25 @@
   top: 0;
   right: 0;
   height: 100vh;
+
+  @include pad {
+    display: none !important;
+  }
+
+  @include pad-lg {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @include mobile {
+    display: none !important;
+  }
 }
 
 .followingsCard {
   width: 350px;
   background-color: #f5f8fa;
   border-radius: 14px;
-  // padding-left: 15px;
-  // padding-right: 15px;
 
   .following-info-container {
     padding-top: 10px;

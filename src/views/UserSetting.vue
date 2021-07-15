@@ -1,12 +1,12 @@
 <template>
-  <div id="UserSetting">
+  <div id="UserSetting" class="w-100">
     <!-- SideNavBar -->
     <SideNavBarDC
       :currentUser="currentUser"
       @after-create-tweet="updateTweetCard"
     />
     <!-- Header -->
-    <div class="header">
+    <div class="header userSetting-container w-100">
       <div class="title">
         <h1>帳戶設定</h1>
       </div>

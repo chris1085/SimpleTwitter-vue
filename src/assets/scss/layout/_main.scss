@@ -3,6 +3,20 @@
   margin-right: 476px;
   min-height: 100vh;
   border-right: 1px solid $border-color;
+
+  @include pad-lg {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include pad {
+    margin-left: 231px;
+    margin-right: 2px;
+  }
+
+  @include mobile {
+    margin: 0 auto;
+  }
 }
 
 .main-tweet {

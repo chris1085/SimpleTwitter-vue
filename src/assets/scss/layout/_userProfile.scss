@@ -4,6 +4,20 @@
   margin-left: 378px;
   margin-right: 476px;
   border-right: 1px solid $border-color;
+
+  @include pad-lg {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include pad {
+    margin-left: 231px;
+    margin-right: 2px;
+  }
+
+  @include mobile {
+    margin: 0 auto;
+  }
 }
 
 .userFollower-container {

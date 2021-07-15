@@ -1,6 +1,12 @@
 //電腦
 @mixin pc() {
-  @media all and (min-width: $pc-media) {
+  @media all and (min-width: $pc-lg-media) {
+    @content;
+  }
+}
+
+@mixin pad-lg() {
+  @media all and (min-width: $pc-media) and (max-width: $pcs-lg-media) {
     @content;
   }
 }
@@ -28,4 +34,25 @@
 %nav-active {
   color: $btn-primary-color;
   border-bottom: 2px solid $btn-primary-color;
+}
+
+%rwd-main-margin {
+  @include pc {
+    margin-left: 378px;
+    margin-right: 476px;
+  }
+
+  @include pad-lg {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include pad {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include mobile {
+    margin: 0 auto;
+  }
 }
