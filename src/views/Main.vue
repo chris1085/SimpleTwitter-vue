@@ -177,11 +177,6 @@ export default {
     this.fetchTweets()
     this.getCurrentUser()
     this.getTopUser()
-
-    localStorage.setItem(
-      'token',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI1OTkyMjkyfQ.3hpb1tTBU3g5f6VtZTxLYOHLSfhU3-JO8lWKNEFA7Ts'
-    )
   }
 }
 </script>
