@@ -21,7 +21,8 @@
     <FollowingsCardDC
       :init-top-users="topUsers"
       :current-user="currentUser"
-      @after-create-comment="updateTweetCard"
+      @after-delete-following="updateFollowing"
+      @after-add-follower="updateFollower"
     />
   </div>
 </template>
@@ -60,7 +61,7 @@ export default {
         account: '',
         avatar: '',
         cover: '',
-        followerCount: 1,
+        followerCount: 0,
         followingCount: 0,
         introduction: '',
         isFollowed: false,
@@ -201,6 +202,26 @@ export default {
           icon: 'error',
           title: '無法取得使用者資料，請稍後再試'
         })
+      }
+    },
+    updateFollowing(topUserId) {
+      const { id } = this.$route.params
+
+      if (this.user.id === this.currentUser.id) {
+        this.user.followingCount -= 1
+      } else if (topUserId === parseInt(id)) {
+        this.user.isFollowed = false
+        this.user.followerCount -= 1
+      }
+    },
+    updateFollower(topUserId) {
+      const { id } = this.$route.params
+
+      if (this.user.id === this.currentUser.id) {
+        this.user.followingCount += 1
+      } else if (topUserId === parseInt(id)) {
+        this.user.followerCount += 1
+        this.user.isFollowed = true
       }
     },
     updateTweetCard() {}

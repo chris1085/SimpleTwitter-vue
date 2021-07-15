@@ -34,10 +34,19 @@
         </li>
       </ul>
 
-      <UserFollowCard :init-follows="follows" :current-user="currentUser" />
+      <UserFollowCard
+        :init-follows="follows"
+        :current-user="currentUser"
+        @after-click-follow="updateFollowStatus"
+      />
     </div>
 
-    <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
+    <FollowingsCardDC
+      :init-top-users="topUsers"
+      :current-user="currentUser"
+      @after-delete-following="updateFollowing"
+      @after-add-follower="updateFollower"
+    />
   </div>
 </template>
 
@@ -85,6 +94,7 @@ export default {
   beforeRouteUpdate(to, from, next) {
     this.getUser(to.params.id)
     this.fetchFollowed(this.followType, to.params.id)
+    this.selected = 'UserFollowers'
     // this.getRepies(to.params.id)
 
     next()
@@ -168,6 +178,56 @@ export default {
           title: '無法取得跟隨資料，請稍後再試'
         })
       }
+    },
+    updateFollowing(topUserId) {
+      const id = this.$route.params.id
+      const intId = parseInt(id)
+
+      if (intId === this.currentUser.id && this.selected === 'UserFollowings') {
+        this.follows = this.follows.filter(follow => {
+          return follow.followingId !== topUserId
+        })
+      }
+    },
+    async updateFollower(topUserId) {
+      try {
+        const routerId = this.$route.params.id
+        const intId = parseInt(routerId)
+
+        if (
+          intId === this.currentUser.id &&
+          this.selected === 'UserFollowings'
+        ) {
+          const { data } = await usersAPI.get(topUserId)
+
+          if (data.status !== 'success') {
+            throw new Error(data.message)
+          }
+
+          const { id, account, avatar, introduction, name } = data
+
+          this.follows.push({
+            followingId: id,
+            account,
+            avatar,
+            name,
+            introduction,
+            isFollowed: true
+          })
+        }
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法加入喜愛使用者，請稍後再試'
+        })
+      }
+    },
+    updateFollowStatus({ id, isFollowed }) {
+      this.topUsers.forEach(user => {
+        if (user.id === id) {
+          user.isFollowed = isFollowed
+        }
+      })
     },
     updateTweetCard() {}
   },
