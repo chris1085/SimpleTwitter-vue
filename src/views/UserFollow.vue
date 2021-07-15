@@ -103,12 +103,13 @@ export default {
     async getCurrentUser() {
       try {
         const response = await usersAPI.getCurrentUser()
-        const { avatar, id, name, account } = response.data
+        const { avatar, id, name, account, introduction } = response.data
         this.currentUser = {
           avatar,
           id,
           name,
-          account
+          account,
+          introduction
         }
       } catch (error) {
         Toast.fire({
@@ -188,11 +189,28 @@ export default {
           return follow.followingId !== topUserId
         })
       }
+
+      if (intId === topUserId && this.selected === 'UserFollowers') {
+        this.follows = this.follows.filter(follow => {
+          return follow.followerId !== this.currentUser.id
+        })
+      }
     },
     async updateFollower(topUserId) {
       try {
         const routerId = this.$route.params.id
         const intId = parseInt(routerId)
+
+        if (intId === topUserId && this.selected === 'UserFollowers') {
+          this.follows.push({
+            followerId: this.currentUser.id,
+            account: this.currentUser.account,
+            avatar: this.currentUser.avatar,
+            name: this.currentUser.name,
+            introduction: this.currentUser.introduction,
+            isFollowed: true
+          })
+        }
 
         if (
           intId === this.currentUser.id &&
