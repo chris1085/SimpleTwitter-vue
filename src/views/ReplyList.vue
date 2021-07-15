@@ -49,20 +49,20 @@
               class="reply-userIcon"
               data-bs-toggle="modal"
               data-bs-target="#repliedModal"
-              ><i class="far fa-comment mr-3"></i
-            ></a>
+              ><font-awesome-icon :icon="['far', 'comment']" class="mr-3"
+            /></a>
             <span
               class="reply-userIcon"
               v-if="!tweet.isLike"
               @click.stop.prevent="addLikes(tweet)"
-              ><i class="far fa-heart mr-3"></i
-            ></span>
+              ><font-awesome-icon :icon="['far', 'heart']" class="mr-3"
+            /></span>
             <span
               class="reply-userIcon pink"
               v-else
               @click.stop.prevent="deleteLikes(tweet)"
-              ><i class="fas fa-heart mr-3 pink"></i
-            ></span>
+              ><font-awesome-icon :icon="['fas', 'heart']" class="mr-3"
+            /></span>
           </div>
         </div>
       </section>

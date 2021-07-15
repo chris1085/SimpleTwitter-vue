@@ -54,20 +54,25 @@
               data-bs-toggle="modal"
               data-bs-target="#repliedModal"
               @click.stop.prevent="handleRepliedContent(tweet)"
-              ><i class="far fa-comment mr-3"></i>{{ tweet.repliedCount }}</a
+              ><font-awesome-icon :icon="['far', 'comment']" class="mr-3" />{{
+                tweet.repliedCount
+              }}</a
             >
             <span
               class="tweet-icon"
               v-if="!tweet.isLike"
               @click.stop.prevent="addLikes(tweet)"
-              ><i class="far fa-heart mr-3"></i>{{ tweet.likedCount }}</span
+              ><font-awesome-icon :icon="['far', 'heart']" class="mr-3" />{{
+                tweet.likedCount
+              }}</span
             >
             <span
               class="tweet-icon pink"
               v-else
               @click.stop.prevent="deleteLikes(tweet)"
-              ><i class="fas fa-heart mr-3 pink"></i
-              >{{ tweet.likedCount }}</span
+              ><font-awesome-icon :icon="['fas', 'heart']" class="mr-3" />{{
+                tweet.likedCount
+              }}</span
             >
           </div>
         </div>
