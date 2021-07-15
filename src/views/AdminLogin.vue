@@ -1,50 +1,52 @@
 <template>
-  <div class="container py-5">
+  <div class="container py-5 ">
     <form class="w-100" @submit.prevent.stop="handleSubmit">
-      <div class="logo text-center">
-        <img src="../assets/logo.png" alt="" />
-      </div>
-      <div class="admin-text text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">後台登入</h1>
-      </div>
+      <div class="adminForm-container">
+        <div class="logo text-center">
+          <img src="../assets/logo.png" alt="" />
+        </div>
+        <div class="admin-text text-center mb-4">
+          <h1 class="h3 mb-3 font-weight-normal">後台登入</h1>
+        </div>
 
-      <div class="form-account form-label-group mb-2">
-        <label for="account">帳號</label>
-        <input
-          id="account"
-          v-model="account"
-          name="account"
-          type="text"
-          class="form-control"
-          autocomplete="useraccount"
-          required
-          autofocus
-        />
-      </div>
+        <div class="form-account form-label-group mb-2">
+          <label for="account">帳號</label>
+          <input
+            id="account"
+            v-model="account"
+            name="account"
+            type="text"
+            class="form-control"
+            autocomplete="useraccount"
+            required
+            autofocus
+          />
+        </div>
 
-      <div class="form-password form-label-group mb-3">
-        <label for="password">密碼</label>
-        <input
-          id="password"
-          v-model="password"
-          name="password"
-          type="password"
-          class="form-control"
-          autocomplete="current-password"
-          required
-        />
-      </div>
-      <button
-        class="btn btn-lg btn-primary btn-block mb-3"
-        type="submit"
-        :disabled="isProcessing"
-      >
-        登入
-      </button>
-      <div class="sign-in text-center mb-3">
-        <p>
-          <router-link to="/signin">前台登入</router-link>
-        </p>
+        <div class="form-password form-label-group mb-3">
+          <label for="password">密碼</label>
+          <input
+            id="password"
+            v-model="password"
+            name="password"
+            type="password"
+            class="form-control"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <button
+          class="btn btn-lg btn-primary btn-block mb-3 w-100"
+          type="submit"
+          :disabled="isProcessing"
+        >
+          登入
+        </button>
+        <div class="sign-in text-center mb-3 w-100">
+          <p class="text-right">
+            <router-link to="/signin">前台登入</router-link>
+          </p>
+        </div>
       </div>
     </form>
   </div>
@@ -168,8 +170,8 @@ input {
 }
 form .sign-in {
   position: relative;
-  left: 240px;
-  bottom: 28px;
+  /* left: 240px;
+  bottom: 28px; */
   font-weight: 900;
   text-decoration: underline;
   margin-top: 20px;

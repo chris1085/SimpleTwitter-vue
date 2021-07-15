@@ -1,0 +1,46 @@
+.form-label-group {
+  position: relative;
+  bottom: 30px;
+  width: 540px;
+  margin: 10px;
+
+  @include pad {
+    width: 100% !important;
+  }
+
+  @include mobile {
+    width: 100% !important;
+  }
+}
+
+.btn-block {
+  @include pad {
+    width: 100% !important;
+  }
+
+  @include mobile {
+    width: 100% !important;
+  }
+}
+
+.adminForm-container {
+  @include pad {
+    width: 100% !important;
+  }
+
+  @include mobile {
+    width: 100% !important;
+  }
+}
+
+.form-control {
+  @include pad {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  @include mobile {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}

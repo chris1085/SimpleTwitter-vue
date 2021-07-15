@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form @submit.prevent.stop="handleSubmit">
+    <form @submit.prevent.stop="handleSubmit" class="login-form">
       <div class="logo">
         <img src="../assets/logo.png" alt="" />
       </div>
@@ -35,7 +35,7 @@
           {{ isProcessing ? '登入中' : '登入' }}
         </button>
       </div>
-      <div class="row link-btns-container">
+      <div class="row link-btns-container text-right">
         <div class="link-btns">
           <router-link class="routerLink" to="/regist"
             >註冊 Alphitter</router-link
@@ -176,13 +176,10 @@ button.signin {
   font-weight: 700;
 }
 .link-btns-container {
-  position: relative;
-  height: 26px;
+  margin-right: 0px;
 }
 .link-btns {
-  position: absolute;
-  left: 340px;
-  top: 10px;
+  padding-right: 0px;
 }
 .routerLink {
   font-weight: 700;
