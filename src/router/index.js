@@ -6,7 +6,7 @@ import Regist from '../views/Regist.vue'
 import AdminLogin from '../views/AdminLogin.vue'
 import Main from '../views/Main.vue'
 import NotFound from '../views/NotFound.vue'
-// import store from './../store'
+import store from './../store'
 
 Vue.use(VueRouter)
 
@@ -83,9 +83,9 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   store.dispatch('fetchCurrentUser')
-//   next()
-// })
+router.beforeEach((to, from, next) => {
+  store.dispatch('fetchCurrentUser')
+  next()
+})
 
 export default router

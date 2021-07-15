@@ -26,6 +26,7 @@ export default new Vuex.Store({
         ...state.currentUser,
         ...currentUser // 透過API取得
       }
+      console.log(('state:', state))
       state.isAuthenticated = true
       state.token = localStorage.getItem('token')
     },
@@ -47,7 +48,12 @@ export default new Vuex.Store({
         const { account, id, name, email, avatar, role } = data
 
         commit('setCurrentUser', {
-          account, id, name, email, avatar, role
+          account,
+          id,
+          name,
+          email,
+          avatar,
+          role
         })
 
         // signin success
@@ -60,6 +66,5 @@ export default new Vuex.Store({
       }
     }
   },
-  modules: {
-  }
+  modules: {}
 })

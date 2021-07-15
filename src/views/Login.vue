@@ -79,6 +79,7 @@ export default {
           throw new Error(data.message)
         }
         // set token
+        console.log(data)
         localStorage.setItem('token', data.token)
 
         // 透過 setCurrentUser 把使用者資料存到 Vuex 的 state 中
