@@ -1,0 +1,143 @@
+%font-setting {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+  color: #1c1c1c;
+}
+
+.sideNaveBar {
+  position: fixed;
+  padding-left: 103px;
+  padding-right: 65px;
+  padding-bottom: 17px;
+  height: 100vh;
+  border-right: 1px solid $border-color;
+
+  @include pad {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @include pad-lg {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @include mobile {
+    display: none !important;
+  }
+
+  .logo {
+    width: 47px;
+    height: 47px;
+    text-indent: 101%; /*首行縮排*/
+    overflow: hidden; /*自動隱藏超出的文字或圖片*/
+    white-space: nowrap; /*希望元素在第一排上面，沒有斷行*/
+
+    .logo-link {
+      display: block;
+      background: url('~@/assets/images/logo.png') no-repeat left;
+      background-size: contain;
+      width: 100%;
+      height: 47px;
+    }
+  }
+
+  .btn-nav-tweet {
+    margin-top: 27px;
+  }
+}
+
+.menuList {
+  margin-top: 17px;
+  .list-item {
+    margin-top: 34px;
+
+    .list-link {
+      display: block;
+      width: 100%;
+      height: 26px;
+      @extend %font-setting;
+
+      .icon-container-home,
+      .icon-container-profile,
+      .icon-container-setting {
+        width: 22px;
+        height: 22px;
+        margin-right: 22px;
+      }
+
+      .icon-container-home {
+        background: url('~@/assets/images/home.svg') no-repeat center;
+      }
+
+      .icon-container-profile {
+        background: url('~@/assets/images/profile.svg') no-repeat center;
+      }
+
+      .icon-container-setting {
+        background: url('~@/assets/images/setting.svg') no-repeat center;
+      }
+
+      &:hover {
+        color: $btn-primary-color;
+
+        .icon-container-home {
+          background: url('~@/assets/images/atHome.svg') no-repeat center;
+        }
+
+        .icon-container-profile {
+          background: url('~@/assets/images/atProfile.svg') no-repeat center;
+        }
+
+        .icon-container-setting {
+          background: url('~@/assets/images/atSetting.svg') no-repeat center;
+        }
+      }
+    }
+  }
+}
+
+.logout-container {
+  @extend %font-setting;
+
+  .icon-container-logout {
+    width: 18px;
+    height: 18px;
+    margin-right: 23px;
+    background: url('~@/assets/images/logout.svg') no-repeat;
+  }
+
+  .logout-link {
+    width: 100px;
+    cursor: pointer;
+    &:hover {
+      color: $btn-primary-color;
+    }
+  }
+}
+
+.newTweet-modal-content {
+  .modal-header {
+    border-bottom: 1px solid $border-color;
+  }
+
+  .content-tweet {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 70px;
+    resize: none;
+    width: 100%;
+    overflow-y: hidden;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .modal-footer {
+    margin-top: 0px;
+    border-top: none;
+  }
+}

@@ -1,0 +1,11 @@
+.login-form {
+  .row {
+    @include pad {
+      width: 100% !important;
+    }
+
+    @include mobile {
+      width: 100% !important;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.userSetting-container {
+  margin-left: 378px !important;
+
+  @include pad-lg {
+    margin-left: 231px !important;
+  }
+
+  @include pad {
+    margin-left: 231px !important;
+  }
+
+  @include mobile {
+    margin: 0 auto !important;
+  }
+
+  .update {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    @include pad-lg {
+      width: 100%;
+    }
+
+    @include pad {
+      width: 100%;
+    }
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+}
+
+.userSetting-form {
+  .row {
+    @include pad-lg {
+      width: 100% !important;
+    }
+
+    @include pad {
+      width: 100% !important;
+    }
+
+    @include mobile {
+      width: 100% !important;
+    }
+  }
+}

@@ -1,0 +1,122 @@
+$btn-primary-color: $btn-primary-color;
+$btn-primary-hover-color: $btn-promary-hover-color;
+
+.btn {
+  // width: 174px;
+  padding-left: 48px;
+  padding-right: 48px;
+  height: 46px;
+  border: 0px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary,
+.btn-check:focus + .btn-primary,
+.btn-primary:focus {
+  background-color: $btn-primary-color;
+  color: white;
+  border-color: $btn-primary-color;
+
+  &:hover,
+  &:active:hover,
+  &:active:hover {
+    background-color: $btn-primary-hover-color;
+  }
+}
+
+.btn-outline-primary {
+  // background-color: $btn-primary-color;
+  color: $btn-primary-hover-color;
+  border: 1px solid $btn-primary-hover-color;
+
+  &:hover {
+    background-color: $btn-primary-hover-color;
+    border: 1px solid $btn-primary-hover-color;
+    color: white;
+  }
+}
+
+.btn-tweet {
+  width: 64px;
+  height: 40px;
+  font-size: 18px;
+  padding: 11px 14px;
+  border-radius: 100px;
+  line-height: 1;
+}
+
+.btn-follow {
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 100px;
+  padding: 0px 16px !important;
+  height: 30px;
+}
+
+.btn-profile {
+  padding: 10px 15px;
+  border-radius: 100px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+.btn-profile-rounded {
+  border: 1px solid $btn-primary-color;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 auto;
+}
+
+.btn-nav-tweet {
+  width: 210px;
+  height: 45px;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.btn-followingsCard {
+  border-radius: 100px;
+  width: 92px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.btn-outline-followingsCard {
+  border-radius: 100px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 62px;
+  height: 30px;
+  /* identical to box height, or 100% */
+
+  // color: #ff6600;
+}
+
+.btn-sideNavActive {
+  color: $btn-primary-color !important;
+
+  .icon-container-home {
+    background: url('~@/assets/images/atHome.svg') no-repeat center !important;
+  }
+
+  .icon-container-profile {
+    background: url('~@/assets/images/atProfile.svg') no-repeat center !important;
+  }
+
+  .icon-container-setting {
+    background: url('~@/assets/images/atSetting.svg') no-repeat center !important;
+  }
+}

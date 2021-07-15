@@ -1,0 +1,85 @@
+.followingsCard-container {
+  padding: 15px 82px 0px 30px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+
+  @include pad {
+    display: none !important;
+  }
+
+  @include pad-lg {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @include mobile {
+    display: none !important;
+  }
+}
+
+.followingsCard {
+  width: 350px;
+  background-color: #f5f8fa;
+  border-radius: 14px;
+
+  .following-info-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .following-info {
+    padding-left: 10px;
+
+    .following-name {
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 15px;
+      color: #1c1c1c;
+      margin-bottom: 3px;
+    }
+
+    .following-id {
+      font-size: 15px;
+      line-height: 15px;
+      color: $atUser-color;
+    }
+  }
+
+  .following-item {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .following-img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.followings-title {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+  color: #1c1c1c;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $border-color;
+  padding-left: 15px;
+}
+
+.more {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 22px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 15px;
+  color: $btn-primary-color;
+
+  &:hover {
+    color: $btn-primary-color;
+  }
+}

@@ -1,0 +1,149 @@
+.main-container {
+  margin-left: 378px;
+  margin-right: 476px;
+  min-height: 100vh;
+  border-right: 1px solid $border-color;
+
+  @include pad-lg {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include pad {
+    margin-left: 231px;
+    margin-right: 2px;
+  }
+
+  @include mobile {
+    margin: 0 auto;
+  }
+}
+
+.main-tweet {
+  position: relative;
+  // padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  min-height: 120px;
+  border-bottom: 10px solid #e6ecf0;
+  // border-left: 1px solid #e6ecf0;
+  // border-right: 1px solid #e6ecf0;
+
+  .content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .content-tweet {
+      margin-top: 13px;
+      margin-left: 10px;
+      margin-right: 70px;
+      resize: none;
+      width: 100%;
+      overflow-y: hidden;
+      border: none;
+      outline: none;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+}
+.content-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  // object-fit: contain;
+  background-color: rgb(206, 206, 206);
+}
+
+.content-text {
+  width: 100%;
+  color: #9197a3;
+  margin-top: 13px;
+  margin-left: 10px;
+  margin-right: 70px;
+  outline: none;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.btn-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.tweets,
+.replyModal-container {
+  .tweet {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e6ecf0;
+    // border-left: 1px solid #e6ecf0;
+    // border-right: 1px solid #e6ecf0;
+  }
+
+  .tweet-img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+
+  .tweet-content-container {
+    margin-left: 10px;
+  }
+
+  .tweet-header {
+    margin-bottom: 6px;
+  }
+
+  .tweet-userName,
+  .tweet-userInfo,
+  .tweet-content {
+    @extend %main-text-shared;
+  }
+
+  .tweet-userName {
+    color: #1c1c1c;
+    font-weight: bold;
+  }
+
+  .tweet-userInfo {
+    margin-left: 5px;
+    color: #657786;
+  }
+
+  .tweet-replyFormat {
+    padding-top: 4px;
+    padding-bottom: 5px;
+    color: #657786;
+
+    .reply-name {
+      color: $btn-primary-color;
+    }
+  }
+
+  .tweet-content {
+    color: #1c1c1c;
+  }
+
+  .tweet-icons-container {
+    cursor: pointer;
+    padding-top: 15px;
+
+    .tweet-icon {
+      margin-right: 50px;
+
+      font-family: Noto Sans TC;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 13px;
+
+      color: #657786;
+    }
+  }
+}

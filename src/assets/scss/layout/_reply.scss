@@ -1,0 +1,95 @@
+.content-user {
+  margin-left: 10px;
+
+  .tweet-userName,
+  .tweet-userInfo {
+    @extend %main-text-shared;
+  }
+
+  .tweet-userInfo {
+    color: $main-color;
+  }
+}
+
+.reply-content-container {
+  padding-top: 15px;
+
+  p {
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 34px;
+  }
+
+  .reply-contentTime-container {
+    border-bottom: 1px solid $border-color;
+  }
+  .reply-contentTime {
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #657786;
+    @extend %main-text-shared;
+  }
+}
+
+.reply-container {
+  margin-left: 378px;
+  margin-right: 476px;
+  min-height: 100vh;
+  border-right: 1px solid $border-color;
+
+  @include pad-lg {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include pad {
+    margin-left: 231px;
+    margin-right: 2px;
+  }
+
+  @include mobile {
+    margin: 0 auto;
+  }
+  .main-tweet {
+    border-bottom: 1px solid $border-color;
+    padding: 15px;
+  }
+}
+
+.reply-userResponse {
+  border-bottom: 1px solid $border-color;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .comments,
+  .likes {
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 28px;
+    color: $main-color;
+
+    span {
+      color: black;
+    }
+  }
+
+  .likes {
+    margin-left: 20px;
+  }
+}
+
+.reply-userIcons-container {
+  padding-top: 20px;
+  .reply-userIcon {
+    font-size: 24px;
+    margin-right: 155px;
+    color: $main-color;
+    cursor: pointer;
+  }
+
+  .pink {
+    color: $pink-color;
+  }
+}

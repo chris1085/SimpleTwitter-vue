@@ -1,0 +1,58 @@
+//電腦
+@mixin pc() {
+  @media all and (min-width: $pc-lg-media) {
+    @content;
+  }
+}
+
+@mixin pad-lg() {
+  @media all and (min-width: $pc-media) and (max-width: $pcs-lg-media) {
+    @content;
+  }
+}
+//平板
+@mixin pad() {
+  @media all and (min-width: $phone-media) and (max-width: $pcs-media) {
+    @content;
+  }
+}
+//手機
+@mixin mobile() {
+  @media all and (max-width: $phones-media) {
+    @content;
+  }
+}
+
+%main-text-shared {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+%nav-active {
+  color: $btn-primary-color;
+  border-bottom: 2px solid $btn-primary-color;
+}
+
+%rwd-main-margin {
+  @include pc {
+    margin-left: 378px;
+    margin-right: 476px;
+  }
+
+  @include pad-lg {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include pad {
+    margin-left: 231px;
+    margin-right: 370px;
+  }
+
+  @include mobile {
+    margin: 0 auto;
+  }
+}
