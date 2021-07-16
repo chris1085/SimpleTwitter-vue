@@ -3,8 +3,6 @@
     <Loading
       v-model="isLoading"
       :active.sync="isLoading"
-      :can-cancel="true"
-      :on-cancel="onCancel"
       :is-full-page="fullPage"
     />
 
@@ -19,7 +17,7 @@
       </header>
       <section class="main-tweet">
         <div class="tweet-header d-flex">
-          <router-link :to="`/user/${tweet.id}`">
+          <router-link :to="`/user/${tweet.UserId}`">
             <img
               class="content-img rounded"
               :src="tweet.avatar | emptyImage"

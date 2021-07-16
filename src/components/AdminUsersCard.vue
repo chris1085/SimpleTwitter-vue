@@ -7,10 +7,10 @@
     >
       <!-- <div class="card"> -->
       <div class="background-img">
-        <img :src="user.cover" class="card-img-top" alt="" />
+        <img :src="user.cover | emptyImage" class="card-img-top" alt="" />
       </div>
       <div class="avatar">
-        <img :src="user.avatar" class="card-img-top" alt="" />
+        <img :src="user.avatar | emptyImage" class="card-img-top" alt="" />
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ user.name }}</h5>
@@ -38,8 +38,11 @@
 </template>
 
 <script>
+import { emptyImageFilter } from '../utils/mixins'
+
 export default {
   name: 'AdminUsersCard',
+  mixins: [emptyImageFilter],
   props: {
     adminUsers: {
       type: Array,
@@ -100,7 +103,7 @@ export default {
   display: flex;
   justify-content: center;
   margin: 10px;
-  }
+}
 .reply-count {
   margin-right: 20px;
 }
