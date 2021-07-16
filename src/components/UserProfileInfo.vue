@@ -91,14 +91,14 @@ import UserEditModal from '../components/UserEditModal.vue'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   name: 'UserProfileInfo',
   mixins: [emptyImageFilter, dateFilter],
 
   props: {
-    initUser: { type: Object, required: true },
-    currentUser: { type: Object, required: true }
+    initUser: { type: Object, required: true }
   },
   watch: {
     initUser(newValue) {
@@ -154,6 +154,9 @@ export default {
       this.user = { ...this.user, ...data }
       // console.log('temp:' + this.temp)
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

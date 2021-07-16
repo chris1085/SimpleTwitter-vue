@@ -1,10 +1,14 @@
 <template>
   <div class="d-flex">
-    <!-- <SideNavBar /> -->
-    <SideNavBarDC
-      :current-user="currentUser"
-      @after-create-tweet="updateTweetCard"
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
     />
+
+    <SideNavBarDC @after-create-tweet="updateTweetCard" />
     <section class="main-container w-100">
       <header><h3 class="font-bold">首頁</h3></header>
       <div class="main-tweet">
@@ -38,14 +42,10 @@
           </div>
         </form>
       </div>
-      <MainTweetsCard
-        :is-reply-page="isReplyPage"
-        :init-tweets="tweets"
-        :current-user="currentUser"
-      />
+      <MainTweetsCard :is-reply-page="isReplyPage" :init-tweets="tweets" />
     </section>
 
-    <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
+    <FollowingsCardDC :init-top-users="topUsers" />
   </div>
 </template>
 
@@ -57,6 +57,9 @@ import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
+import { mapState } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   name: 'MainTweetsPage',
@@ -64,9 +67,8 @@ export default {
   components: {
     MainTweetsCard,
     FollowingsCardDC,
-    // FollowingsCard,
-    // SideNavBar,
-    SideNavBarDC
+    SideNavBarDC,
+    Loading
   },
   data() {
     return {
@@ -75,40 +77,24 @@ export default {
       isReplyPage: false,
       isProcessing: false,
       tweets: [],
-      currentUser: {
-        avatar: '',
-        id: -1
-      },
       newTweetInfo: {
         likedCount: 0,
         repliedCount: 0
-      }
+      },
+      isLoading: false,
+      fullPage: true
     }
   },
   methods: {
-    async getCurrentUser() {
-      try {
-        const { data } = await usersAPI.getCurrentUser()
-        const { avatar, id, account, name } = data
-
-        this.currentUser = {
-          avatar,
-          id,
-          account,
-          name
-        }
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得當前使用者，請稍後再試'
-        })
-      }
-    },
     async fetchTweets() {
       try {
+        this.isLoading = true
         const response = await tweetsAPI.getTweets()
         this.tweets = response.data
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取得推文資料，請稍後再試'
@@ -117,6 +103,7 @@ export default {
     },
     async handleSubmit(e) {
       try {
+        this.isLoading = true
         this.isProcessing = true
 
         if (
@@ -136,8 +123,11 @@ export default {
         }
         this.newTweetContent = ''
         this.isProcessing = false
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         this.isProcessing = false
+
         Toast.fire({
           icon: 'error',
           title: error
@@ -173,9 +163,11 @@ export default {
       this.getNewTweetInfo(newTweetContent)
     }
   },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
+  },
   created() {
     this.fetchTweets()
-    this.getCurrentUser()
     this.getTopUser()
   }
 }

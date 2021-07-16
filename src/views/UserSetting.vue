@@ -1,10 +1,7 @@
 <template>
   <div id="UserSetting" class="w-100">
     <!-- SideNavBar -->
-    <SideNavBarDC
-      :currentUser="currentUser"
-      @after-create-tweet="updateTweetCard"
-    />
+    <SideNavBarDC @after-create-tweet="updateTweetCard" />
     <!-- Header -->
     <div class="header userSetting-container w-100">
       <div class="title">
@@ -18,8 +15,7 @@
 <script>
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 import UserSettingForm from '../components/UserSettingForm.vue'
-import usersAPI from '../apis/users'
-import { Toast } from '../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   name: 'UserSetting',
@@ -29,37 +25,14 @@ export default {
   },
   data() {
     return {
-      isSignUp: false,
-      currentUser: {
-        avatar: '',
-        id: -1,
-        name: '',
-        account: ''
-      }
+      isSignUp: false
     }
   },
   methods: {
-    updateTweetCard() {},
-    async getCurrentUser() {
-      try {
-        const response = await usersAPI.getCurrentUser()
-        const { avatar, id, name, account } = response.data
-        this.currentUser = {
-          avatar,
-          id,
-          name,
-          account
-        }
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得當前使用者，請稍後再試'
-        })
-      }
-    }
+    updateTweetCard() {}
   },
-  created() {
-    this.getCurrentUser()
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

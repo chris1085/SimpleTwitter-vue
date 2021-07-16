@@ -1,5 +1,13 @@
 <template>
   <div>
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+
     <div
       class="modal fade"
       id="newTweetModal"
@@ -59,25 +67,26 @@
 import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
 import { Toast } from '../utils/helpers'
+import { mapState } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   mixins: [emptyImageFilter],
-  props: {
-    currentUser: {
-      type: Object,
-      required: true
-    }
-  },
+  components: { Loading },
   data() {
     return {
       image: null,
       isProcessing: false,
-      newTweetContent: ''
+      newTweetContent: '',
+      isLoading: false,
+      fullPage: true
     }
   },
   methods: {
     async handleSubmit(e) {
       try {
+        this.isLoading = true
         this.isProcessing = true
 
         if (
@@ -98,7 +107,9 @@ export default {
 
         this.newTweetContent = ''
         this.isProcessing = false
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         this.isProcessing = false
         Toast.fire({
           icon: 'error',
@@ -106,6 +117,9 @@ export default {
         })
       }
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

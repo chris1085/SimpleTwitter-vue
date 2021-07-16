@@ -53,7 +53,6 @@
     </ul>
     <RepliedModal
       :init-tweet="tweet"
-      :current-user="currentUser"
       @after-create-comment="afterCreateComment"
     />
   </div>
@@ -72,10 +71,6 @@ export default {
   props: {
     initTweets: {
       type: Array,
-      required: true
-    },
-    currentUser: {
-      type: Object,
       required: true
     }
   },

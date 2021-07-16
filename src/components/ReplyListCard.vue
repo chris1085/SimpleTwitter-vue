@@ -37,6 +37,7 @@
 
 <script>
 import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
+import { mapState } from 'vuex'
 
 export default {
   name: 'MainTweetsCard',
@@ -48,10 +49,6 @@ export default {
     },
     initReplies: {
       type: Array,
-      required: true
-    },
-    currentUser: {
-      type: Object,
       required: true
     }
   },
@@ -65,6 +62,9 @@ export default {
     initReplies(newValue) {
       this.replies = [...newValue]
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

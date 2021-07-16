@@ -1,5 +1,13 @@
 <template>
   <div>
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+
     <div
       class="modal fade"
       id="repliedModal"
@@ -90,30 +98,33 @@
 import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
 import { Toast } from '../utils/helpers'
 import tweetsAPI from '../apis/tweets'
+import { mapState } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   props: {
     initTweet: {
       type: Object,
       required: true
-    },
-    currentUser: {
-      type: Object,
-      required: true
     }
   },
   mixins: [emptyImageFilter, fromNowFilter],
+  components: { Loading },
   data() {
     return {
       repliedContent: '',
       isProcessing: false,
       repliedCurrentUser: this.currentUser,
-      tweet: this.initTweet
+      tweet: this.initTweet,
+      isLoading: false,
+      fullPage: true
     }
   },
   methods: {
     async handleSubmit(tweetId) {
       try {
+        this.isLoading = true
         this.isProcessing = true
 
         if (
@@ -139,16 +150,22 @@ export default {
           curTime,
           id: this.initTweet.id
         }
+        this.isLoading = false
 
         this.$emit('after-create-comment', comment)
       } catch (error) {
+        this.isLoading = false
         this.isProcessing = false
+
         Toast.fire({
           icon: 'error',
           title: error
         })
       }
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>
