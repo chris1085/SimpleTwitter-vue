@@ -57,6 +57,7 @@ import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   name: 'MainTweetsPage',
@@ -64,8 +65,6 @@ export default {
   components: {
     MainTweetsCard,
     FollowingsCardDC,
-    // FollowingsCard,
-    // SideNavBar,
     SideNavBarDC
   },
   data() {
@@ -75,10 +74,6 @@ export default {
       isReplyPage: false,
       isProcessing: false,
       tweets: [],
-      currentUser: {
-        avatar: '',
-        id: -1
-      },
       newTweetInfo: {
         likedCount: 0,
         repliedCount: 0
@@ -86,24 +81,6 @@ export default {
     }
   },
   methods: {
-    async getCurrentUser() {
-      try {
-        const { data } = await usersAPI.getCurrentUser()
-        const { avatar, id, account, name } = data
-
-        this.currentUser = {
-          avatar,
-          id,
-          account,
-          name
-        }
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得當前使用者，請稍後再試'
-        })
-      }
-    },
     async fetchTweets() {
       try {
         const response = await tweetsAPI.getTweets()
@@ -173,9 +150,11 @@ export default {
       this.getNewTweetInfo(newTweetContent)
     }
   },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
+  },
   created() {
     this.fetchTweets()
-    this.getCurrentUser()
     this.getTopUser()
   }
 }
