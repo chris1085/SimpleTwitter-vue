@@ -91,7 +91,6 @@ import RepliedModal from '../components/RepliedModal.vue'
 import FollowingsCardDC from '../components/FollowingsCardDC.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 import tweetsAPI from '../apis/tweets'
-import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 import { mapState } from 'vuex'
@@ -111,7 +110,6 @@ export default {
   data() {
     return {
       isReplyPage: true,
-      topUsers: [],
       tweet: {},
       replies: [],
       isLoading: false,
@@ -125,17 +123,6 @@ export default {
     next()
   },
   methods: {
-    async getTopUser() {
-      try {
-        const response = await usersAPI.getTopUsers()
-        this.topUsers = response.data.users
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得Top跟隨者'
-        })
-      }
-    },
     async getRepies(id) {
       try {
         this.isLoading = true
@@ -233,10 +220,9 @@ export default {
     const { id } = this.$route.params
     this.getRepies(id)
     this.getTweet(id)
-    this.getTopUser()
   },
   computed: {
-    ...mapState(['currentUser', 'isAuthenticated'])
+    ...mapState(['currentUser', 'isAuthenticated', 'topUsers'])
   }
 }
 </script>

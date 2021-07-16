@@ -54,7 +54,6 @@ export default {
   },
   data() {
     return {
-      topUsers: [],
       user: {
         id: -1,
         account: '',
@@ -106,17 +105,6 @@ export default {
         this.getUserRepliedTweets(this.user.id)
       } else {
         this.getUserLikeTweets(this.user.id)
-      }
-    },
-    async getTopUser() {
-      try {
-        const response = await usersAPI.getTopUsers()
-        this.topUsers = response.data.users
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得Top跟隨者'
-        })
       }
     },
     async getUserTweets(userId) {
@@ -234,11 +222,10 @@ export default {
     updateTweetCard() {}
   },
   computed: {
-    ...mapState(['currentUser', 'isAuthenticated'])
+    ...mapState(['currentUser', 'isAuthenticated', 'topUsers'])
   },
   created() {
     const { id } = this.$route.params
-    this.getTopUser()
     this.getUser(id)
     this.getUserTweets(id)
   }

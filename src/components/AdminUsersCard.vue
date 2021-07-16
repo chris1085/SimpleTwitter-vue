@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="card col-12 col-md-4 col-lg-3"
+      class="card col-12 col-md-4 col-lg-3 mx-3 my-3"
       v-for="user in adminUsers"
       :key="user.id"
     >

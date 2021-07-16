@@ -65,7 +65,6 @@ export default {
   data() {
     return {
       selected: 'followers',
-      topUsers: [],
       user: {
         id: -1,
         account: '',
@@ -90,17 +89,6 @@ export default {
     next()
   },
   methods: {
-    async getTopUser() {
-      try {
-        const response = await usersAPI.getTopUsers()
-        this.topUsers = response.data.users
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得Top跟隨者'
-        })
-      }
-    },
     async getUser(userId) {
       try {
         const { data } = await usersAPI.get(userId)
@@ -226,11 +214,10 @@ export default {
     const { id } = this.$route.params
     this.selected = name
     this.fetchFollowed(name, id)
-    this.getTopUser()
     this.getUser(id)
   },
   computed: {
-    ...mapState(['currentUser', 'isAuthenticated'])
+    ...mapState(['currentUser', 'isAuthenticated', 'topUsers'])
   }
 }
 </script>
