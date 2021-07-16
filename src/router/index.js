@@ -52,6 +52,21 @@ const routes = [
     component: () => import('../views/AdminUsers.vue')
   },
   {
+    path: '/publicChatRoom',
+    name: 'PublicChatRoom',
+    component: () => import('../views/PublicChatRoom.vue')
+  },
+  {
+    path: '/notification',
+    name: 'Notification',
+    component: () => import('../views/Notification.vue')
+  },
+  {
+    path: '/personalChat',
+    name: 'PersonalChat',
+    component: () => import('../views/PersonalChat.vue')
+  },
+  {
     path: '/reply_list/:id',
     name: 'ReplyList',
     component: () => import('../views/ReplyList.vue')

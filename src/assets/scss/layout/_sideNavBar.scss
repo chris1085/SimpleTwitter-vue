@@ -59,6 +59,7 @@
       height: 26px;
       @extend %font-setting;
 
+      .icon-container,
       .icon-container-home,
       .icon-container-profile,
       .icon-container-setting {
@@ -92,6 +93,18 @@
 
         .icon-container-setting {
           background: url('~@/assets/images/atSetting.svg') no-repeat center;
+        }
+      }
+
+      .icon-container {
+        position: relative;
+        .icon-message {
+          position: absolute;
+          height: 7px;
+          width: 7px;
+          color: red;
+          top: 2px;
+          right: 0;
         }
       }
     }
