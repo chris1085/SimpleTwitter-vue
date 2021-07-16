@@ -4,7 +4,7 @@
 set -e
 
 # build
-npm run build
+#npm run build
 
 # navigate into the build output directory
 cd dist
@@ -21,6 +21,6 @@ git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.Github.io/<REPO>
 # git push -f https://github.com/<USERNAME>/<REPO>.git master:gh-pages
-git push -f https://github.com/chris1085/SimpleTwitter-vue.git main:gh-pages
+git push -f https://github.com/chris1085/SimpleTwitter-vue.git master:gh-pages
 
 cd -
