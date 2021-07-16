@@ -4,15 +4,12 @@
       <!-- AdminSidebar.vue -->
       <AdminSidebar />
       <!-- AdminUsersCard.vue -->
-      <div class="AdminUsersPanel">
+      <div class="AdminUsersPanel w-100">
         <div class="title">
           <h1>使用者列表</h1>
         </div>
         <!-- <div class="admin-users-card d-flex flex-wrap"> -->
-        <AdminUsersCard
-          :admin-users="adminUsers"
-          class="admin-users-card d-flex flex-wrap"
-        />
+        <AdminUsersCard :admin-users="adminUsers" class="admin-users-card" />
         <!-- </div> -->
       </div>
     </template>
