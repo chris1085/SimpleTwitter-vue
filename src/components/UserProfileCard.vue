@@ -20,11 +20,14 @@
             <router-link :to="`/user/${tweet.UserId}`" class="tweet-userName">{{
               tweet.name
             }}</router-link
-            ><span class="tweet-userInfo" v-if="selected !== 'replies'"
+            ><span class="tweet-userInfo" v-if="selected === 'tweeters'"
               >@{{ tweet.account }}・{{ tweet.createdAt | fromNow }}</span
             >
+            <span class="tweet-userInfo" v-else-if="selected === 'favorites'"
+              >@{{ tweet.account }}・{{ tweet.tweetCreatedAt | fromNow }}</span
+            >
             <span class="tweet-userInfo" v-else
-              >@{{ tweet.tweetAuthorAccount }}・{{
+              >@{{ tweet.commentAccount }}・{{
                 tweet.createdAt | fromNow
               }}</span
             >
@@ -48,6 +51,10 @@
             class="tweet-content"
             v-else
           >
+            <p class="tweet-replyFormat">
+              回覆
+              <span class="reply-name">@{{ tweet.tweetAuthorAccount }}</span>
+            </p>
             {{ tweet.comment }}
           </router-link>
           <div
