@@ -5,7 +5,61 @@
       <ul class="followingList">
         <li
           class="following-item d-flex justify-content-between"
-          v-for="topUser in users"
+          v-for="topUser in users.slice(0, 5)"
+          :key="topUser.id"
+        >
+          <router-link
+            :to="`/user/${topUser.id}`"
+            class="following-info-container d-flex"
+          >
+            <img
+              class="following-img rounded"
+              :src="topUser.avatar | emptyImage"
+              alt=""
+            />
+            <div
+              class="following-info d-flex flex-column justify-content-center"
+            >
+              <h4 class="following-name">{{ topUser.name }}</h4>
+              <span class="following-id">@{{ topUser.account }}</span>
+            </div>
+          </router-link>
+          <div class="btn-followingsCard-container d-flex align-items-center">
+            <button
+              type="button"
+              class="btn btn-primary btn-followingsCard"
+              v-if="topUser.isFollowed && currentUser.id !== topUser.id"
+              @click.stop.prevent="deleteFollowing(topUser.id)"
+            >
+              正在跟隨
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-outline-followingsCard"
+              v-if="!topUser.isFollowed && currentUser.id !== topUser.id"
+              @click.stop.prevent="addFollowing(topUser.id)"
+            >
+              跟隨
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <a
+        class="more"
+        @click.stop.prevent="isMore = true"
+        v-if="!isMore"
+        href="#"
+        >顯示更多</a
+      >
+      <span class="more" v-if="isMore && users.length <= 5"
+        >目前沒有更多使用者</span
+      >
+
+      <ul class="followingList" v-if="isMore && users.length > 5">
+        <li
+          class="following-item d-flex justify-content-between"
+          v-for="topUser in users.slice(5, users.length)"
           :key="topUser.id"
         >
           <router-link
@@ -48,58 +102,11 @@
 
       <a
         class="more"
+        @click.stop.prevent="isMore = false"
+        v-if="isMore"
         href="#"
-        @click.stop.prevent="isMore = !isMore"
-        v-if="!isMore"
-        >顯示更多</a
+        >顯示減少</a
       >
-      <span class="more" v-if="isMore && users.length <= 5"
-        >目前沒有更多使用者</span
-      >
-
-      <ul class="followingList" v-if="isMore && users.length > 5">
-        <li
-          class="following-item d-flex justify-content-between"
-          v-for="topUser in users"
-          :key="topUser.id"
-        >
-          <router-link
-            :to="`/user/${topUser.id}`"
-            class="following-info-container d-flex"
-            href=""
-          >
-            <img
-              class="following-img rounded"
-              :src="topUser.avatar | emptyImage"
-              alt=""
-            />
-            <div
-              class="following-info d-flex flex-column justify-content-center"
-            >
-              <h4 class="following-name">{{ topUser.name }}</h4>
-              <span class="following-id">@{{ topUser.account }}</span>
-            </div>
-          </router-link>
-          <div class="btn-followingsCard-container d-flex align-items-center">
-            <button
-              type="button"
-              class="btn btn-primary btn-followingsCard"
-              v-if="topUser.isFollowed && currentUser.id !== topUser.id"
-              @click.stop.prevent="deleteFollowing(topUser.id)"
-            >
-              正在跟隨
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-outline-followingsCard"
-              v-if="!topUser.isFollowed && currentUser.id !== topUser.id"
-              @click.stop.prevent="addFollowing(topUser.id)"
-            >
-              跟隨
-            </button>
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -120,7 +127,7 @@ export default {
   mixins: [emptyImageFilter],
   watch: {
     initTopUsers(newValue) {
-      this.users = [...this.users, ...newValue]
+      this.users = [...newValue]
     }
   },
   data() {
