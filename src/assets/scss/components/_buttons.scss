@@ -120,3 +120,18 @@ $btn-primary-hover-color: $btn-promary-hover-color;
     background: url('~@/assets/images/atSetting.svg') no-repeat center !important;
   }
 }
+
+.btn-send {
+  padding: 0px;
+  color: $btn-primary-color;
+
+  &:hover {
+    color: $btn-primary-hover-color;
+  }
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}

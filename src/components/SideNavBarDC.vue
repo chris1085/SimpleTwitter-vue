@@ -16,6 +16,54 @@
           </li>
           <li class="list-item">
             <router-link
+              to="/notification"
+              class="list-link d-flex align-items-center"
+            >
+              <div class="icon-container">
+                <font-awesome-icon :icon="['far', 'envelope']" />
+
+                <font-awesome-icon
+                  :icon="['fas', 'circle']"
+                  class="icon-message"
+                />
+              </div>
+              通知</router-link
+            >
+          </li>
+          <li class="list-item">
+            <router-link
+              to="/publicChatRoom"
+              class="list-link d-flex align-items-center"
+            >
+              <div class="icon-container">
+                <font-awesome-icon :icon="['far', 'envelope']" />
+
+                <font-awesome-icon
+                  :icon="['fas', 'circle']"
+                  class="icon-message"
+                />
+              </div>
+              公開聊天室</router-link
+            >
+          </li>
+          <li class="list-item">
+            <router-link
+              to="/personalChat"
+              class="list-link d-flex align-items-center"
+            >
+              <div class="icon-container">
+                <font-awesome-icon :icon="['far', 'envelope']" />
+
+                <font-awesome-icon
+                  :icon="['fas', 'circle']"
+                  class="icon-message"
+                />
+              </div>
+              私人訊息</router-link
+            >
+          </li>
+          <li class="list-item">
+            <router-link
               :to="`/user/${currentUser.id}`"
               class="list-link d-flex align-items-center"
             >
