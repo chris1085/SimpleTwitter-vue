@@ -82,8 +82,10 @@
     padding-top: 10px;
     padding-bottom: 14px;
     border-bottom: 1px solid #e6ecf0;
-    // border-left: 1px solid #e6ecf0;
-    // border-right: 1px solid #e6ecf0;
+
+    &:hover {
+      background-color: rgba(240, 240, 240, 0.5);
+    }
   }
 
   .tweet-img {
