@@ -1,5 +1,13 @@
 <template>
   <div>
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+
     <ul class="tweets">
       <li class="tweet d-flex" v-for="(tweet, index) in tweets" :key="index">
         <router-link :to="`/user/${tweet.UserId}`" class="tweet-img-container">
@@ -90,10 +98,12 @@ import tweetsAPI from '../apis/tweets'
 import RepliedModal from '../components/RepliedModal.vue'
 import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
 import { Toast } from '../utils/helpers'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   mixins: [emptyImageFilter, fromNowFilter],
-  components: { RepliedModal },
+  components: { RepliedModal, Loading },
   props: {
     userCardContent: {
       type: Array,
@@ -113,7 +123,9 @@ export default {
     return {
       isFavorite: false,
       tweets: this.userCardContent,
-      tweet: {}
+      tweet: {},
+      isLoading: false,
+      fullPage: true
     }
   },
   methods: {
@@ -128,9 +140,12 @@ export default {
     },
     async addLikes(tweet) {
       try {
+        this.isLoading = true
         const id = this.selected === 'favorites' ? tweet.TweetId : tweet.id
 
         const { data } = await tweetsAPI.addLike(id)
+
+        this.isLoading = false
 
         if (data.status !== 'success') {
           throw new Error(data.message)
@@ -139,6 +154,8 @@ export default {
         tweet.isLike = !tweet.isLike
         tweet.likedCount += 1
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法喜愛這則推文，請稍後再試'
@@ -148,6 +165,7 @@ export default {
     async deleteLikes(tweet) {
       try {
         const id = this.selected === 'favorites' ? tweet.TweetId : tweet.id
+        this.isLoading = true
 
         const { data } = await tweetsAPI.deleteLike(id)
 
@@ -157,7 +175,10 @@ export default {
 
         tweet.isLike = !tweet.isLike
         tweet.likedCount -= 1
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取消喜愛這則推文，請稍後再試'

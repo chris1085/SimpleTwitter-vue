@@ -1,5 +1,13 @@
 <template>
   <div>
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+
     <div
       class="modal fade editModal"
       id="editModal"
@@ -121,6 +129,8 @@
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 import { Toast } from '../utils/helpers'
 import usersAPI from '../apis/users'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   name: 'UserEditModal',
@@ -128,6 +138,7 @@ export default {
   props: {
     initUser: { type: Object, required: true }
   },
+  components: { Loading },
   watch: {
     initUser(newValue) {
       this.user = JSON.parse(JSON.stringify(newValue))
@@ -142,7 +153,9 @@ export default {
       nameLength: 0,
       content: '',
       name: '',
-      image: null
+      image: null,
+      isLoading: false,
+      fullPage: true
     }
   },
   methods: {
@@ -181,8 +194,7 @@ export default {
     },
     async handleSubmit(e) {
       try {
-        console.log(this.user)
-
+        this.isLoading = true
         // console.log(this.uer.name)
 
         const form = e.target // <form></form>
@@ -192,6 +204,7 @@ export default {
           userId: this.user.id,
           formData
         })
+        this.isLoading = false
 
         // console.log(data)
         if (data.status !== 'success') {
@@ -207,6 +220,8 @@ export default {
         // console.log(editedData)
         this.$emit('after-edit', editedData)
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: error

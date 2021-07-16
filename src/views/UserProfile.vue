@@ -1,5 +1,13 @@
 <template>
   <div class="d-flex">
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+
     <SideNavBarDC @after-create-tweet="updateTweetCard" />
 
     <div class="userProfile-container w-100">
@@ -32,6 +40,8 @@ import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 import { mapState } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   name: 'UserProfile',
@@ -41,7 +51,8 @@ export default {
     UserProfileNav,
     UserProfileCard,
     FollowingsCardDC,
-    SideNavBarDC
+    SideNavBarDC,
+    Loading
   },
   data() {
     return {
@@ -59,7 +70,9 @@ export default {
         tweetCount: 0
       },
       userCardContent: [],
-      selected: 'tweeters'
+      selected: 'tweeters',
+      isLoading: false,
+      fullPage: true
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -110,9 +123,14 @@ export default {
     },
     async getUserTweets(userId) {
       try {
+        this.isLoading = true
         const { data } = await usersAPI.getUserTweets(userId)
+
         this.userCardContent = data
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取得推文內容'
@@ -121,9 +139,15 @@ export default {
     },
     async getUserRepliedTweets(userId) {
       try {
+        this.isLoading = true
+
         const { data } = await usersAPI.getUserRepliedTweets(userId)
         this.userCardContent = data
+
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取得回覆推文內容'
@@ -132,9 +156,15 @@ export default {
     },
     async getUserLikeTweets(userId) {
       try {
+        this.isLoading = true
+
         const { data } = await usersAPI.getUserLikeTweets(userId)
         this.userCardContent = data
+
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取得喜愛推文內容'
@@ -143,6 +173,8 @@ export default {
     },
     async getUser(userId) {
       try {
+        this.isLoading = true
+
         const { data } = await usersAPI.get(userId)
 
         const {
@@ -170,7 +202,11 @@ export default {
           name,
           tweetCount
         }
+
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取得使用者資料，請稍後再試'
