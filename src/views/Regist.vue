@@ -49,6 +49,7 @@ export default {
 form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 20px 0 0 15px;
   width: 642px;
   align-items: center;

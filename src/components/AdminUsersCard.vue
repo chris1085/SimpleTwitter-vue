@@ -15,7 +15,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ user.name }}</h5>
         <p class="card-text">@{{ user.account }}</p>
-        <div class="click-on-condition row">
+        <div class="click-on-condition">
           <div class="reply-count">
             <i class="far fa-comment"></i> {{ user.tweetCount }}
           </div>
@@ -23,7 +23,7 @@
             <i class="far fa-heart"></i> {{ user.likedCount }}
           </div>
         </div>
-        <div class="follow-condition row">
+        <div class="follow-condition">
           <div class="following-count">
             <span>{{ user.followingCount }}個</span>跟隨中
           </div>
@@ -61,11 +61,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  width: 250px;
-  margin: 5px 0;
-}
-.container .card {
+.card {
   width: 16rem;
   border-radius: 10px;
   background-color: #f6f7f8;
@@ -99,7 +95,13 @@ export default {
 .card-body p {
   color: #657786;
 }
-.row {
+.click-on-condition {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+}
+.follow-condition{
   display: flex;
   justify-content: center;
   margin: 10px;
