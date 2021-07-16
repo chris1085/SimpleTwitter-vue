@@ -1,6 +1,13 @@
 <template>
   <div class="d-flex">
-    <!-- <SideNavBar /> -->
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+
     <SideNavBarDC @after-create-tweet="updateTweetCard" />
     <section class="main-container w-100">
       <header><h3 class="font-bold">首頁</h3></header>
@@ -51,6 +58,8 @@ import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   name: 'MainTweetsPage',
@@ -58,7 +67,8 @@ export default {
   components: {
     MainTweetsCard,
     FollowingsCardDC,
-    SideNavBarDC
+    SideNavBarDC,
+    Loading
   },
   data() {
     return {
@@ -70,15 +80,21 @@ export default {
       newTweetInfo: {
         likedCount: 0,
         repliedCount: 0
-      }
+      },
+      isLoading: false,
+      fullPage: true
     }
   },
   methods: {
     async fetchTweets() {
       try {
+        this.isLoading = true
         const response = await tweetsAPI.getTweets()
         this.tweets = response.data
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取得推文資料，請稍後再試'
@@ -87,6 +103,7 @@ export default {
     },
     async handleSubmit(e) {
       try {
+        this.isLoading = true
         this.isProcessing = true
 
         if (
@@ -106,8 +123,11 @@ export default {
         }
         this.newTweetContent = ''
         this.isProcessing = false
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         this.isProcessing = false
+
         Toast.fire({
           icon: 'error',
           title: error

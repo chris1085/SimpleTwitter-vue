@@ -1,5 +1,13 @@
 <template>
   <div class="d-flex">
+    <Loading
+      v-model="isLoading"
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+
     <SideNavBarDC @after-create-tweet="updateTweetCard" />
 
     <div class="reply-container w-100">
@@ -89,6 +97,8 @@ import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
 import { mapState } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   name: 'ReplyList',
@@ -97,14 +107,17 @@ export default {
     ReplyListCard,
     RepliedModal,
     FollowingsCardDC,
-    SideNavBarDC
+    SideNavBarDC,
+    Loading
   },
   data() {
     return {
       isReplyPage: true,
       topUsers: [],
       tweet: {},
-      replies: []
+      replies: [],
+      isLoading: false,
+      fullPage: true
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -127,10 +140,15 @@ export default {
     },
     async getRepies(id) {
       try {
+        this.isLoading = true
+
         const { data } = await tweetsAPI.getRepies(id)
         // console.log(data)
         this.replies = data
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: error
@@ -139,9 +157,14 @@ export default {
     },
     async getTweet(id) {
       try {
+        this.isLoading = true
+
         const { data } = await tweetsAPI.getReplyTweet(id)
         this.tweet = data
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: error
@@ -150,6 +173,8 @@ export default {
     },
     async addLikes(tweet) {
       try {
+        this.isLoading = true
+
         const { data } = await tweetsAPI.addLike(tweet.id)
 
         if (data.status !== 'success') {
@@ -158,7 +183,10 @@ export default {
 
         tweet.isLike = !tweet.isLike
         tweet.likedCount += 1
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法喜愛這則推文，請稍後再試'
@@ -167,6 +195,8 @@ export default {
     },
     async deleteLikes(tweet) {
       try {
+        this.isLoading = true
+
         const { data } = await tweetsAPI.deleteLike(tweet.id)
 
         if (data.status !== 'success') {
@@ -175,7 +205,10 @@ export default {
 
         tweet.isLike = !tweet.isLike
         tweet.likedCount -= 1
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
+
         Toast.fire({
           icon: 'error',
           title: '無法取消喜愛這則推文，請稍後再試'
