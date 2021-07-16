@@ -136,12 +136,12 @@
           <div class="w-100">
             <div class="chat-left d-flex my-3">
               <router-link
-                :to="`/user/${topUsers[1].id}`"
+                :to="`/user/${topUsers[0].id}`"
                 class="img-container h-100 my-auto"
               >
                 <img
                   class="chat-img rounded mr-3"
-                  :src="topUsers[1].avatar | emptyImage"
+                  :src="topUsers[0].avatar | emptyImage"
                   alt=""
                   srcset=""
                 />
@@ -161,12 +161,12 @@
           <div class="w-100">
             <div class="chat-left d-flex my-3">
               <router-link
-                :to="`/user/${topUsers[2].id}`"
+                :to="`/user/${topUsers[0].id}`"
                 class="img-container h-100 my-auto"
               >
                 <img
                   class="chat-img rounded mr-3"
-                  :src="topUsers[2].avatar | emptyImage"
+                  :src="topUsers[0].avatar | emptyImage"
                   alt=""
                   srcset=""
                 />
@@ -196,58 +196,13 @@
             </div>
           </div>
 
-          <div class="w-100">
-            <div class="chat-left d-flex my-3">
-              <router-link
-                :to="`/user/${topUsers[0].id}`"
-                class="img-container h-100 my-auto"
-              >
-                <img
-                  class="chat-img rounded mr-3"
-                  :src="topUsers[0].avatar | emptyImage"
-                  alt=""
-                  srcset=""
-                />
-              </router-link>
-
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem, ipsum dolor.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-100">
-            <div class="chat-left d-flex my-3">
-              <router-link
-                :to="`/user/${topUsers[0].id}`"
-                class="img-container h-100 my-auto"
-              >
-                <img
-                  class="chat-img rounded mr-3"
-                  :src="topUsers[0].avatar | emptyImage"
-                  alt=""
-                  srcset=""
-                />
-              </router-link>
-
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum,
-                  ducimus!
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
           <div class="w-100 d-flex justify-content-end">
             <div class="chat-right d-flex my-3">
               <div class="chat-message-container">
                 <p class="chat-message">
-                  Lorem ipsum dolor sit amet.
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Aliquam distinctio suscipit possimus amet est qui illum quasi
+                  temporibus accusamus error.
                 </p>
                 <div class="chat-time">下午 5:55</div>
               </div>
@@ -325,7 +280,6 @@ export default {
   methods: {
     handleSubmit() {},
     scrollToEnd() {
-      console.log(this.$refs)
       const content = this.$refs.chatroom
       content.scrollTop = content.scrollHeight
     },
