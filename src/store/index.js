@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import usersAPI from '../apis/users'
+import { Toast } from '../utils/helpers'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,17 @@ export default new Vuex.Store({
     },
     isAuthenticated: false,
     token: '',
-    currentRoomId: undefined
+    currentRoomId: undefined,
+    topUsers: [
+      {
+        account: '',
+        avatar: '',
+        followerCount: 0,
+        id: -1,
+        isFollowed: false,
+        name: ''
+      }
+    ]
   },
   mutations: {
     setCurrentUser(state, currentUser) {
@@ -34,6 +45,9 @@ export default new Vuex.Store({
       state.currentUser = {}
       state.isAuthenticated = false
       localStorage.removeItem('token')
+    },
+    setTopUsers(state, topUsers) {
+      state.topUsers = topUsers
     }
   },
   actions: {
@@ -63,6 +77,22 @@ export default new Vuex.Store({
         commit('revokeAuthentication')
         // console.log(error.message)
         return false
+      }
+    },
+    async getTopUser({ commit }) {
+      try {
+        const { data } = await usersAPI.getTopUsers()
+
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+
+        commit('setTopUsers', data.users)
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得Top跟隨者'
+        })
       }
     }
   },

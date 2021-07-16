@@ -93,6 +93,7 @@ router.beforeEach(async (to, from, next) => {
   if (token) {
     // 取得驗證成功與否
     isAuthenticated = await store.dispatch('fetchCurrentUser')
+    store.dispatch('getTopUser')
   }
 
   const pathsWithoutAuthentication = ['login', 'regist', 'admin']

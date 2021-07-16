@@ -53,7 +53,7 @@ import FollowingsCardDC from '../components/FollowingsCardDC.vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
-import usersAPI from '../apis/users'
+// import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
 import Loading from 'vue-loading-overlay'
@@ -71,7 +71,6 @@ export default {
   data() {
     return {
       newTweetContent: '',
-      topUsers: [],
       isReplyPage: false,
       isProcessing: false,
       tweets: [],
@@ -132,17 +131,6 @@ export default {
         })
       }
     },
-    async getTopUser() {
-      try {
-        const response = await usersAPI.getTopUsers()
-        this.topUsers = response.data.users
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得Top跟隨者'
-        })
-      }
-    },
     getNewTweetInfo(newTweetContent) {
       const curTime = new Date()
       this.newTweetInfo = {
@@ -162,11 +150,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentUser', 'isAuthenticated'])
+    ...mapState(['currentUser', 'isAuthenticated', 'topUsers'])
   },
   created() {
     this.fetchTweets()
-    this.getTopUser()
   }
 }
 </script>
