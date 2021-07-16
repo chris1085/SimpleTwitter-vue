@@ -1,9 +1,6 @@
 <template>
   <div class="d-flex">
-    <SideNavBarDC
-      :currentUser="currentUser"
-      @after-create-tweet="updateTweetCard"
-    />
+    <SideNavBarDC @after-create-tweet="updateTweetCard" />
 
     <div class="reply-container w-100">
       <header class="d-flex align-items-center">
@@ -91,6 +88,7 @@ import tweetsAPI from '../apis/tweets'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
+import { mapState } from 'vuex'
 
 export default {
   name: 'ReplyList',
@@ -105,12 +103,6 @@ export default {
     return {
       isReplyPage: true,
       topUsers: [],
-      currentUser: {
-        avatar: '',
-        id: -1,
-        name: '',
-        account: ''
-      },
       tweet: {},
       replies: []
     }
@@ -122,23 +114,6 @@ export default {
     next()
   },
   methods: {
-    async getCurrentUser() {
-      try {
-        const response = await usersAPI.getCurrentUser()
-        const { avatar, id, name, account } = response.data
-        this.currentUser = {
-          avatar,
-          id,
-          name,
-          account
-        }
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得當前使用者，請稍後再試'
-        })
-      }
-    },
     async getTopUser() {
       try {
         const response = await usersAPI.getTopUsers()
@@ -228,7 +203,9 @@ export default {
     this.getRepies(id)
     this.getTweet(id)
     this.getTopUser()
-    this.getCurrentUser()
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

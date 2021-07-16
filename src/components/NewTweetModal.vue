@@ -59,15 +59,10 @@
 import { emptyImageFilter } from '../utils/mixins'
 import tweetsAPI from '../apis/tweets'
 import { Toast } from '../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   mixins: [emptyImageFilter],
-  props: {
-    currentUser: {
-      type: Object,
-      required: true
-    }
-  },
   data() {
     return {
       image: null,
@@ -106,6 +101,9 @@ export default {
         })
       }
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

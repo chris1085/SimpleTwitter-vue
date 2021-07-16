@@ -58,14 +58,12 @@
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
+import { mapState } from 'vuex'
+
 export default {
   props: {
     initFollows: {
       type: Array,
-      required: true
-    },
-    currentUser: {
-      type: Object,
       required: true
     }
   },
@@ -132,6 +130,9 @@ export default {
         })
       }
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

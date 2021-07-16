@@ -1,26 +1,21 @@
 <template>
   <div class="d-flex">
-    <SideNavBarDC
-      :currentUser="currentUser"
-      @after-create-tweet="updateTweetCard"
-    />
+    <SideNavBarDC @after-create-tweet="updateTweetCard" />
 
     <div class="userProfile-container w-100">
-      <user-profile-info :init-user="user" :current-user="currentUser" />
+      <user-profile-info :init-user="user" />
       <user-profile-Nav
         :init-selected="selected"
         @changeNavPage="changeNavPage"
       />
       <user-profile-card
         :user-card-content="userCardContent"
-        :current-user="currentUser"
         :selected="selected"
       />
     </div>
 
     <FollowingsCardDC
       :init-top-users="topUsers"
-      :current-user="currentUser"
       @after-delete-following="updateFollowing"
       @after-add-follower="updateFollower"
     />
@@ -36,6 +31,7 @@ import SideNavBarDC from '../components/SideNavBarDC.vue'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
+import { mapState } from 'vuex'
 
 export default {
   name: 'UserProfile',
@@ -50,12 +46,6 @@ export default {
   data() {
     return {
       topUsers: [],
-      currentUser: {
-        avatar: '',
-        id: -1,
-        name: '',
-        account: ''
-      },
       user: {
         id: -1,
         account: '',
@@ -105,23 +95,6 @@ export default {
         this.getUserRepliedTweets(this.user.id)
       } else {
         this.getUserLikeTweets(this.user.id)
-      }
-    },
-    async getCurrentUser() {
-      try {
-        const response = await usersAPI.getCurrentUser()
-        const { avatar, id, name, account } = response.data
-        this.currentUser = {
-          avatar,
-          id,
-          name,
-          account
-        }
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得當前使用者，請稍後再試'
-        })
       }
     },
     async getTopUser() {
@@ -226,10 +199,12 @@ export default {
     },
     updateTweetCard() {}
   },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
+  },
   created() {
     const { id } = this.$route.params
     this.getTopUser()
-    this.getCurrentUser()
     this.getUser(id)
     this.getUserTweets(id)
   }

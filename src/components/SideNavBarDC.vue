@@ -58,15 +58,10 @@
 
 <script>
 import NewTweetModal from '../components/NewTweetModal.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'SideNavBarDC',
-  props: {
-    currentUser: {
-      type: Object,
-      required: true
-    }
-  },
   components: { NewTweetModal },
   methods: {
     logout() {
@@ -76,6 +71,9 @@ export default {
     afterCreateTweet(newTweetContent) {
       this.$emit('after-create-tweet', newTweetContent)
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

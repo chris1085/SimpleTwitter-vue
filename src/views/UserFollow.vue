@@ -1,9 +1,6 @@
 <template>
   <div class="d-flex">
-    <SideNavBarDC
-      :currentUser="currentUser"
-      @after-create-tweet="updateTweetCard"
-    />
+    <SideNavBarDC @after-create-tweet="updateTweetCard" />
 
     <div class="userFollower-container w-100">
       <header class="">
@@ -36,14 +33,12 @@
 
       <UserFollowCard
         :init-follows="follows"
-        :current-user="currentUser"
         @after-click-follow="updateFollowStatus"
       />
     </div>
 
     <FollowingsCardDC
       :init-top-users="topUsers"
-      :current-user="currentUser"
       @after-delete-following="updateFollowing"
       @after-add-follower="updateFollower"
     />
@@ -57,6 +52,7 @@ import SideNavBarDC from '../components/SideNavBarDC.vue'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, dateFilter } from '../utils/mixins'
+import { mapState } from 'vuex'
 
 export default {
   name: 'UserFollowers',
@@ -70,12 +66,6 @@ export default {
     return {
       selected: 'followers',
       topUsers: [],
-      currentUser: {
-        avatar: '',
-        id: -1,
-        name: '',
-        account: ''
-      },
       user: {
         id: -1,
         account: '',
@@ -100,24 +90,6 @@ export default {
     next()
   },
   methods: {
-    async getCurrentUser() {
-      try {
-        const response = await usersAPI.getCurrentUser()
-        const { avatar, id, name, account, introduction } = response.data
-        this.currentUser = {
-          avatar,
-          id,
-          name,
-          account,
-          introduction
-        }
-      } catch (error) {
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得當前使用者，請稍後再試'
-        })
-      }
-    },
     async getTopUser() {
       try {
         const response = await usersAPI.getTopUsers()
@@ -255,8 +227,10 @@ export default {
     this.selected = name
     this.fetchFollowed(name, id)
     this.getTopUser()
-    this.getCurrentUser()
     this.getUser(id)
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>

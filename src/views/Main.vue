@@ -1,10 +1,7 @@
 <template>
   <div class="d-flex">
     <!-- <SideNavBar /> -->
-    <SideNavBarDC
-      :current-user="currentUser"
-      @after-create-tweet="updateTweetCard"
-    />
+    <SideNavBarDC @after-create-tweet="updateTweetCard" />
     <section class="main-container w-100">
       <header><h3 class="font-bold">首頁</h3></header>
       <div class="main-tweet">
@@ -38,14 +35,10 @@
           </div>
         </form>
       </div>
-      <MainTweetsCard
-        :is-reply-page="isReplyPage"
-        :init-tweets="tweets"
-        :current-user="currentUser"
-      />
+      <MainTweetsCard :is-reply-page="isReplyPage" :init-tweets="tweets" />
     </section>
 
-    <FollowingsCardDC :init-top-users="topUsers" :current-user="currentUser" />
+    <FollowingsCardDC :init-top-users="topUsers" />
   </div>
 </template>
 

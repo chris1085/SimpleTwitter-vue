@@ -108,15 +108,12 @@
 import { emptyImageFilter } from '../utils/mixins'
 import usersAPI from '../apis/users'
 import { Toast } from '../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   props: {
     initTopUsers: {
       type: Array,
-      required: true
-    },
-    currentUser: {
-      type: Object,
       required: true
     }
   },
@@ -189,6 +186,9 @@ export default {
         })
       }
     }
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   }
 }
 </script>
