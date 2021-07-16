@@ -1,9 +1,7 @@
 <template>
   <div class="adminSidebar">
     <div class="logo">
-       <router-link to="/main">
-        <img src="../assets/logo.png" alt="" />
-       </router-link>
+      <img src="../assets/logo.png" alt="" />
     </div>
     <div class="buttonList">
       <div class="navItem index">
@@ -78,7 +76,7 @@ export default {
 .adminSidebar {
   margin-left: 103px;
   width: 235px;
-  height: auto;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #e6ecf0;
