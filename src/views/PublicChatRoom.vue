@@ -8,11 +8,11 @@
     <SideNavBarDC @after-create-tweet="updateTweetCard" />
 
     <section class="chat-container d-flex">
-      <div class="onlineUser-container col-4">
+      <div class="onlineUser-container col-0 col-md-3 col-lg-4">
         <h3 class="header text-bold">上線使用者 ({{ topUsers.length }})</h3>
         <ul class="user-list">
           <li
-            class="user-item d-flex align-items-center"
+            class="user-item d-flex align-items-center flex-wrap"
             v-for="user in topUsers"
             :key="user.id"
           >
@@ -34,7 +34,7 @@
           </li>
         </ul>
       </div>
-      <div class="chatroom col-8">
+      <div class="chatroom col-12 col-md-9 col-lg-8">
         <h3 class="header text-bold">公開聊天室</h3>
         <div class="chat-content-container d-flex flex-column" ref="chatroom">
           <div
@@ -45,7 +45,7 @@
             <span class="chat-info-content">{{ user.name }} 上線</span>
           </div>
 
-          <div class="w-100">
+          <div class="w-100 chat-left-container">
             <div class="chat-left d-flex my-3">
               <router-link
                 :to="`/user/${topUsers[0].id}`"
@@ -70,7 +70,7 @@
             </div>
           </div>
 
-          <div class="w-100 d-flex justify-content-end">
+          <div class="w-100 d-flex chat-right-container">
             <div class="chat-right d-flex my-3">
               <div class="chat-message-container">
                 <p class="chat-message">

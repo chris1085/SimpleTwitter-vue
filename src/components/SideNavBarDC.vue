@@ -20,7 +20,7 @@
               class="list-link d-flex align-items-center"
             >
               <div class="icon-container">
-                <font-awesome-icon :icon="['far', 'envelope']" />
+                <font-awesome-icon :icon="['fas', 'bell']" />
 
                 <font-awesome-icon
                   :icon="['fas', 'circle']"
