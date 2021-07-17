@@ -8,7 +8,7 @@
     <SideNavBarDC @after-create-tweet="updateTweetCard" />
 
     <section class="chat-container d-flex">
-      <div class="onlineUser-container col-2 col-md-3 col-lg-4">
+      <div class="onlineUser-container col-0 col-md-3 col-lg-4">
         <h3 class="header text-bold">上線使用者 ({{ topUsers.length }})</h3>
         <ul class="user-list">
           <li
@@ -34,7 +34,7 @@
           </li>
         </ul>
       </div>
-      <div class="chatroom col-10 col-md-9 col-lg-8">
+      <div class="chatroom col-12 col-md-9 col-lg-8">
         <h3 class="header text-bold">公開聊天室</h3>
         <div class="chat-content-container d-flex flex-column" ref="chatroom">
           <div
