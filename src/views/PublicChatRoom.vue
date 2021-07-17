@@ -220,6 +220,7 @@
             placeholder="輸入訊息..."
             aria-label="輸入訊息..."
             v-model="message"
+            @keyup.enter="handleSubmit"
           />
           <div class="input-group-append">
             <button
@@ -255,6 +256,22 @@ export default {
     Loading,
     SideNavBarDC
   },
+  sockets: {
+    connect() {
+      const id = this.$socket.client.id
+      console.log(id + ' connected')
+    },
+    customEmit(data) {
+      console.log(data)
+      console.log(
+        'this method was fired by the socket server. eg: io.emit("customEmit", data)'
+      )
+    },
+    res(data) {
+      this.msgList.push(data)
+      console.log('接收到服务端消息', data)
+    }
+  },
   data() {
     return {
       isLoading: false,
@@ -271,14 +288,33 @@ export default {
         name: '',
         tweetCount: 0
       },
-      message: ''
+      message: '',
+      msg: '',
+      msgList: []
     }
   },
   computed: {
     ...mapState(['currentUser', 'isAuthenticated', 'topUsers'])
   },
   methods: {
-    handleSubmit() {},
+    handleSubmit() {
+      // socket io start here
+      // get user info from currentUser Obj
+      // get token form localStorage
+      const token = localStorage.getItem('token')
+      const { name, id } = this.currentUser
+
+      // emit to socket io server
+      this.$socket.client.emit('sendMessage', {
+        name,
+        message: this.message,
+        token,
+        id
+      })
+
+      // clear input message
+      this.message = ''
+    },
     scrollToEnd() {
       const content = this.$refs.chatroom
       content.scrollTop = content.scrollHeight
@@ -288,9 +324,14 @@ export default {
   updated() {
     this.scrollToEnd()
   },
-
   mounted() {
     this.scrollToEnd()
+
+    // bulid event listener to socket io server (allMessage is a pipe name between frontEnd and server)
+    // message is a Obj retrun from socket io server
+    this.$socket.client.on('allMessage', message => {
+      console.log(message)
+    })
   }
 }
 </script>
