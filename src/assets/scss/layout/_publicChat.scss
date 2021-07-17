@@ -27,6 +27,7 @@
 }
 
 .onlineUser-container {
+  min-height: 100vh;
   border-right: 1px solid $border-color;
   @include mobile {
     display: none !important;
@@ -73,8 +74,15 @@
     }
   }
 }
+
+.user-account {
+  @extend %main-text-shared;
+  text-decoration: none;
+  color: #657786;
+}
+
 .chatroom {
-  height: 100vh;
+  max-height: 100vh;
   .chat-content-container {
     position: relative;
     overflow-y: scroll;

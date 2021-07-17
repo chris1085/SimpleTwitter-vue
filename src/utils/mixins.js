@@ -13,6 +13,9 @@ export const dateFilter = {
     customizeDate(datetime) {
       moment.locale('zh-tw')
       return datetime ? moment(datetime).format('A HH:MM・YYYY年MM月DD日') : '-'
+    },
+    monthDayDate(datetime) {
+      return datetime ? moment(datetime).format('M月D日') : ''
     }
   }
 }

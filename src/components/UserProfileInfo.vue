@@ -56,7 +56,10 @@
         </button>
 
         <div class="otherUser-btn-container position-absolute" v-else>
-          <button class="btn btn-outline-primary btn-profile-rounded rounded">
+          <button
+            class="btn btn-outline-primary btn-profile-rounded rounded"
+            @click.stop.prevent="handlePersonalChatSubmit(user.id)"
+          >
             <i class="far fa-envelope fa-lg"></i>
           </button>
           <button class="btn btn-outline-primary btn-profile-rounded rounded">
@@ -152,7 +155,9 @@ export default {
     updateUserProfile(data) {
       console.log(data)
       this.user = { ...this.user, ...data }
-      // console.log('temp:' + this.temp)
+    },
+    handlePersonalChatSubmit(userId) {
+      this.$router.push({ name: 'PersonalChat', params: { userId } })
     }
   },
   computed: {
