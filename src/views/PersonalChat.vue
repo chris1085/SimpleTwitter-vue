@@ -58,14 +58,6 @@
           class="chat-content-container d-flex flex-column personalChat-container"
           ref="chatroom"
         >
-          <div
-            class="chat-info text-center"
-            v-for="user in users"
-            :key="user.id"
-          >
-            <span class="chat-info-content">{{ user.name }} 上線</span>
-          </div>
-
           <div class="w-100 chat-left-container">
             <div class="chat-left d-flex my-3">
               <router-link
