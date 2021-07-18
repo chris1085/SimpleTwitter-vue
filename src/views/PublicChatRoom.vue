@@ -139,7 +139,9 @@ import io from 'socket.io-client'
 
 // set socket io address
 const token = localStorage.getItem('token')
-const socket = io('http://localhost:3000/', { query: { token: token } })
+const socket = io('https://simpletwitter-api.herokuapp.com/', {
+  query: { token: token }
+})
 
 // use socket io in vue
 Vue.use(VueSocketIOExt, socket)
