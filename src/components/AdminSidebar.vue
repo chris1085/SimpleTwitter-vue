@@ -80,6 +80,8 @@ export default {
   display: flex;
   flex-direction: column;
   border-right: 1px solid #e6ecf0;
+  position: fixed;
+  left: 0;
 }
 .logo {
   margin-bottom: 24px;
