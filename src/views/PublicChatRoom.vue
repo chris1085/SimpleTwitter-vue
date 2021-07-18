@@ -274,7 +274,6 @@ export default {
     })
   },
   beforeDestroy() {
-    this.disconnect(this.currentUser.id)
     // using "removeListener" here, but this should be whatever $socket provides
     // for removing listeners
     this.$socket.$unsubscribe('newMessage')
