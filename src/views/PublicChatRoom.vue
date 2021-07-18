@@ -39,31 +39,23 @@
       <div class="chatroom col-12 col-md-9 col-lg-8">
         <h3 class="header text-bold">公開聊天室</h3>
         <div class="chat-content-container d-flex flex-column" ref="chatroom">
-          <!-- <div
-            class="chat-info text-center"
-            v-for="user in topUsers"
-            :key="user.id"
-          >
-            <span class="chat-info-content">{{ user.name }} 上線</span>
-          </div> -->
-
           <div
-            class="w-100 d-flex"
+            class="w-100 d-flex flex-column"
             v-for="(msg, index) in msgList"
             :key="'message' + index"
           >
             <div
               class="chat-left-container"
-              v-if="currentUser.id !== msg.user.id"
+              v-if="msg.UserId && currentUser.id !== msg.UserId"
             >
               <div class="chat-left d-flex my-3">
                 <router-link
-                  :to="`/user/${msg.id}`"
+                  :to="`/user/${msg.UserId}`"
                   class="img-container h-100 my-auto"
                 >
                   <img
                     class="chat-img rounded mr-3"
-                    :src="msg.user.avatar | emptyImage"
+                    :src="msg.avatar | emptyImage"
                     alt=""
                     srcset=""
                   />
@@ -71,10 +63,10 @@
 
                 <div class="chat-message-container">
                   <p class="chat-message">
-                    {{ msg.message.content }}
+                    {{ msg.content }}
                   </p>
                   <div class="chat-time">
-                    {{ msg.message.createdAt | hourMinDate }}
+                    {{ msg.createdAt | hourMinDate }}
                   </div>
                 </div>
               </div>
@@ -82,23 +74,23 @@
 
             <div
               class="w-100 d-flex justify-content-end"
-              v-if="currentUser.id === msg.user.id"
+              v-if="msg.UserId && currentUser.id === msg.UserId"
             >
               <div class="chat-right d-flex my-3 chat-right-container">
                 <div class="chat-message-container">
                   <p class="chat-message">
-                    {{ msg.message.content }}
+                    {{ msg.content }}
                   </p>
                   <span class="chat-time text-right">{{
-                    msg.message.createdAt | hourMinDate
+                    msg.createdAt | hourMinDate
                   }}</span>
                 </div>
               </div>
             </div>
 
-            <!-- <div class="w-100 chat-info text-center">
-              <span class="chat-info-content">123 上線</span>
-            </div> -->
+            <div class="w-100 chat-info text-center" v-if="msg.noti">
+              <span class="chat-info-content">{{ msg.noti }}</span>
+            </div>
           </div>
 
           <!-- <div class="typing" v-if="message !== ''">正在輸入訊息...</div> -->
@@ -135,7 +127,7 @@
 <script>
 import Vue from 'vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
-// import usersAPI from '../apis/users'
+import chatAPI from '../apis/chat'
 import { Toast } from '../utils/helpers'
 import { emptyImageFilter, fromNowFilter, dateFilter } from '../utils/mixins'
 import { mapState } from 'vuex'
@@ -158,22 +150,6 @@ export default {
   components: {
     Loading,
     SideNavBarDC
-  },
-  sockets: {
-    connect() {
-      const id = this.$socket.client.id
-      console.log(id + ' connected')
-    },
-    customEmit(data) {
-      console.log(data)
-      console.log(
-        'this method was fired by the socket server. eg: io.emit("customEmit", data)'
-      )
-    },
-    res(data) {
-      this.msgList.push(data)
-      console.log('接收到服务端消息', data)
-    }
   },
   data() {
     return {
@@ -205,7 +181,9 @@ export default {
     async getHistory() {
       try {
         this.isLoading = true
-
+        const { data } = await chatAPI.getHistory()
+        console.log(data)
+        this.msgList = data
         this.isLoading = false
       } catch (error) {
         this.isLoading = false
@@ -220,30 +198,26 @@ export default {
       if (this.message === '') {
         return
       }
-      // socket io start here
-      // get user info from currentUser Obj
-      // get token form localStorage
-      // emit to socket io server
+
       this.$socket.client.emit('sendMessage', this.message)
 
-      // clear input message
       this.message = ''
     },
     scrollToEnd() {
       const content = this.$refs.chatroom
       content.scrollTop = content.scrollHeight
     },
-    disconnect(currentUserId) {},
     updateTweetCard() {}
   },
   updated() {
     this.scrollToEnd()
   },
+  created() {
+    this.getHistory()
+  },
   mounted() {
     this.scrollToEnd()
 
-    // bulid event listener to socket io server (allMessage is a pipe name between frontEnd and server)
-    // message is a Obj retrun from socket io server
     this.$socket.client.on('newMessage', message => {
       console.log('message:', message)
       this.msgList.push(message)
@@ -257,25 +231,15 @@ export default {
 
     this.$socket.client.on('notification', data => {
       console.log('notification:', data)
-      const isOnline = this.onlineUsers.some(user => {
-        return user.id === data.onlineUser.id
+      let isOnlinText = data.online ? '上線' : '離線'
+      isOnlinText = data.onlineUser.name + ' ' + isOnlinText
+      console.log(isOnlinText)
+      this.msgList.push({
+        noti: isOnlinText
       })
-
-      if (!isOnline && data.online) {
-        this.onlineUsers.push(data.onlineUser)
-      }
-
-      if (!isOnline && !data.online) {
-        // console.log();
-        this.onlineUsers = this.onlineUsers.filter(user => {
-          return data.onlineUser.id !== user.id
-        })
-      }
     })
   },
   beforeDestroy() {
-    // using "removeListener" here, but this should be whatever $socket provides
-    // for removing listeners
     this.$socket.$unsubscribe('newMessage')
     this.$socket.$unsubscribe('activeUsers')
     this.$socket.$unsubscribe('notification')
