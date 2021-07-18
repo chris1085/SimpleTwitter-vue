@@ -236,16 +236,6 @@ export default {
       this.msgList.push({
         noti: isOnlinText
       })
-
-      if (!isOnline && data.online) {
-        this.onlineUsers.push(data.onlineUser)
-      }
-      if (!isOnline && !data.online) {
-        // console.log();
-        this.onlineUsers = this.onlineUsers.filter(user => {
-          return data.onlineUser.id !== user.id
-        })
-      }
     })
   },
   beforeDestroy() {
