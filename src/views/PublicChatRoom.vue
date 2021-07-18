@@ -9,11 +9,13 @@
 
     <section class="chat-container d-flex">
       <div class="onlineUser-container col-0 col-md-3 col-lg-4">
-        <h3 class="header text-bold">上線使用者 ({{ activeUsers }})</h3>
+        <h3 class="header text-bold">
+          上線使用者 ({{ activeUsers.activeUsersCount }})
+        </h3>
         <ul class="user-list">
           <li
             class="user-item d-flex align-items-center flex-wrap"
-            v-for="user in onlineUsers"
+            v-for="user in activeUsers.activeUsers"
             :key="user.id"
           >
             <router-link
@@ -234,6 +236,7 @@ export default {
       const content = this.$refs.chatroom
       content.scrollTop = content.scrollHeight
     },
+    disconnect(currentUserId) {},
     updateTweetCard() {}
   },
   updated() {
@@ -250,10 +253,6 @@ export default {
       console.log(this.msgList)
     })
 
-    this.$socket.client.on('disconnect', data => {
-      console.log('disconnect:', data)
-    })
-
     this.$socket.client.on('activeUsers', data => {
       console.log('activeUsers:', data)
       this.activeUsers = data
@@ -262,19 +261,26 @@ export default {
     this.$socket.client.on('notification', data => {
       console.log('notification:', data)
       const isOnline = this.onlineUsers.some(user => {
-        return user.id === data.online.id
+        return user.id === data.onlineUser.id
       })
 
-      if (!isOnline) {
-        this.onlineUsers.push(data.online)
+      if (!isOnline && data.online) {
+        this.onlineUsers.push(data.onlineUser)
+      }
+
+      if (!isOnline && !data.online) {
+        // console.log();
+        this.onlineUsers = this.onlineUsers.filter(user => {
+          return data.onlineUser.id !== user.id
+        })
       }
     })
   },
   beforeDestroy() {
+    this.disconnect(this.currentUser.id)
     // using "removeListener" here, but this should be whatever $socket provides
     // for removing listeners
     this.$socket.$unsubscribe('newMessage')
-    this.$socket.$unsubscribe('disconnect')
     this.$socket.$unsubscribe('activeUsers')
     this.$socket.$unsubscribe('notification')
   }
