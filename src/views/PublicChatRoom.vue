@@ -37,19 +37,45 @@
       <div class="chatroom col-12 col-md-9 col-lg-8">
         <h3 class="header text-bold">公開聊天室</h3>
         <div class="chat-content-container d-flex flex-column" ref="chatroom">
-          <div
+          <!-- <div
             class="chat-info text-center"
             v-for="user in topUsers"
             :key="user.id"
           >
             <span class="chat-info-content">{{ user.name }} 上線</span>
-          </div>
+          </div> -->
 
-          <!-- <div
+          <div
             class="w-100 d-flex"
             v-for="(msg, index) in msgList"
-            :key="index"
+            :key="'message' + index"
           >
+            <div
+              class="w-100 chat-left-container"
+              v-if="currentUser.id !== msg.id"
+            >
+              <div class="chat-left d-flex my-3">
+                <router-link
+                  :to="`/user/${msg.id}`"
+                  class="img-container h-100 my-auto"
+                >
+                  <img
+                    class="chat-img rounded mr-3"
+                    :src="msg.avatar | emptyImage"
+                    alt=""
+                    srcset=""
+                  />
+                </router-link>
+
+                <div class="chat-message-container">
+                  <p class="chat-message">
+                    {{ msg.message }}
+                  </p>
+                  <div class="chat-time">{{ msg.createdAt | hourMinDate }}</div>
+                </div>
+              </div>
+            </div>
+
             <div
               class="w-100 chat-right d-flex my-3 chat-right-container"
               v-if="currentUser.id === msg.id"
@@ -63,7 +89,11 @@
                 }}</span>
               </div>
             </div>
-          </div> -->
+
+            <!-- <div class="chat-info text-center">
+              <span class="chat-info-content">123 上線</span>
+            </div> -->
+          </div>
 
           <!-- <div class="typing" v-if="message !== ''">正在輸入訊息...</div> -->
         </div>
@@ -111,7 +141,8 @@ import io from 'socket.io-client'
 
 // set socket io address
 const token = localStorage.getItem('token')
-const socket = io('http://localhost:4040/', { query: { token } })
+const socket = io('http://localhost:3000/', { query: { token: token } })
+console.log(token)
 
 // use socket io in vue
 Vue.use(VueSocketIOExt, socket)
@@ -194,10 +225,6 @@ export default {
       const content = this.$refs.chatroom
       content.scrollTop = content.scrollHeight
     },
-    renderMessage(msg) {
-      console.log(msg)
-      this.msgList.push(msg)
-    },
     updateTweetCard() {}
   },
   updated() {
@@ -208,17 +235,23 @@ export default {
 
     // bulid event listener to socket io server (allMessage is a pipe name between frontEnd and server)
     // message is a Obj retrun from socket io server
-    this.$socket.client.on('allMessage', pack => {
-      const packs = JSON.parse(pack)
-      // const { id, message } = packs
-      // const msg = { id, message }
-      // console.log('sokect:', msg)
-      this.renderMessage(packs)
+    this.$socket.client.on('newMessage', message => {
+      console.log('message:', message)
+      this.msgList.push(message)
+      console.log(this.msgList)
     })
-  },
-  created() {
-    const id = parseInt(this.currentUser.id)
-    this.$socket.client.emit('createdUserId', id)
+
+    this.$socket.client.on('online', data => {
+      console.log('online:', data)
+    })
+
+    this.$socket.client.on('disconnect', data => {
+      console.log('disconnect:', data)
+    })
+
+    this.$socket.client.on('notification', data => {
+      console.log('notification:', data)
+    })
   }
 }
 </script>
