@@ -136,7 +136,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 // npm install socket io for vue packages and import them
 import VueSocketIOExt from 'vue-socket.io-extended'
 import io from 'socket.io-client'
-
 // set socket io address
 const token = localStorage.getItem('token')
 const socket = io('https://simpletwitter-api.herokuapp.com/', {
@@ -145,7 +144,6 @@ const socket = io('https://simpletwitter-api.herokuapp.com/', {
 
 // use socket io in vue
 Vue.use(VueSocketIOExt, socket)
-
 export default {
   name: 'PublicChatRoom',
   mixins: [emptyImageFilter, fromNowFilter, dateFilter],
@@ -183,13 +181,14 @@ export default {
     async getHistory() {
       try {
         this.isLoading = true
+
         const { data } = await chatAPI.getHistory()
         console.log(data)
         this.msgList = data
+
         this.isLoading = false
       } catch (error) {
         this.isLoading = false
-
         Toast.fire({
           icon: 'error',
           title: '無法取得聊天室內容'
@@ -225,12 +224,10 @@ export default {
       this.msgList.push(message)
       console.log(this.msgList)
     })
-
     this.$socket.client.on('activeUsers', data => {
       console.log('activeUsers:', data)
       this.activeUsers = data
     })
-
     this.$socket.client.on('notification', data => {
       console.log('notification:', data)
       let isOnlinText = data.online ? '上線' : '離線'

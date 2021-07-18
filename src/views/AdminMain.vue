@@ -101,6 +101,9 @@ export default {
 .title {
   height: 55px;
   border-bottom: 1px solid #e6ecf0;
+  position: absolute;
+  left: 337px;
+  width: 100%;
 }
 .title h1 {
   font-size: 19px;
