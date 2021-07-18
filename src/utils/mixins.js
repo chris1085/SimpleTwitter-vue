@@ -12,14 +12,14 @@ export const dateFilter = {
   filters: {
     customizeDate(datetime) {
       moment.locale('zh-tw')
-      return datetime ? moment(datetime).format('A HH:MM・YYYY年MM月DD日') : '-'
+      return datetime ? moment(datetime).format('A hh:mm・YYYY年MM月DD日') : '-'
     },
     monthDayDate(datetime) {
       return datetime ? moment(datetime).format('M月D日') : ''
     },
     hourMinDate(datetime) {
       moment.locale('zh-tw')
-      return datetime ? moment(datetime).format('A HH:MM') : ''
+      return datetime ? moment(datetime).format('A hh:mm') : ''
     }
   }
 }
