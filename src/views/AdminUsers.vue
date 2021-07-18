@@ -81,15 +81,21 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-top: 5px;
+  position: absolute;
+  left: 338px;
+  top: 65px;
 }
 .title {
   height: 55px;
   border-bottom: 1px solid #e6ecf0;
+  position: absolute;
+  left: 338px;
+  width: 100%;
 }
 .title h1 {
   font-size: 19px;
   font-weight: 700;
-  padding: 13px 0 14px 23px;
+  padding: 13px 0 14px 30px;
   margin: 0;
 }
 </style>
