@@ -51,8 +51,8 @@
             :key="'message' + index"
           >
             <div
-              class="w-100 chat-left-container"
-              v-if="currentUser.id !== msg.id"
+              class="chat-left-container"
+              v-if="currentUser.id !== msg.user.id"
             >
               <div class="chat-left d-flex my-3">
                 <router-link
@@ -61,7 +61,7 @@
                 >
                   <img
                     class="chat-img rounded mr-3"
-                    :src="msg.avatar | emptyImage"
+                    :src="msg.user.avatar | emptyImage"
                     alt=""
                     srcset=""
                   />
@@ -69,28 +69,32 @@
 
                 <div class="chat-message-container">
                   <p class="chat-message">
-                    {{ msg.message }}
+                    {{ msg.message.content }}
                   </p>
-                  <div class="chat-time">{{ msg.createdAt | hourMinDate }}</div>
+                  <div class="chat-time">
+                    {{ msg.message.createdAt | hourMinDate }}
+                  </div>
                 </div>
               </div>
             </div>
 
             <div
-              class="w-100 chat-right d-flex my-3 chat-right-container"
-              v-if="currentUser.id === msg.id"
+              class="w-100 d-flex justify-content-end"
+              v-if="currentUser.id === msg.user.id"
             >
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  {{ msg.message }}
-                </p>
-                <span class="chat-time text-right">{{
-                  msg.createdAt | hourMinDate
-                }}</span>
+              <div class="chat-right d-flex my-3 chat-right-container">
+                <div class="chat-message-container">
+                  <p class="chat-message">
+                    {{ msg.message.content }}
+                  </p>
+                  <span class="chat-time text-right">{{
+                    msg.message.createdAt | hourMinDate
+                  }}</span>
+                </div>
               </div>
             </div>
 
-            <!-- <div class="chat-info text-center">
+            <!-- <div class="w-100 chat-info text-center">
               <span class="chat-info-content">123 上線</span>
             </div> -->
           </div>
@@ -142,7 +146,6 @@ import io from 'socket.io-client'
 // set socket io address
 const token = localStorage.getItem('token')
 const socket = io('http://localhost:3000/', { query: { token: token } })
-console.log(token)
 
 // use socket io in vue
 Vue.use(VueSocketIOExt, socket)
@@ -188,7 +191,10 @@ export default {
       },
       message: '',
       msg: '',
-      msgList: []
+      msgList: [],
+      activeUsers: {
+        count: 0
+      }
     }
   },
   computed: {
@@ -202,21 +208,11 @@ export default {
       // socket io start here
       // get user info from currentUser Obj
       // get token form localStorage
-      const token = localStorage.getItem('token')
-      const { name, id } = this.currentUser
-      const curTime = new Date()
+      // const token = localStorage.getItem('token')
+      // const { name, id } = this.currentUser
+      // const curTime = new Date()
       // emit to socket io server
-      this.$socket.client.emit(
-        'sendMessage',
-        JSON.stringify({
-          name,
-          message: this.message,
-          token,
-          id,
-          avatar: '',
-          createdAt: curTime
-        })
-      )
+      this.$socket.client.emit('sendMessage', this.message)
 
       // clear input message
       this.message = ''
@@ -241,17 +237,25 @@ export default {
       console.log(this.msgList)
     })
 
-    this.$socket.client.on('online', data => {
-      console.log('online:', data)
-    })
-
     this.$socket.client.on('disconnect', data => {
       console.log('disconnect:', data)
+    })
+
+    this.$socket.client.on('activeUsers', data => {
+      console.log('activeUsers:', data)
     })
 
     this.$socket.client.on('notification', data => {
       console.log('notification:', data)
     })
+  },
+  beforeDestroy() {
+    // using "removeListener" here, but this should be whatever $socket provides
+    // for removing listeners
+    this.$socket.$unsubscribe('newMessage')
+    this.$socket.$unsubscribe('disconnect')
+    this.$socket.$unsubscribe('activeUsers')
+    this.$socket.$unsubscribe('notification')
   }
 }
 </script>
