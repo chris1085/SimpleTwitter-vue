@@ -45,171 +45,27 @@
             <span class="chat-info-content">{{ user.name }} 上線</span>
           </div>
 
-          <div class="w-100 chat-left-container">
-            <div class="chat-left d-flex my-3">
-              <router-link
-                :to="`/user/${topUsers[0].id}`"
-                class="img-container h-100 my-auto"
-              >
-                <img
-                  class="chat-img rounded mr-3"
-                  :src="topUsers[0].avatar | emptyImage"
-                  alt=""
-                  srcset=""
-                />
-              </router-link>
-
+          <!-- <div
+            class="w-100 d-flex"
+            v-for="(msg, index) in msgList"
+            :key="index"
+          >
+            <div
+              class="w-100 chat-right d-flex my-3 chat-right-container"
+              v-if="currentUser.id === msg.id"
+            >
               <div class="chat-message-container">
                 <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
+                  {{ msg.message }}
                 </p>
-                <div class="chat-time">下午 5:55</div>
+                <span class="chat-time text-right">{{
+                  msg.createdAt | hourMinDate
+                }}</span>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="w-100 d-flex chat-right-container">
-            <div class="chat-right d-flex my-3">
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-100">
-            <div class="chat-left d-flex my-3">
-              <router-link
-                :to="`/user/${topUsers[0].id}`"
-                class="img-container h-100 my-auto"
-              >
-                <img
-                  class="chat-img rounded mr-3"
-                  :src="topUsers[0].avatar | emptyImage"
-                  alt=""
-                  srcset=""
-                />
-              </router-link>
-
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-100">
-            <div class="chat-left d-flex my-3">
-              <router-link
-                :to="`/user/${topUsers[0].id}`"
-                class="img-container h-100 my-auto"
-              >
-                <img
-                  class="chat-img rounded mr-3"
-                  :src="topUsers[0].avatar | emptyImage"
-                  alt=""
-                  srcset=""
-                />
-              </router-link>
-
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-100">
-            <div class="chat-left d-flex my-3">
-              <router-link
-                :to="`/user/${topUsers[0].id}`"
-                class="img-container h-100 my-auto"
-              >
-                <img
-                  class="chat-img rounded mr-3"
-                  :src="topUsers[0].avatar | emptyImage"
-                  alt=""
-                  srcset=""
-                />
-              </router-link>
-
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-100">
-            <div class="chat-left d-flex my-3">
-              <router-link
-                :to="`/user/${topUsers[0].id}`"
-                class="img-container h-100 my-auto"
-              >
-                <img
-                  class="chat-img rounded mr-3"
-                  :src="topUsers[0].avatar | emptyImage"
-                  alt=""
-                  srcset=""
-                />
-              </router-link>
-
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-100 d-flex justify-content-end">
-            <div class="chat-right d-flex my-3">
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-100 d-flex justify-content-end">
-            <div class="chat-right d-flex my-3">
-              <div class="chat-message-container">
-                <p class="chat-message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam distinctio suscipit possimus amet est qui illum quasi
-                  temporibus accusamus error.
-                </p>
-                <div class="chat-time">下午 5:55</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="typing" v-if="message !== ''">正在輸入訊息...</div>
+          <!-- <div class="typing" v-if="message !== ''">正在輸入訊息...</div> -->
         </div>
         <div
           class="chat-submit-container input-group d-flex justify-content-between align-content-center"
@@ -241,17 +97,28 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 // import usersAPI from '../apis/users'
 // import { Toast } from '../utils/helpers'
-import { emptyImageFilter, fromNowFilter } from '../utils/mixins'
+import { emptyImageFilter, fromNowFilter, dateFilter } from '../utils/mixins'
 import { mapState } from 'vuex'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+// npm install socket io for vue packages and import them
+import VueSocketIOExt from 'vue-socket.io-extended'
+import io from 'socket.io-client'
+
+// set socket io address
+const token = localStorage.getItem('token')
+const socket = io('http://localhost:4040/', { query: { token } })
+
+// use socket io in vue
+Vue.use(VueSocketIOExt, socket)
 
 export default {
   name: 'PublicChatRoom',
-  mixins: [emptyImageFilter, fromNowFilter],
+  mixins: [emptyImageFilter, fromNowFilter, dateFilter],
   components: {
     Loading,
     SideNavBarDC
@@ -298,19 +165,27 @@ export default {
   },
   methods: {
     handleSubmit() {
+      if (this.message === '') {
+        return
+      }
       // socket io start here
       // get user info from currentUser Obj
       // get token form localStorage
       const token = localStorage.getItem('token')
       const { name, id } = this.currentUser
-
+      const curTime = new Date()
       // emit to socket io server
-      this.$socket.client.emit('sendMessage', {
-        name,
-        message: this.message,
-        token,
-        id
-      })
+      this.$socket.client.emit(
+        'sendMessage',
+        JSON.stringify({
+          name,
+          message: this.message,
+          token,
+          id,
+          avatar: '',
+          createdAt: curTime
+        })
+      )
 
       // clear input message
       this.message = ''
@@ -318,6 +193,10 @@ export default {
     scrollToEnd() {
       const content = this.$refs.chatroom
       content.scrollTop = content.scrollHeight
+    },
+    renderMessage(msg) {
+      console.log(msg)
+      this.msgList.push(msg)
     },
     updateTweetCard() {}
   },
@@ -329,9 +208,17 @@ export default {
 
     // bulid event listener to socket io server (allMessage is a pipe name between frontEnd and server)
     // message is a Obj retrun from socket io server
-    this.$socket.client.on('allMessage', message => {
-      console.log(message)
+    this.$socket.client.on('allMessage', pack => {
+      const packs = JSON.parse(pack)
+      // const { id, message } = packs
+      // const msg = { id, message }
+      // console.log('sokect:', msg)
+      this.renderMessage(packs)
     })
+  },
+  created() {
+    const id = parseInt(this.currentUser.id)
+    this.$socket.client.emit('createdUserId', id)
   }
 }
 </script>
