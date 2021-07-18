@@ -9,11 +9,11 @@
 
     <section class="chat-container d-flex">
       <div class="onlineUser-container col-0 col-md-3 col-lg-4">
-        <h3 class="header text-bold">上線使用者 ({{ topUsers.length }})</h3>
+        <h3 class="header text-bold">上線使用者 ({{ activeUsers }})</h3>
         <ul class="user-list">
           <li
             class="user-item d-flex align-items-center flex-wrap"
-            v-for="user in topUsers"
+            v-for="user in onlineUsers"
             :key="user.id"
           >
             <router-link
@@ -134,7 +134,7 @@
 import Vue from 'vue'
 import SideNavBarDC from '../components/SideNavBarDC.vue'
 // import usersAPI from '../apis/users'
-// import { Toast } from '../utils/helpers'
+import { Toast } from '../utils/helpers'
 import { emptyImageFilter, fromNowFilter, dateFilter } from '../utils/mixins'
 import { mapState } from 'vuex'
 import Loading from 'vue-loading-overlay'
@@ -192,15 +192,28 @@ export default {
       message: '',
       msg: '',
       msgList: [],
-      activeUsers: {
-        count: 0
-      }
+      activeUsers: 0,
+      onlineUsers: []
     }
   },
   computed: {
     ...mapState(['currentUser', 'isAuthenticated', 'topUsers'])
   },
   methods: {
+    async getHistory() {
+      try {
+        this.isLoading = true
+
+        this.isLoading = false
+      } catch (error) {
+        this.isLoading = false
+
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得聊天室內容'
+        })
+      }
+    },
     handleSubmit() {
       if (this.message === '') {
         return
@@ -243,10 +256,18 @@ export default {
 
     this.$socket.client.on('activeUsers', data => {
       console.log('activeUsers:', data)
+      this.activeUsers = data
     })
 
     this.$socket.client.on('notification', data => {
       console.log('notification:', data)
+      const isOnline = this.onlineUsers.some(user => {
+        return user.id === data.online.id
+      })
+
+      if (!isOnline) {
+        this.onlineUsers.push(data.online)
+      }
     })
   },
   beforeDestroy() {
