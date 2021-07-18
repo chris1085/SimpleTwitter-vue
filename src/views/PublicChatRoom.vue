@@ -144,14 +144,11 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 // npm install socket io for vue packages and import them
 import VueSocketIOExt from 'vue-socket.io-extended'
 import io from 'socket.io-client'
-
 // set socket io address
 const token = localStorage.getItem('token')
 const socket = io('http://localhost:3000/', { query: { token: token } })
-
 // use socket io in vue
 Vue.use(VueSocketIOExt, socket)
-
 export default {
   name: 'PublicChatRoom',
   mixins: [emptyImageFilter, fromNowFilter, dateFilter],
@@ -205,11 +202,9 @@ export default {
     async getHistory() {
       try {
         this.isLoading = true
-
         this.isLoading = false
       } catch (error) {
         this.isLoading = false
-
         Toast.fire({
           icon: 'error',
           title: '無法取得聊天室內容'
@@ -225,7 +220,6 @@ export default {
       // get token form localStorage
       // emit to socket io server
       this.$socket.client.emit('sendMessage', this.message)
-
       // clear input message
       this.message = ''
     },
@@ -241,7 +235,6 @@ export default {
   },
   mounted() {
     this.scrollToEnd()
-
     // bulid event listener to socket io server (allMessage is a pipe name between frontEnd and server)
     // message is a Obj retrun from socket io server
     this.$socket.client.on('newMessage', message => {
@@ -249,22 +242,18 @@ export default {
       this.msgList.push(message)
       console.log(this.msgList)
     })
-
     this.$socket.client.on('activeUsers', data => {
       console.log('activeUsers:', data)
       this.activeUsers = data
     })
-
     this.$socket.client.on('notification', data => {
       console.log('notification:', data)
       const isOnline = this.onlineUsers.some(user => {
         return user.id === data.onlineUser.id
       })
-
       if (!isOnline && data.online) {
         this.onlineUsers.push(data.onlineUser)
       }
-
       if (!isOnline && !data.online) {
         // console.log();
         this.onlineUsers = this.onlineUsers.filter(user => {
