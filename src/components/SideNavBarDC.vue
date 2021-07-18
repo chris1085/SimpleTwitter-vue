@@ -14,7 +14,7 @@
               首頁</router-link
             >
           </li>
-          <li class="list-item">
+          <!-- <li class="list-item">
             <router-link
               to="/notification"
               class="list-link d-flex align-items-center"
@@ -29,7 +29,7 @@
               </div>
               通知</router-link
             >
-          </li>
+          </li> -->
           <li class="list-item">
             <router-link
               to="/publicChatRoom"
@@ -46,7 +46,7 @@
               公開聊天室</router-link
             >
           </li>
-          <li class="list-item">
+          <!-- <li class="list-item">
             <router-link
               to="/personalChat"
               class="list-link d-flex align-items-center"
@@ -61,7 +61,7 @@
               </div>
               私人訊息</router-link
             >
-          </li>
+          </li> -->
           <li class="list-item">
             <router-link
               :to="`/user/${currentUser.id}`"
@@ -91,7 +91,10 @@
       </div>
 
       <div class="logout-container">
-        <a class="logout-link d-flex align-items-center" @click="logout">
+        <a
+          class="logout-link d-flex align-items-center"
+          @click.stop.prevent="logout"
+        >
           <div class="icon-container-logout"></div>
           登出</a
         >

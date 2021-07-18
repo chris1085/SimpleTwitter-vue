@@ -16,6 +16,10 @@ export const dateFilter = {
     },
     monthDayDate(datetime) {
       return datetime ? moment(datetime).format('M月D日') : ''
+    },
+    hourMinDate(datetime) {
+      moment.locale('zh-tw')
+      return datetime ? moment(datetime).format('A HH:MM') : ''
     }
   }
 }
