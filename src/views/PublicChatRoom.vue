@@ -223,9 +223,6 @@ export default {
       // socket io start here
       // get user info from currentUser Obj
       // get token form localStorage
-      // const token = localStorage.getItem('token')
-      // const { name, id } = this.currentUser
-      // const curTime = new Date()
       // emit to socket io server
       this.$socket.client.emit('sendMessage', this.message)
 
