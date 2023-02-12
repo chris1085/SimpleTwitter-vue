@@ -22,6 +22,12 @@ twitter-api-2020](https://github.com/wintersprouter/twitter-api-2020#ChatRoom) �
 | admin  | root   | 12345678  |
 | user   | RyanHuang   | 12345678   
 
+ ## Outline-目錄
+- [Packages-相關套件](#Packages-相關套件)
+- [Installation-專案安裝流程](#Installation-專案安裝流程)
+- [Contributor-開發人員與工作分配](#Contributor-開發人員與工作分配)
+
+
 ## Packages-相關套件
 #### Vue, HTTP相關
 * vue - v2.6.11
